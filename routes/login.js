@@ -7,12 +7,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/success', (req, res) => {
-    res.send('hello ')
+    res.send('hello');
 });
 
 router.post('/', async(req, res) => {
     let compare = await Informations.findOne({id:req.body.id, pw:req.body.pw});    
-    if(compare) { return res.send(`<script>location.href='/login/success';</script>`); }
+    if(compare) {
+        return res.send(`<script>location.href='/login/success';</script>`); 
+    }
 });
 
 module.exports = router;

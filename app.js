@@ -3,10 +3,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
 const app = express();
 
 // routes required
-const index_router = require('./routes/index');
+//const index_router = require('./routes/index');
 const admin_router = require('./routes/admin');
 const login_router = require('./routes/login');
 const join_router = require('./routes/join');
@@ -16,7 +17,7 @@ const service_center_router = require('./routes/service_center');
 const shopping_basket_router = require('./routes/shopping_basket');
 
 // MongoDB connected
-require('./database/db');
+//require('./database/db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,9 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: '@#@$SSR#@$#$',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // routes set
-app.use('/', index_router);
+//app.use('/', index_router);
 app.use('/admin', admin_router);
 app.use('/login', login_router);
 app.use('/join', join_router);
