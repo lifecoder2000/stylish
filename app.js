@@ -8,16 +8,14 @@ const app = express();
 
 // routes required
 //const index_router = require('./routes/index');
-const admin_router = require('./routes/admin');
-const login_router = require('./routes/login');
-const join_router = require('./routes/join');
-const my_page_router = require('./routes/my_page');
-const search_router = require('./routes/search');
-const service_center_router = require('./routes/service_center');
-const shopping_basket_router = require('./routes/shopping_basket');
+let admin_router = require('./routes/admin');
+let users_router = require('./routes/users');
+let search_router = require('./routes/search');
+let service_center_router = require('./routes/service_center');
+let shopping_basket_router = require('./routes/shopping_basket');
 
 // MongoDB connected
-//require('./database/db');
+require('./database/db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,11 +33,8 @@ app.use(session({
 }));
 
 // routes set
-//app.use('/', index_router);
 app.use('/admin', admin_router);
-app.use('/login', login_router);
-app.use('/join', join_router);
-app.use('/my_page', my_page_router);
+app.use('/user', users_router);
 app.use('/search', search_router);
 app.use('/service_center', service_center_router);
 app.use('/shopping_basket', shopping_basket_router);

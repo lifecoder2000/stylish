@@ -7,16 +7,21 @@ router.get('/auth', function(req,res,next){
 });
 
 router.get('/', function(req,res,next){
-    if( req.session.isLogin){
+    if( req.session.is_admin_login){
         res.render('admin');
     }else{
-        res.send('who are you?')
+        res.send('who are you?');
     }
+});
+
+router.get('/logout', function(req, res, next){
+    req.session.destroy();
+    res.redirect('/');
 });
 
 router.post('/', function(req, res, next) {
         if(req.body.id === ADMIN_ACCOUNT.username && req.body.pw === ADMIN_ACCOUNT.password){
-            req.session.isLogin = true;
+            req.session.is_admin_login = true;
             return res.redirect('/admin'); 
         }
 });
