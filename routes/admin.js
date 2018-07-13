@@ -2,28 +2,27 @@ var express = require('express');
 var router = express.Router();
 var ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
 
-router.get('/auth', function(req,res,next){
-    res.redirect('/admin_auth.html');
-});
-
-router.get('/', function(req,res,next){
-    if( req.session.is_admin_login){
-        res.render('admin');
+/* admin 로그인, 로그아웃 */
+router.get('/', (req,res) => {
+    if(req.session.is_admin_login){
+        return res.render('admin');
     }else{
-        res.send('who are you?');
+        return res.redirect('/admin_auth.html');
     }
 });
 
-router.get('/logout', function(req, res, next){
-    req.session.destroy();
-    res.redirect('/');
+router.post('/', (req, res) => {
+    if(req.body.id === ADMIN_ACCOUNT.username && req.body.pw === ADMIN_ACCOUNT.password){
+        req.session.is_admin_login = true;
+        return res.redirect('/admin'); 
+    }
 });
 
-router.post('/', function(req, res, next) {
-        if(req.body.id === ADMIN_ACCOUNT.username && req.body.pw === ADMIN_ACCOUNT.password){
-            req.session.is_admin_login = true;
-            return res.redirect('/admin'); 
-        }
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    return res.send(`<script>alert('##로그아웃##');location.href='/';</script>`);
 });
+
+/* 회원 관리, 물품 관리 등등.... */
 
 module.exports = router;

@@ -1,3 +1,9 @@
+/*
+    [ 백엔드 구성 ]
+    1. 사용자(계정관리 등등) 
+    2. 서비스(물품 검색 등등)
+    3. 관리자(고객 정보 관리)
+*/
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -6,13 +12,10 @@ const logger = require('morgan');
 const session = require('express-session');
 const app = express();
 
-// routes required
-//const index_router = require('./routes/index');
+// routes requires
 let admin_router = require('./routes/admin');
 let users_router = require('./routes/users');
-let search_router = require('./routes/search');
-let service_center_router = require('./routes/service_center');
-let shopping_basket_router = require('./routes/shopping_basket');
+let service_router = require('./routes/service');
 
 // MongoDB connected
 require('./database/db');
@@ -35,9 +38,7 @@ app.use(session({
 // routes set
 app.use('/admin', admin_router);
 app.use('/user', users_router);
-app.use('/search', search_router);
-app.use('/service_center', service_center_router);
-app.use('/shopping_basket', shopping_basket_router);
+app.use('/service', service_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
