@@ -1,8 +1,9 @@
 /*
     [ 백엔드 구성 ]
-    1. 사용자(계정관리 등등) 
-    2. 서비스(물품 검색 등등)
-    3. 관리자(고객 정보 관리)
+    1. 기본적인것들(페이지 라우팅, 로그인/로그아웃 등등) - index.js
+    2. 사용자(계정관리 등등) - user.js
+    3. 서비스(물품 검색 등등) - service.js
+    4. 관리자(고객 정보 관리) - admin.js
 */
 const createError = require('http-errors');
 const express = require('express');
@@ -13,6 +14,7 @@ const session = require('express-session');
 const app = express();
 
 // routes requires
+let index_router = require('./routes/index');
 let admin_router = require('./routes/admin');
 let users_router = require('./routes/users');
 let service_router = require('./routes/service');
@@ -36,6 +38,7 @@ app.use(session({
 }));
 
 // routes set
+app.use('/', index_router);
 app.use('/admin', admin_router);
 app.use('/user', users_router);
 app.use('/service', service_router);

@@ -86,7 +86,7 @@
 							</li>
 
 							<li>
-								<a href="./product.html">Shop</a>
+								<a href="/product">Shop</a>
 							</li>
 
 							<li class="sale-noti">
@@ -94,19 +94,19 @@
 							</li>
 
 							<li>
-								<a href="./cart.html">Features</a>
+								<a href="/cart">Features</a>
 							</li>
 
 							<li>
-								<a href="./blog.html">Blog</a>
+								<a href="/blog">Blog</a>
 							</li>
 
 							<li>
-								<a href="./about.html">About</a>
+								<a href="/about">About</a>
 							</li>
 
 							<li>
-								<a href="./contact.html">Contact</a>
+								<a href="/contact">Contact</a>
 							</li>
 						</ul>
 					</nav>
@@ -114,9 +114,43 @@
 
 				<!-- Header Icon -->
 				<div class="header-icons">
-					<a href="/user/login" class="header-wrapicon1 dis-block">
-						<img src="./images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
+					<div class="header-icons">
+						<div class="header-icons">
+							<img src="./images/icons/icon-header-01.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+							&nbsp;&nbsp;&nbsp;<%= user_id %>
+							<div class="header-cart header-dropdown">
+								<div class="header-cart-buttons">
+									<% if(typeof user_id == 'undefined'){ %>
+									<!-- Sign in & Sign up -->
+									<div class="header-cart-wrapbtn">
+										<!-- Button -->
+										<a href="/login" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+											Sign in
+										</a>
+									</div>
+									<div class="header-cart-wrapbtn">
+										<!-- Button -->
+										<a href="/join" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+											Sign up
+										</a>
+									</div>
+									<% }else{ %>
+										<div class="header-cart-wrapbtn">
+											<!-- Button -->
+											<a href="/logout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+												Sign out
+											</a>
+										</div>
+										<div class="header-cart-wrapbtn">
+											<!-- Button -->
+											<a href="javascript:alert('준비중입니다.')" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+												My page
+											</a>
+										</div>
+									<% } %>
+								</div>
+							</div>
+						</div>
 
 					<span class="linedivide1"></span>
 
