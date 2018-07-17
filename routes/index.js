@@ -3,9 +3,11 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const Informations = require('../database/Informations');
 const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
+const stock = require('../config/stock');
 
 /* 기본 페이지 */
 router.get('/', (req, res) => {
+    console.log('stock:'+stock.cloths);
     res.render('index', {user_id : req.session.user_id});
 });
 
@@ -42,8 +44,8 @@ router.post('/join', async(req, res) => {
             name : req.body.name,
             id : req.body.id,
             pw : req.body.pw,
-            phone_number : req.body.phoneNumber,
-            email : req.body.email,
+            phone_number : req.body.code+'-'+req.body.number2+'-'+req.body.number3,
+            email : req.body.email+'@'+req.body.domain,
             address : req.body.address
         });
         return res.send(`<script>alert('회원가입 완료:)');location.href='/';</script>`);
@@ -53,7 +55,7 @@ router.post('/join', async(req, res) => {
 /* 로그인, 로그아웃 */
 router.get('/login', (req, res) => {
     if(req.session.is_user_login == true){
-        res.send('you already logined:)');
+        res.send(`<script>alert('이미 로그인 되어있습니다.');location.href='/';</script>`);
     }else{
         res.redirect('/login.html');
     }
