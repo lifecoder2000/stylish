@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const nodemailer = require('nodemailer');
 const Informations = require('../database/Informations');
+const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
 
 /* 기본 페이지 */
 router.get('/', (req, res) => {
@@ -51,7 +53,6 @@ router.post('/join', async(req, res) => {
 /* 로그인, 로그아웃 */
 router.get('/login', (req, res) => {
     if(req.session.is_user_login == true){
-        console.log(req.session.user_id);
         res.send('you already logined:)');
     }else{
         res.redirect('/login.html');
@@ -71,6 +72,34 @@ router.post('/login', async(req, res) => {
 router.get('/logout', function(req, res, next){
     req.session.destroy();
     return res.send(`<script>alert('로그아웃 되었습니다.');location.href='/';</script>`);
+});
+
+/* 이메일 보내기 */
+router.post('/email', (req, res) => {
+    let transporter = nodemailer.createTransport({
+        service : 'gmail',
+        auth : {
+            user : req.body.email,
+            pass : req.body.password
+        }
+    });
+    
+    let mailOption = {
+        from : req.body.email,
+        to : ADMIN_ACCOUNT.email,
+        subject : 'customer contact message',
+        text : 'name:'+req.body.name+'\n'+'P.H:'+req.body.phone+'\n'+'message:'+req.body.message
+    }
+
+    transporter.sendMail(mailOption, (err, info) => {
+        if(err){ 
+            console.log(err);
+            return res.send(`<script>alert('error');location.href='/contact';</script>`);
+        }else{ 
+            console.log('Message sent : ', info);
+            return res.send(`<script>alert('success');location.href='/contact';</script>`);
+        }
+    });
 });
 
 module.exports = router;

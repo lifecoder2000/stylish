@@ -14,5 +14,5 @@ db.once('open', () => {
 
 mongoose.set('debug', true)
 
-mongoose.connect('mongodb://localhost:27017/stylish', { useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/stylishdb', { useMongoClient: true });
 mongoose.Promise = global.Promise;
