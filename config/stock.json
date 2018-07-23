@@ -1,3 +1,14 @@
 {
-    "cloths" : 999
+    "Men" : {
+        "shoes" : 51
+    },
+    "Accesories" : {
+        "ring" : 100
+    },
+    "Bag" : {
+        "fancy" : 120
+    },
+    "Shoes" : {
+        "sneakers" : 200
+    }
 }

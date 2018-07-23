@@ -6,5 +6,52 @@
     <body>
         <p>Welcome to Admin Page!!!</p>
         <p><a href="/admin/logout">logout</a></p>
+        <fieldset>
+            <legend>전체사용자 메일 송신</legend>
+            <form action="/admin/email" method="POST">
+                <p><H3>message</H3></p>
+                <p><input type="text" name="eventSubject" placeholder="subject"></p>
+                <textarea name="eventMessage" cols="100" rows="10"></textarea>
+                <p><input type="submit" name="submit" value="all"></p>
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend>사용자 정보 관리</legend>
+            <form action="/admin/user/delete" method="POST">
+                <% for(i in users_info){ %>
+                    <p>name : <%= users_info[i].name %></p>
+                    <p>id : <%= users_info[i].id %></p>
+                    <p>P.H : <%= users_info[i].phone_number %></p>
+                    <p>email : <%= users_info[i].email %></p>
+                    <p>address : <%= users_info[i].address %></p>
+                    <input type="submit" name="delete" value="<%= users_info[i].id %>">
+                    <hr>
+                <% } %>
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend>서버 점검</legend>
+            <form action="/admin/server/check" method="POST">
+                <input type="submit" value="server">
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend>제고수량</legend>
+            <div>
+                <p>Men -> shoes : <%= stock.Men.shoes %></p>
+                <p>accesories -> ring : <%= stock.Accesories.ring %></p>
+                <p>bag -> fancy : <%= stock.Bag.fancy %></p>
+                <p>shoes -> sneakers : <%= stock.Shoes.sneakers %></p>
+                <hr>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Q&A 답변</legend>
+            <% for(i in q_a){ %>
+                <p>writer : <%= q_a[i].writer %></p>
+                <p>text : <%= q_a[i].text %></p>
+                <p>status : <%= q_a[i].status %></p>
+            <% } %>
+        </fieldset>
     </body>
 </html>

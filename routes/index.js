@@ -1,39 +1,49 @@
 const express = require('express');
 const router = express.Router();
-const nodemailer = require('nodemailer');
 const Informations = require('../database/Informations');
 const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
 const stock = require('../config/stock');
 
-/* 기본 페이지 */
+/* 기본 페이지 랜더링 */
 router.get('/', (req, res) => {
-    console.log('stock:'+stock.cloths);
-    res.render('index', {user_id : req.session.user_id});
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('index', {user_id : req.session.user_id}); }
 });
 
 router.get('/product', (req, res) => {
-    res.render('product', {user_id : req.session.user_id});
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('product', {user_id : req.session.user_id}); }
 });
 
 router.get('/cart', (req, res) => {
-    res.render('cart', {user_id : req.session.user_id});
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('cart', {user_id : req.session.user_id}); }
 });
 
 router.get('/blog', (req, res) => {
-    res.render('blog', {user_id : req.session.user_id});
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('blog', {user_id : req.session.user_id}); }
 });
 
 router.get('/about', (req, res) => {
-    res.render('about', {user_id : req.session.user_id});
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('about', {user_id : req.session.user_id}); }
 });
 
 router.get('/contact', (req, res) => {
-    res.render('contact', {user_id : req.session.user_id});
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('contact', {user_id : req.session.user_id}); }
+});
+
+router.get('/customerCenter', (req, res) => {
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ res.render('customerCenter'); }
 });
 
 /* 회원가입 */
 router.get('/join', (req, res) => {
-    return res.redirect('/join.html');
+    if(require('../config/status').isBlocked){ res.render('serverChecking'); }
+    else{ return res.redirect('/join.html'); }
 });
 
 router.post('/join', async(req, res) => {
@@ -74,34 +84,6 @@ router.post('/login', async(req, res) => {
 router.get('/logout', function(req, res, next){
     req.session.destroy();
     return res.send(`<script>alert('로그아웃 되었습니다.');location.href='/';</script>`);
-});
-
-/* 이메일 보내기 */
-router.post('/email', (req, res) => {
-    let transporter = nodemailer.createTransport({
-        service : 'gmail',
-        auth : {
-            user : req.body.email,
-            pass : req.body.password
-        }
-    });
-    
-    let mailOption = {
-        from : req.body.email,
-        to : ADMIN_ACCOUNT.email,
-        subject : 'customer contact message',
-        text : 'name:'+req.body.name+'\n'+'P.H:'+req.body.phone+'\n'+'message:'+req.body.message
-    }
-
-    transporter.sendMail(mailOption, (err, info) => {
-        if(err){ 
-            console.log(err);
-            return res.send(`<script>alert('error');location.href='/contact';</script>`);
-        }else{ 
-            console.log('Message sent : ', info);
-            return res.send(`<script>alert('success');location.href='/contact';</script>`);
-        }
-    });
 });
 
 module.exports = router;

@@ -1,5 +1,6 @@
 {
     "username" : "admin_id",
     "password" : "admin_pw",
-    "email" : "admin_email_address"
+    "email_address" : "admin_email_address",
+    "email_password" : "admin_email_password"
 }
