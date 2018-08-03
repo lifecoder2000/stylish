@@ -1,12 +1,37 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>1:1상담</title>
+        <title>socket</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script>
+           window.onload = function(){
+                let socket = io.connect();  
+                let room = prompt('토큰을 입력하세요.', '');
+
+                //connect to socket events...
+                socket.emit('join', room);
+                socket.on('message', function(data){
+                    $('<p>'+`<%=user_id%> : `+data+'</p>').appendTo('#content');
+                });
+
+                //문서 객체 이벤트를 연결
+                document.getElementById('button').onclick = function(){
+                    socket.emit('message', document.getElementById('message').value);
+                    document.getElementById('message').value = '';
+                };
+                $('#message').keyup(function(e){
+                    if(e.keyCode === 13){
+                        socket.emit('message', document.getElementById('message').value);
+                        document.getElementById('message').value = '';
+                    }
+                });
+           };
+        </script>
     </head>
     <body>
-        <h1>socket.io test</h1>
-        <p>Welcome to socket.io.test page</p>
-        <script src=""></script>
-        <script></script>
+        <input type="text" id="message">
+        <input type="button" id="button" value="echo">
+        <ul id="content"></ul>
     </body>
 </html>

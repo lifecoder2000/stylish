@@ -20,6 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server); //io 객체 추가:7.29
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +29,24 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+//소캣 서버를 생성 및 실행
+io.sockets.on('connection', function(socket){
+  console.log('socket server connected');
+  console.log(socket);
+  let room_name = null;
+
+  //join event
+  socket.on('join', function(data){
+    room_name = data;
+    socket.join(data);
+  });
+
+  //message event
+  socket.on('message', function(data){
+    io.sockets.in(room_name).emit('message', data);
+  });
+});
 
 /**
  * Normalize a port into a number, string, or false.

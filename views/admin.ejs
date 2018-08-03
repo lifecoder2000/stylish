@@ -38,19 +38,59 @@
         <fieldset>
             <legend>제고수량</legend>
             <div>
-                <p>Men -> shoes : <%= stock.Men.shoes %></p>
-                <p>accesories -> ring : <%= stock.Accesories.ring %></p>
-                <p>bag -> fancy : <%= stock.Bag.fancy %></p>
-                <p>shoes -> sneakers : <%= stock.Shoes.sneakers %></p>
-                <hr>
+                <fieldset>
+                    <legend>short-shirt</legend>
+                    <p>T_shirt : <%= stock.Shirt.short_sleeved.T_shirt %></p>
+                    <p>Y_shirt : <%= stock.Shirt.short_sleeved.Y_shirt %></p>
+                    <p>denim_shirt : <%= stock.Shirt.short_sleeved.denim_shirt %></p>
+                </fieldset>
+                <fieldset>
+                    <legend>long-shirt</legend>
+                    <p>T_shirt : <%= stock.Shirt.long_sleeved.T_shirt %></p>
+                    <p>T_shirt : <%= stock.Shirt.long_sleeved.T_shirt %></p>
+                    <p>T_shirt : <%= stock.Shirt.long_sleeved.T_shirt %></p>
+                </fieldset>
+                <fieldset>
+                    <legend>short-pants</legend>
+                    <p>slacks : <%= stock.Pants.short.slacks %></p>
+                    <p>blue_jeans : <%= stock.Pants.short.blue_jeans %></p>
+                    <p>cotton_trousers : <%= stock.Pants.short.cotton_trousers %></p>
+                </fieldset>
+                <fieldset>
+                    <legend>long-pants</legend>
+                    <p>slacks : <%= stock.Pants.long.slacks %></p>
+                    <p>blue_jeans : <%= stock.Pants.long.blue_jeans %></p>
+                    <p>cotton_trousers : <%= stock.Pants.long.cotton_trousers %></p>
+                </fieldset>
+                <fieldset>
+                    <legend>Bag</legend>
+                    <p>echo : <%= stock.Bag.echo %></p>
+                    <p>school : <%= stock.Bag.school %></p>
+                    <p>cross : <%= stock.Bag.cross %></p>
+                </fieldset>
+                <fieldset>
+                    <legend>Shoes</legend>
+                    <p>sneakers : <%= stock.Shoes.sneakers %></p>
+                    <p>sandals : <%= stock.Shoes.sandals %></p>
+                    <p>canvas : <%= stock.Shoes.canvas %></p>
+                </fieldset>
             </div>
         </fieldset>
         <fieldset>
             <legend>Q&A 답변</legend>
             <% for(i in q_a){ %>
-                <p>writer : <%= q_a[i].writer %></p>
-                <p>text : <%= q_a[i].text %></p>
-                <p>status : <%= q_a[i].status %></p>
+                <% if (!q_a[i].status) { %>
+                <fieldset>
+                    <form action="/admin/answer" method="post">
+                        <p>writer : <input type="text" name="writer" value="<%= q_a[i].writer %>"></p>
+                        <p>title : <input type="text" name="title" value="<%= q_a[i].title %>"></p>
+                        <p>text : <input type="text" name="text" value="<%= q_a[i].text %>"></p>
+                        <textarea name="answer" cols="30" rows="10"></textarea>
+                        <input type="submit" name="submit" value="답변하기">
+                    </form>
+                </fieldset>
+                <% } %>
+                <br>
             <% } %>
         </fieldset>
     </body>

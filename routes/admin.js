@@ -3,29 +3,26 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const jsonfile = require('jsonfile');
 const Informations = require('../database/Informations');
-const QuestionAnswer = require('../database/QeustionAnswer');
+const QuestionAnswer = require('../database/QuestionAnswer');
 const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
 const stock = require('../config/stock');
 
 /* admin 로그인, 로그아웃 */
 router.get('/', async(req,res) => {
     if(req.session.is_admin_login){
-        let users_info = await Informations.find();
+        let usersInfo = await Informations.find();
         let q_a = await QuestionAnswer.find();
-        console.log(q_a);
-        return res.render('admin', {users_info : users_info, stock : stock, q_a : q_a});
-    }else{
-        return res.redirect('/admin_auth.html');
+        return res.render('admin', {users_info : usersInfo, stock : stock, q_a : q_a});
     }
+    else{ return res.redirect('/admin_auth.html'); }
 });
 
 router.post('/', (req, res) => {
     if(req.body.id === ADMIN_ACCOUNT.username && req.body.pw === ADMIN_ACCOUNT.password){
         req.session.is_admin_login = true;
         return res.redirect('/admin'); 
-    }else{
-        return res.redirect('/');
     }
+    else{ return res.redirect('/'); }
 });
 
 router.get('/logout', (req, res) => {
@@ -39,16 +36,21 @@ router.post('/stock', (req, res) => {
 });
 
 /* Q&A 답변 */
-router.post('/answer', (req, res) => {
-    
+router.post('/answer', async(req, res) => {
+    let findQuestion = await QuestionAnswer.findOne({writer : req.body.writer, title : req.body.title, text : req.body.text});
+    if(findQuestion){
+        await QuestionAnswer.updateOne({_id : findQuestion._id}, {answer : req.body.answer, status : true});
+        return res.send(`<script>alert('답변 완료하였습니다.');location.href='/admin';</script>`);
+    }
+    else{ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/';</script>`); }
 });
 
 /* 고객(사용자)들에게 이메일 보내는 기능 */
 router.post('/email', async(req, res) => {
-    let users_info = await Informations.find();
-    let users_email_address='';
+    let usersInfo = await Informations.find();
+    let usersEmailAddress='';
 
-    for(i in users_info){ users_email_address += users_info[i].email + ', '; }
+    for(i in usersInfo){ usersEmailAddress += usersInfo[i].email + ', '; }
     
     let transporter = nodemailer.createTransport({
         service : 'naver',
@@ -60,20 +62,16 @@ router.post('/email', async(req, res) => {
 
     let mailOption = {
         from : `stylish 관리자 <${ADMIN_ACCOUNT.email_address}>`,
-        to : `${users_email_address.substring(0, users_email_address.length-2)}`,
+        to : `${users_email_address.substring(0, usersEmailAddress.length-2)}`,
         subject : `${req.body.eventSubject}`,
         text : `${req.body.eventMessage}`
     }
     
     transporter.sendMail(mailOption, function(err, info){
-        if(err){ 
-            console.log(err);
-            return res.send(`<script>alert('error');location.href='/admin';</script>`);
-        }else{ 
-            console.log('Message sent : ', info);
-            return res.send(`<script>alert('success');location.href='/admin';</script>`);
-        }
+        if(err){ return res.send(`<script>alert('error');location.href='/admin';</script>`); }
+        else{ return res.send(`<script>alert('success');location.href='/admin';</script>`); }
     });
+
 });
 
 /* 사용자 계정 삭제 */

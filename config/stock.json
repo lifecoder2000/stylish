@@ -1,14 +1,36 @@
 {
-    "Men" : {
-        "shoes" : 51
+    "Shirt" : {
+        "short_sleeved" : {
+            "T_shirt" : 100,
+            "Y_shirt" : 100,
+            "denim_shirt" : 100
+        },
+        "long_sleeved" : {
+            "T_shirt" : 100,
+            "Y_shirt" : 100,
+            "denim_shirt" : 100
+        }
     },
-    "Accesories" : {
-        "ring" : 100
+    "Pants" : {
+        "short" : {
+            "slacks" : 100,
+            "blue_jeans" : 100,
+            "cotton_trousers" : 100
+        },
+        "long" : {
+            "slacks" : 100,
+            "blue_jeans" : 100,
+            "cotton_trousers" : 100
+        }
     },
     "Bag" : {
-        "fancy" : 120
+        "echo" : 100,
+        "school" : 100,
+        "cross" : 100
     },
     "Shoes" : {
-        "sneakers" : 200
+        "sneakers" : 100,
+        "sandals" : 100,
+        "canvas" : 100
     }
 }

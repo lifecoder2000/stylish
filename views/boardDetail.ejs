@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>view</title>
+    <style>
+        .table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .content_box {
+            text-align: center;
+        }
+        .button {
+           margin-top : 15px;
+        }
+    </style>
+</head>
+<body>
+        <div class="content_box">
+            <% var timestamp = content.date.toString().substring( 15, 25 );%>
+            <table class="table" border="1">
+                <tr class="header">
+                    <td style="background-color: rgb(184, 195, 247)">제목</td>
+                    <td style="background-color: rgb(184, 195, 247)">작성자</td>
+                    <td style="background-color: rgb(184, 195, 247)">작성일</td>
+                </tr>
+                <tr>
+                    <td><%=content.title%></td>
+                    <td><%=content.writer%></td>
+                    <td><%=content.date.getFullYear()%>-<%=content.date.getMonth()+1%>-<%=content.date.getDate()%></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><%=content.text%></td>
+                </tr>    
+                <tr>
+                    <td colspan="3">답변</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><%= content.answer %></td>
+                </tr>
+            </table>
+            <a href="/service/QA"><input type="button" class="button" value="확인"/></a>
+        </div>
+</body>
+</html>

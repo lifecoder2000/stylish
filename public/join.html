@@ -30,9 +30,27 @@
     <link rel="stylesheet" type="text/css" href="./stylesheets/util.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
 <!--===============================================================================================-->
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script>
+        function fn_setAddr(){
+            let width = 500;
+            let height = 600;
+            daum.postcode.load(function(){
+                new daum.Postcode({
+                    oncomplete : function(data){
+                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드
+                        $("#zipAddr").val(data.address);
+                        $("#addr").val(data.buildingName);
+                    }
+                }).open({
+                    left : (window.screen.width / 2) - (width / 2),
+                    right : (window.screen.height / 2) - (height / 2)
+                });
+            });
+        }
+    </script>
 </head>
 <body class="animsition">
-
     <!-- Header -->
     <header class="header1">
         <!-- Header desktop -->
@@ -415,6 +433,7 @@
                         <div class="bo4 of-hidden size15 m-b-20">
                             <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="email" placeholder="Email" style="width: 50%" maxlength="20" required> @
                             <select class="sizefull s-text7 p-l-22 p-r-22" style="width: 45%" name="domain">
+                                <option class="sizefull s-text7 p-l-22 p-r-22" value=""> 선택하세요 </option>
                                 <option class="sizefull s-text7 p-l-22 p-r-22" value="gmail.com"> gmail.com </option>
                                 <option class="sizefull s-text7 p-l-22 p-r-22" value="naver.com"> naver.com </option>
                                 <option class="sizefull s-text7 p-l-22 p-r-22" value="daum.net"> daum.net </option>
@@ -422,9 +441,12 @@
                         </div>
 
                         <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address" required>
+                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" id="zipAddr" placeholder="Address" required>
                         </div>
 
+                        <div class="bo4 of-hidden size15 m-b-20">
+                            <input type="button" onclick="fn_setAddr()" value="주소찾기">
+                        </div>
 
                         <h4 class="m-text26 p-b-36 p-t-15">
                             Terms of service
