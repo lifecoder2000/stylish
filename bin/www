@@ -32,24 +32,24 @@ server.on('listening', onListening);
 
 //소캣 서버를 생성 및 실행
 io.sockets.on('connection', function(socket){
-  let token;
   let room_name;
-
+  let userName;
   //join event
-  socket.on('join', function(InputToken){
-    let realToken = require('../config/consulting-tokens').InputToken;
-    if(realToken.status){
-      room_name = data;
-      socket.join(data);
+  socket.on('join', async function(inputToken){
+    let findToken = await require('../database/Informations').findOne({token : inputToken});
+    let manager = await require('../database/Informations').findOne({id : inputToken});
+    if(findToken || manager){
+      if(findToken){ userName = findToken.id; }
+      if(manager){ userName = manager.id; }
+      room_name = 'connected';
+      socket.join(room_name); 
     }
-    else{
-      io.sockets.in(room_name).emit('error', 'Not Accord Token');
-    }
+    else{ io.sockets.emit('error', 'Not Accord Token'); }
   });
 
   //message event
   socket.on('message', function(data){
-    io.sockets.in(room_name).emit('message', data);
+    io.sockets.in(room_name).emit('message', {userName : userName, data : data});
   });
 });
 

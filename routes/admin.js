@@ -86,9 +86,8 @@ router.post('/server/check', (req, res) => {
     status.isBlocked = !status.isBlocked;
     
     jsonfile.writeFile(__dirname + '/../config/status.json', status, {spaces : 2}, err => {
-        if(err){
-            return res.send("<script>alert('알 수 없는 에러 발생');location.href='/admin'</script>");
-        }else{
+        if(err){ return res.send("<script>alert('알 수 없는 에러 발생');location.href='/admin'</script>"); }
+        else{
             if (status.isBlocked) { return res.send("<script>alert('서버점검');location.href='/admin'</script>");} 
             else { return res.send("<script>alert('서비스 정상 진행');location.href='/admin'</script>"); }    
         }

@@ -54,7 +54,8 @@ router.post('/join', async(req, res) => {
             pw : req.body.pw,
             phone_number : req.body.code+'-'+req.body.number2+'-'+req.body.number3,
             email : req.body.email+'@'+req.body.domain,
-            address : req.body.address
+            address : req.body.address,
+            token : ''
         });
         return res.send(`<script>alert('회원가입 완료:)');location.href='/';</script>`);
     }

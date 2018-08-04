@@ -11,12 +11,10 @@
                 socket.emit('join', prompt('토큰을 입력하세요.', ''));
 
                 socket.on('message', function(data){
-                    $('<p>'+data+'</p>').appendTo('#content');
+                    $('<p>'+data.userName+' : '+data.data+'</p>').appendTo('#content');
                 });
 
-                socket.on('error', function(data){
-                    
-                });
+                socket.on('error', function(data){ location.href='/customerCenter'; });
 
                 //문서 객체 값을  message 이벤트에 연결
                 document.getElementById('button').onclick = function(){
