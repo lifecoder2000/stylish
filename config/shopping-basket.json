@@ -1,0 +1,10 @@
+{
+    "info" : {
+        "user" : "null",
+        "product" : {
+            "product_name" : "null",
+            "product_price" : 0,
+            "product_status" : false
+        }
+    }
+}

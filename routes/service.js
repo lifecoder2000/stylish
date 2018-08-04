@@ -15,7 +15,10 @@ router.post('/demo', (req, res) => {
 /* 1:1 상담 */ //수정해야될 라우터
 router.get('/consulting', (req, res) => {
     if(require('../config/status').isBlocked){ res.render('serverChecking'); }
-    else{ res.render('consulting', {user_id : req.session.user_id}); }
+    else{
+         
+        return res.render('consulting'); 
+    }
 });
 
 // view 페이지 (상세 게시물) : 글 보는 부분. 글 내용을 출력하고 조회수를 늘려줘야함
@@ -58,7 +61,7 @@ router.post('/QA', async(req, res) => {
 
 /* 결제 */
 router.post('/payment', (req, res) => {
-
+    console.log(req.body);
 });
 
 /* QuestionAnswer collection의 document개수 구하는 함수 */

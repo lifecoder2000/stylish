@@ -5,33 +5,38 @@
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
-           window.onload = function(){
+            window.onload = function(){
                 let socket = io.connect();  
-                let room = prompt('토큰을 입력하세요.', '');
 
-                //connect to socket events...
-                socket.emit('join', room);
+                socket.emit('join', prompt('토큰을 입력하세요.', ''));
+
                 socket.on('message', function(data){
-                    $('<p>'+`<%=user_id%> : `+data+'</p>').appendTo('#content');
+                    $('<p>'+data+'</p>').appendTo('#content');
                 });
 
-                //문서 객체 이벤트를 연결
+                socket.on('error', function(data){
+                    
+                });
+
+                //문서 객체 값을  message 이벤트에 연결
                 document.getElementById('button').onclick = function(){
                     socket.emit('message', document.getElementById('message').value);
                     document.getElementById('message').value = '';
                 };
+                
+                //enter 눌렀을때 message 이벤트에 연결 
                 $('#message').keyup(function(e){
                     if(e.keyCode === 13){
                         socket.emit('message', document.getElementById('message').value);
                         document.getElementById('message').value = '';
                     }
                 });
-           };
+            };
         </script>
     </head>
     <body>
         <input type="text" id="message">
-        <input type="button" id="button" value="echo">
+        <input type="button" id="button" value="send">
         <ul id="content"></ul>
     </body>
 </html>

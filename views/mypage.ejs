@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mypage</title>
+    </head>
+    <body>
+        <ul>
+            <p><li><a href="/user/informations">information modify</a></li></p>
+            <p><li><a href="/user/shopping bascket">shopping bascket</a></li></p>
+            <p><li><a href="/user/order"></a>order</li></p>
+        </ul>
+        <form action="/user/informations" method="post">
+            name :  <input type="text" name="userName" value="<%= userName %>" disabled> <br>
+            id : <input type="text" name="userId" value="<%= userId %>"> <br>
+            password : <input type="password" name="userPw" value="<%= userPw %>"> <br>
+            P.H : <input type="text" name="userPhoneNumber" value="<%= userPhoneNumber %>"> <br>
+            email : <input type="text" name="userEmail" value="<%= userEmail %>"> <br>
+            address : <input type="text" name="userAddress" value="<%= userAddress %>"> <br>
+            <input type="submit" name="submit" value="modify"> &nbsp;&nbsp;&nbsp;
+            <input type="submit" name="submit" value="leave">
+        </form>
+    </body>
+</html>

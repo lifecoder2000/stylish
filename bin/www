@@ -32,14 +32,19 @@ server.on('listening', onListening);
 
 //소캣 서버를 생성 및 실행
 io.sockets.on('connection', function(socket){
-  console.log('socket server connected');
-  console.log(socket);
-  let room_name = null;
+  let token;
+  let room_name;
 
   //join event
-  socket.on('join', function(data){
-    room_name = data;
-    socket.join(data);
+  socket.on('join', function(InputToken){
+    let realToken = require('../config/consulting-tokens').InputToken;
+    if(realToken.status){
+      room_name = data;
+      socket.join(data);
+    }
+    else{
+      io.sockets.in(room_name).emit('error', 'Not Accord Token');
+    }
   });
 
   //message event
