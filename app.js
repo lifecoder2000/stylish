@@ -1,9 +1,7 @@
 /*
-    [ 백엔드 구성 ]
-    1. 기본적인것들(페이지 라우팅, 로그인/로그아웃 등등) - index.js
-    2. 사용자(계정관리 등등) - user.js
-    3. 서비스(물품 검색 등등) - service.js
-    4. 관리자(고객 정보 관리) - admin.js
+  #주의할 점
+  1. [1:1상담] manager가 disconnect 명령어를 입력하여 상담 종료버튼을 추가시키고 상담 종료버튼을 클릭하면 상담을 정상적으로 종료할 수 있다고 안내한다.
+  2. 
 */
 const createError = require('http-errors');
 const express = require('express');

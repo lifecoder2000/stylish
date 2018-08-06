@@ -5,36 +5,36 @@
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
-            window.onload = function(){
-                let socket = io.connect();  
-
+            const socket = io.connect();
+            window.onload = () => {
                 socket.emit('join', prompt('토큰을 입력하세요.', ''));
 
-                socket.on('message', function(data){
-                    $('<p>'+data.userName+' : '+data.data+'</p>').appendTo('#content');
-                });
+                socket.on('message', data => { $('<p>'+data.userName+' : ' + data.data + '</p>').appendTo('#content'); });
+                socket.on('error', data => { alert('error'); location.href='/customerCenter'; });
+                socket.on('disconnect', () => { alert('상담이 종료되었습니다.'); location.href='/customerCenter' });                
 
-                socket.on('error', function(data){ location.href='/customerCenter'; });
-
-                //문서 객체 값을  message 이벤트에 연결
-                document.getElementById('button').onclick = function(){
-                    socket.emit('message', document.getElementById('message').value);
-                    document.getElementById('message').value = '';
-                };
-                
-                //enter 눌렀을때 message 이벤트에 연결 
-                $('#message').keyup(function(e){
-                    if(e.keyCode === 13){
+                function messageAppend(){
+                    if(document.getElementById('message').value === 'disconnect'){ document.getElementById('disconnect-button').innerHTML = '<input type="button" value="상담 종료" onclick="disconnect()" ></input>'}
+                    else{
                         socket.emit('message', document.getElementById('message').value);
                         document.getElementById('message').value = '';
                     }
-                });
+                }
+
+                document.getElementById('button').onclick = () => { messageAppend(); };
+                
+                $('#message').keyup(e => { if(e.keyCode === 13){ messageAppend(); } });
             };
+
+            function disconnect(){
+                socket.emit('disconnect');
+            }
         </script>
     </head>
     <body>
         <input type="text" id="message">
         <input type="button" id="button" value="send">
         <ul id="content"></ul>
+        <div id="disconnect-button"></div>
     </body>
 </html>
