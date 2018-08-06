@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        body {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .submit {
+            margin-top: 20px;
+        }
+        .paytable {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payment</h1>
+    -- Card Select -- <br><br>
+    <form action="/service/payment" method="POST">
+        <table border="1" class="paytable">
+            <tr>
+                <td><a href="/service/payment/inputinfo">BC카드</a></td>
+                <td><a href="/service/payment/inputinfo">신한카드</a></td>
+                <td><a href="/service/payment/inputinfo">국민카드</a></td>
+                <td><a href="/service/payment/inputinfo">삼성카드</a></td>
+            </tr>
+            <tr>
+                <td><a href="/service/payment/inputinfo">현대카드</a></td>
+                <td><a href="/service/payment/inputinfo">우리카드</a></td>
+                <td><a href="/service/payment/inputinfo">하나카드</a></td>
+                <td><a href="/service/payment/inputinfo">롯데카드</a></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

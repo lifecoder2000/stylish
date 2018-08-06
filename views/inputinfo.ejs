@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script>
+        function fn_setAddr(){
+            let width = 500;
+            let height = 600;
+            daum.postcode.load(function(){
+                new daum.Postcode({
+                    oncomplete : function(data){
+                        document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
+                        document.getElementById('roadAddress').value = data.roadAddress; // 도로명 주소
+                        document.getElementById('jibunAddress').value = data.jibunAddress; // 지번 주소
+                    }
+                }).open();
+            });
+        }
+    </script>
+    <style>
+        body {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form action="/service/payment/inputinfo" method="POST">
+        신용카드 번호 
+        <br>
+        <input type="text" maxlength="16" required/>
+        <br><br>
+        유효기간 및 보안코드
+        <br>
+        <select name="" id="">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <select name="" id="">
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+            </select>
+        <br><br>
+        전화번호<br>
+        <select name="code">
+            <option value="010"> 010 </option>
+            <option value="010"> 011 </option>
+            <option value="010"> 019 </option>
+        </select>                        
+        <input type="text" name="number2" placeholder="0000" maxlength="4" required>
+        <input type="text" name="number3" placeholder="0000" maxlength="4" required>
+        <br><br>
+        <input type="button" onclick="fn_setAddr()" value="우편번호 및 주소찾기"><br>
+        <input type="text" id="postcode" placeholder="우편번호" required><br>
+        <input type="text" id="roadAddress" placeholder="도로명주소" required><br>
+        <input type="text" id="jibunAddress" placeholder="지번주소" required><br><br>
+        <input type="submit" value="PAY">
+    </form>
+</body>
+</html>

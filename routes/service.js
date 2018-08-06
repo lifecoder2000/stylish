@@ -74,8 +74,20 @@ router.post('/QA', async(req, res) => {
 });
 
 /* 결제 */
+router.get('/payment', (req, res) => {
+    res.render('payment');
+});
+
 router.post('/payment', (req, res) => {
     console.log(req.body);
+});
+
+router.get('/payment/inputinfo', (req, res) => {
+    res.render('inputinfo');
+});
+
+router.post('/payment/inputinfo', (req, res) => {
+    res.send(`<script>alert('결제가 완료되었습니다');location.href='/'</script>`);
 });
 
 /* QuestionAnswer collection의 document개수 구하는 함수 */
