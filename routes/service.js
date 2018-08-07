@@ -3,6 +3,8 @@ const router = express.Router();
 const crypto = require('crypto');
 const Informations = require('../database/Informations');
 const QuestionAnswer = require('../database/QuestionAnswer');
+//add
+const Products = require('../database/Products');
 
 /* 데모 페이지 */
 router.get('/demo', (req, res) => {
@@ -88,6 +90,20 @@ router.get('/payment/inputinfo', (req, res) => {
 
 router.post('/payment/inputinfo', (req, res) => {
     res.send(`<script>alert('결제가 완료되었습니다');location.href='/'</script>`);
+});
+
+router.get('/test', (req, res) => {
+    console.log('test');
+});
+
+router.post('/test', (req, res) => {
+    Products.create({
+        name : req.body.productName,
+        stock : req.body.productStock,
+        price : req.body.productPrice,
+        category : req.body.productCategory,
+        purchaseAmount : req.body.productPurchaseAmount
+    });
 });
 
 /* QuestionAnswer collection의 document개수 구하는 함수 */

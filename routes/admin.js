@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const jsonfile = require('jsonfile');
+const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
 const Informations = require('../database/Informations');
 const QuestionAnswer = require('../database/QuestionAnswer');
-const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
-const stock = require('../config/stock');
+const Products = require('../database/Products');
 
 /* admin 로그인, 로그아웃 */
 router.get('/', async(req,res) => {
     if(req.session.is_admin_login){
         let usersInfo = await Informations.find();
         let q_a = await QuestionAnswer.find();
-        return res.render('admin', {users_info : usersInfo, stock : stock, q_a : q_a});
+        let products = await Products.find();
+        return res.render('admin', {users_info : usersInfo,  q_a : q_a, products : products});
     }
     else{ return res.redirect('/admin_auth.html'); }
 });
@@ -30,11 +31,6 @@ router.get('/logout', (req, res) => {
     return res.send(`<script>alert('##로그아웃##');location.href='/';</script>`);
 });
 
-/* 제고 수량 */
-router.post('/stock', (req, res) => {
-    
-});
-
 /* Q&A 답변 */
 router.post('/answer', async(req, res) => {
     let findQuestion = await QuestionAnswer.findOne({writer : req.body.writer, title : req.body.title, text : req.body.text});
@@ -43,6 +39,19 @@ router.post('/answer', async(req, res) => {
         return res.send(`<script>alert('답변 완료하였습니다.');location.href='/admin';</script>`);
     }
     else{ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/';</script>`); }
+});
+
+/* 상품 추가, 상품 삭제,   */
+router.post('/product/add', (req, res) => {
+    
+});
+
+router.post('/product/delete', (req, res) => {
+
+});
+
+router.post('/product/amount/change', (req, res) => {
+
 });
 
 /* 고객(사용자)들에게 이메일 보내는 기능 */

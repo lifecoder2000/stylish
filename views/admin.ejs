@@ -2,6 +2,12 @@
     <head>
         <meta charset="utf-8">
         <title>admin page</title>
+        <script type="text/javascript">
+            function getMiddleCategory(value){
+                let middleElement = document.getElementById("middle");
+                if(value === 'shirt'){ middleElement.style.display = 'block'; }
+            }
+        </script>
     </head>
     <body>
         <p>Welcome to Admin Page!!!</p>
@@ -18,7 +24,7 @@
         <fieldset>
             <legend>사용자 정보 관리</legend>
             <form action="/admin/user/delete" method="POST">
-                <% for(i in users_info){ %>
+                <% for(let i in users_info){ %>
                     <p>name : <%= users_info[i].name %></p>
                     <p>id : <%= users_info[i].id %></p>
                     <p>P.H : <%= users_info[i].phone_number %></p>
@@ -36,49 +42,43 @@
             </form>
         </fieldset>
         <fieldset>
-            <legend>제고수량</legend>
-            <div>
+            <legend>상품 추가</legend>
+            <form action="/admin/product/add" method="POST">
+                name : <input type="text" name="productName" required><br>
+                price : <input type="text" name="productPrice" required><br>
+                <select name="high-category" id="high" onchange="getMiddleCategory(this.value)" required>
+                    <option value="select" selected>select</option>
+                    <option value="shirt">shirt</option>
+                    <option value="pants">pants</option>
+                    <option value="bag">bag</option>
+                    <option value="shoes">shoes</option>
+                </select>
+                <div>
+                    <select name="middle-category" id="middle" style="display: none">
+                        <option value="long_sleeved">long_sleeved</option>
+                        <option value="short_sleeved">short_sleeved</option>
+                    </select>
+                </div>
+            </form>
+            <form action="/admin/product/delete" method="POST">
+                
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend>상품 리스트 / 상품 재고 변경</legend>
+            <% for(let i in products) { %>
                 <fieldset>
-                    <legend>short-shirt</legend>
-                    <p>T_shirt : <%= stock.Shirt.short_sleeved.T_shirt %></p>
-                    <p>Y_shirt : <%= stock.Shirt.short_sleeved.Y_shirt %></p>
-                    <p>denim_shirt : <%= stock.Shirt.short_sleeved.denim_shirt %></p>
+                    <p>productName : <%= products[i].name %></p>
+                    <p>productStock : <%= products[i].stock %></p>
+                    <p>productPrice : <%= products[i].price %></p>
+                    <p>productCategory : <%= products[i].category.shirt.long_sleeved %></p>
+                    <p>productPurchaseAmout : <%= products[i].purchaseAmount %></p>
                 </fieldset>
-                <fieldset>
-                    <legend>long-shirt</legend>
-                    <p>T_shirt : <%= stock.Shirt.long_sleeved.T_shirt %></p>
-                    <p>T_shirt : <%= stock.Shirt.long_sleeved.T_shirt %></p>
-                    <p>T_shirt : <%= stock.Shirt.long_sleeved.T_shirt %></p>
-                </fieldset>
-                <fieldset>
-                    <legend>short-pants</legend>
-                    <p>slacks : <%= stock.Pants.short.slacks %></p>
-                    <p>blue_jeans : <%= stock.Pants.short.blue_jeans %></p>
-                    <p>cotton_trousers : <%= stock.Pants.short.cotton_trousers %></p>
-                </fieldset>
-                <fieldset>
-                    <legend>long-pants</legend>
-                    <p>slacks : <%= stock.Pants.long.slacks %></p>
-                    <p>blue_jeans : <%= stock.Pants.long.blue_jeans %></p>
-                    <p>cotton_trousers : <%= stock.Pants.long.cotton_trousers %></p>
-                </fieldset>
-                <fieldset>
-                    <legend>Bag</legend>
-                    <p>echo : <%= stock.Bag.echo %></p>
-                    <p>school : <%= stock.Bag.school %></p>
-                    <p>cross : <%= stock.Bag.cross %></p>
-                </fieldset>
-                <fieldset>
-                    <legend>Shoes</legend>
-                    <p>sneakers : <%= stock.Shoes.sneakers %></p>
-                    <p>sandals : <%= stock.Shoes.sandals %></p>
-                    <p>canvas : <%= stock.Shoes.canvas %></p>
-                </fieldset>
-            </div>
+            <% } %>
         </fieldset>
         <fieldset>
             <legend>Q&A 답변</legend>
-            <% for(i in q_a){ %>
+            <% for(let i in q_a){ %>
                 <% if (!q_a[i].status) { %>
                 <fieldset>
                     <form action="/admin/answer" method="post">
