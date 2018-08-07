@@ -21,7 +21,8 @@ router.get('/product-detail', (req, res) => {
 
 router.get('/cart', (req, res) => {
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('cart', {user_id : req.session.user_id}); }
+    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id}); }
+    else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
 router.get('/about', (req, res) => {
