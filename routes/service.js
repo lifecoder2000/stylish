@@ -82,11 +82,11 @@ router.post('/payment', (req, res) => {
     console.log(req.body);
 });
 
-router.get('/payment/inputinfo', (req, res) => {
-    res.render('inputinfo');
+router.get('/payment/inputPaymentInformation', (req, res) => {
+    res.render('inputPaymentInformation');
 });
 
-router.post('/payment/inputinfo', (req, res) => {
+router.post('/payment/inputPaymentInformation', (req, res) => {
     res.send(`<script>alert('결제가 완료되었습니다');location.href='/'</script>`);
 });
 
