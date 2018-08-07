@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const informationSchema = new Schema({
+const information = new Schema({
     name : { type:String, required : true },
     id : { type : String, required : true },
     pw : { type : String, required : true },
@@ -11,4 +11,4 @@ const informationSchema = new Schema({
     token : {type : String}
 }, { timestamps: true });
 
-module.exports = mongoose.model('Informations', informationSchema);
+module.exports = mongoose.model('Informations', information);
