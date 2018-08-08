@@ -1,21 +1,295 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Q&A</title>
-        <style>
-            body {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Q&A</title>
+    <meta charset="UTF-8">
+    <style>
+
+
+            h1,h3 {
                 text-align: center;
             }
+            .form {
+                text-align: center;
+            }
+            table {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                border-top: 1px solid #cdcdcd;
+                border-collapse: collapse;
+            }
+            th, td {
+                border-bottom: 1px solid #cdcdcd;
+                padding: 10px;
+            }
+            .sizebig{
+    display: inline-block;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.sizebig:hover {
+    -webkit-transform: scale(1.5,1.5);
+    -moz-transform: scale(1.5,1.5);
+    -o-transform: scale(1.5,1.5);
+    -ms-transform: scale(1.5,1.5);
+    transform: scale(1.5,1.5);
+}
         </style>
-    </head>
-    <h1>This is Q&A Page</h1>
-    <h3>Please leave a question if you have any frustration.</h3>
-    <body>
-        <form action="/service/QA" method="POST">
-            <p><input type="text" name="id" placeholder="id" required></p>
-            <p><input type="text" name="title" placeholder="title" required></p>
-            <p><textarea name="text" cols="30" rows="10" placeholder="leave a question" required></textarea></p>
-            <p><input type="submit" value="submit"></p>
-        </form>
-    </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../images/icons/favicon.png"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/themify/themify-icons.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../fonts/elegant-font/html-css/style.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<!--    <link rel="stylesheet" type="text/css" href="./vendor/animsition/css/animsition.min.css">-->
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../vendor/slick/slick.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/main.css">
+<!--===============================================================================================-->
+</head>
+<body class="animsition">
+
+
+    <!-- Title Page -->
+    <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-color: silver;">
+        <h2 class="l-text2 t-center">
+            What is the problem?
+        </h2>
+    </section>
+
+    <!-- content page -->
+    <section class="bgwhite p-t-66 p-b-38">
+        <div class="container">
+
+            <div class="col-md-6 p-b-30" style="margin: auto;">
+                    <form action="/service/QA" method="POST">
+                        <h3 class="m-text26 p-b-36 p-t-15">
+                            Please leave a question if you have any frustration.
+                        </h3>
+
+                        <div class="bo4 of-hidden size15 m-b-20">
+                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="id" placeholder="id" required>
+                        </div>
+
+                        <div class="bo4 of-hidden size15 m-b-20">
+                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="title" placeholder="title" required>
+                        </div>
+
+                        <div class="bo4 of-hidden size15 m-b-20">
+                            <textarea class="sizefull s-text7 p-l-22 p-r-22" name="text" cols="30" rows="10" placeholder="leave a question" required></textarea>
+                        </div>
+
+                        <div class="w-size2 p-t-20" style="margin: auto;">
+                            <!-- Button -->
+                            <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" type="submit" value="submit">
+                        </div>
+
+                    </form>
+                </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+        <div class="flex-w p-b-90">
+            <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
+                <h4 class="s-text12 p-b-30">
+                    GET IN TOUCH
+                </h4>
+
+                <div>
+                    <p class="s-text7 w-size27">
+                        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+                    </p>
+
+                    <div class="flex-m p-t-30">
+                        <a href="javascript:alert('facebook');" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+                        <a href="javascript:alert('instagram');" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+                        <a href="javascript:alert('pinterest');" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+                        <a href="javascript:alert('snapchat');" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+                        <a href="javascript:alert('youtube');" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                <h4 class="s-text12 p-b-30">
+                    Categories
+                </h4>
+
+                <ul>
+                    <li class="p-b-9">
+                        <a href="javascript:alert('준비중입니다.');" class="s-text7">
+                            Shirts
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="javascript:alert('준비중입니다.');" class="s-text7">
+                            Pants
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="javascript:alert('준비중입니다.');" class="s-text7">
+                            Bags
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="javascript:alert('준비중입니다.');" class="s-text7">
+                            Shoes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                <h4 class="s-text12 p-b-30">
+                    Links
+                </h4>
+
+                <ul>
+                    <li class="p-b-9">
+                        <a href="javascript:alert('준비중입니다.');" class="s-text7">
+                            Search
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/about" class="s-text7">
+                            About Us
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/contact" class="s-text7">
+                            Contact Us
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                <h4 class="s-text12 p-b-30">
+                    Help
+                </h4>
+
+                <ul>
+                    <li class="p-b-9">
+                        <a href="/customerCenter" class="s-text7">
+                            Customer Center
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/tos.html" class="s-text7">
+                            Tos
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/priv.html" class="s-text7">
+                            Privacy Policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
+                <h4 class="s-text12 p-b-30">
+                    Like us
+                </h4>
+
+                <form>
+                        <span class="s-text7 bg6 w-full p-b-5"> Present: 51,635,256</span>
+
+                    <div class="w-size2 p-t-20">
+                        <!-- Button -->
+                        <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" onclick="alert('Thank you for your like :)')">
+                            Like
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="t-center p-l-15 p-r-15">
+            <a href="#">
+                <img class="h-size2" src="./images/icons/paypal.png" alt="IMG-PAYPAL">
+            </a>
+            <a href="#">
+                <img class="h-size2" src="./images/icons/visa.png" alt="IMG-VISA">
+            </a>
+            <a href="#">
+                <img class="h-size2" src="./images/icons/mastercard.png" alt="IMG-MASTERCARD">
+            </a>
+            <a href="#">
+                <img class="h-size2" src="./images/icons/express.png" alt="IMG-EXPRESS">
+            </a>
+            <a href="#">
+                <img class="h-size2" src="./images/icons/discover.png" alt="IMG-DISCOVER">
+            </a>
+            <div class="t-center s-text8 p-t-20">
+                Copyright © 2018. All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to top -->
+    <div class="btn-back-to-top bg0-hov" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        </span>
+    </div>
+    <!-- Container Selection -->
+    <div id="dropDownSelect1"></div>
+    <div id="dropDownSelect2"></div>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="./vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="./vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="./vendor/bootstrap/js/popper.js"></script>
+    <script type="text/javascript" src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="./vendor/select2/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".selection-1").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+
+        $(".selection-2").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect2')
+        });
+    </script>
+<!--===============================================================================================-->
+    <script src="./javascripts/main.js"></script>
+
+</body>
 </html>
