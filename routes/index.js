@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const jsonfile = require('jsonfile');
 const Informations = require('../database/Informations');
+const ShoppingBasket = require('../database/ShoppingBasket')
 
 /* 기본 페이지 랜더링 */
 router.get('/', (req, res) => {
@@ -19,9 +19,13 @@ router.get('/product-detail', (req, res) => {
     else{ return res.render('product-detail'); }
 });
 
-router.get('/cart', (req, res) => {
+router.get('/cart', async(req, res) => {
+    let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    for(let i in findUserBasket){
+        console.log(findUserBasket[i]);
+    }
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id}); }
+    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id, userBasket : findUserBasket}); }
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 

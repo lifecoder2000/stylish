@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Informations = require('../database/Informations');
+const ShoppingBasket = require('../database/ShoppingBasket');
 
 /* 마이페이지 */
 router.get('/mypage', async(req, res) => {
@@ -17,7 +18,7 @@ router.post('/informations', async(req, res) => {
         await Informations.deleteOne({id : req.body.userId});
         return res.send(`<script>alert('leave success');location.href='/';</script>`);
     }else{
-        let findUserInformation = await Informations.findOne({id : req.body.userId});
+        let findUserInformation = await Informations.findOne({id : req.session.user_id});
         if(findUserInformation){
             await Informations.updateOne({_id : findUserInformation._id}, {pw : req.body.userPw, phone_number : req.body.userPhoneNumber, email : req.body.userEmail, address : req.body.userAddress});
             return res.send(`<script>alert('update success');location.href='/user/mypage';</script>`);
@@ -25,13 +26,24 @@ router.post('/informations', async(req, res) => {
     }
 });
 
-/* 장바구니 */
-router.get('/bascket', (req, res) => {
+/* 장바구니 및 물건추가*/
+router.get('/basket', async(req, res) => {
     // 결제는 service.js : /payment에서 처리할예정
+    return res.redirect('/cart');
 });
 
-router.post('bascket', (req, res) => {
-    
+router.post('/basket', async(req, res) => {
+    try{
+        await ShoppingBasket.create({
+            userId : req.body.user_id,
+            products : {
+                productName : req.body.productName,
+                productAmount : req.body.productAmount,
+                productPrice : req.body.productPrice
+            }    
+        });
+    }
+    catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
 });
 
 /* 주문내역(주문내역(주문하기, 주문취소), 배송 조회,  교환&반품 신청) */

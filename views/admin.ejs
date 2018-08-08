@@ -76,7 +76,7 @@
             <legend>상품 추가</legend>
             <form action="/admin/product/add" method="POST">
                 name : <input type="text" name="productName" required><br>
-                price : <input type="text" name="productPrice" required><br>
+                price : <input type="text" name="productPrice" required><br><br>
                 <select name="high" id="high" onchange="getlowCategory(this.value)" required>
                     <option value="select" selected>select</option>
                     <option value="shirt">shirt</option>
@@ -108,20 +108,27 @@
                 </div><br>
                 <input type="submit" name="submit" value="생성하기">
             </form>
+        </fieldset>
+        <fieldset>
+            <legend>상품 삭제</legend>
             <form action="/admin/product/delete" method="POST">
-                
+                상품 이름 : <input type="text" name="productName">
+                <input type="submit" name="submit" value="삭제하기">
             </form>
         </fieldset>
         <fieldset>
-            <legend>상품 리스트 / 상품 재고 변경</legend>
+            <legend>상품 리스트 / 상품 재고 및 가격 변경</legend>
             <% for(let i in products) { %>
-                <fieldset>
-                    <p>productName : <%= products[i].name %></p>
-                    <p>productStock : <%= products[i].stock %></p>
-                    <p>productPrice : <%= products[i].price %></p>
-                    <p>productCategory : <%= products[i].category.highCategory %> > <%= products[i].category.lowCategory %></p>
-                    <p>productPurchaseAmout : <%= products[i].purchaseAmount %></p>
-                </fieldset>
+                <form action="/admin/product/amount/change" method="POST">
+                    <fieldset>
+                        <p>productName : <input type="text" name="productName" readonly value="<%= products[i].name %>"></p>
+                        <p>productStock : <input type="text" style="width: 50px;" name="productStock" value="<%= products[i].stock %>"></p>
+                        <p>productPrice : <input type="text" style="width: 80px;" name="productPrice" value="<%= products[i].price %>"> (won)</p>
+                        <p>productCategory : <input type="text" style="width: 50px;" name="productCategory"readonly value="<%= products[i].category.highCategory %>"> > <%= products[i].category.lowCategory %></p>
+                        <p>productPurchaseAmout : <input type="text" name="productPurchaseAmout" readonly value="<%= products[i].purchaseAmount %>"></p>
+                        <input type="submit" name="submit" value="변경 사항 저장">
+                    </fieldset>
+                </form>
             <% } %>
         </fieldset>
         <fieldset>

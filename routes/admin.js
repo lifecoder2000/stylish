@@ -41,10 +41,9 @@ router.post('/answer', async(req, res) => {
     else{ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/';</script>`); }
 });
 
-/* 상품 추가, 상품 삭제,   */
-router.post('/product/add', (req, res) => {
-    console.log(req.body);
-    Products.create({
+/* 상품 추가, 상품 삭제, 상품 재고 및 가격 수정   */
+router.post('/product/add', async(req, res) => {
+    await Products.create({
         name : req.body.productName,
         price : req.body.productPrice,
         category : {
@@ -55,12 +54,17 @@ router.post('/product/add', (req, res) => {
     return res.send(`<script>alert('상품 생성 완료:)');location.href='/admin';</script>`);
 });
 
-router.post('/product/delete', (req, res) => {
-
+router.post('/product/delete', async(req, res) => {
+    await Products.deleteOne({name : req.body.productName});
+    return res.send(`<script>alert('상품 삭제 완료:)');location.href='/admin';</script>`);
 });
 
-router.post('/product/amount/change', (req, res) => {
-
+router.post('/product/amount/change', async(req, res) => {
+    let findProducts = await Products.findOne({name : req.body.productName, purchaseAmount : req.body.productPurchaseAmout});
+    if(findProducts){
+        await Products.updateOne({_id : findProducts._id},{stock : req.body.productStock, price : req.body.productPrice});
+        return res.send(`<script>alert('수량 및 가격 수정 완료:)');location.href='/admin';</script>`);
+    }
 });
 
 /* 고객(사용자)들에게 이메일 보내는 기능 */
