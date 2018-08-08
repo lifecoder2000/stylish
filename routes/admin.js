@@ -43,7 +43,16 @@ router.post('/answer', async(req, res) => {
 
 /* 상품 추가, 상품 삭제,   */
 router.post('/product/add', (req, res) => {
-    
+    console.log(req.body);
+    Products.create({
+        name : req.body.productName,
+        price : req.body.productPrice,
+        category : {
+            highCategory : req.body.high,
+            lowCategory : req.body.low
+        }
+    });
+    return res.send(`<script>alert('상품 생성 완료:)');location.href='/admin';</script>`);
 });
 
 router.post('/product/delete', (req, res) => {

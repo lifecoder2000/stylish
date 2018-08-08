@@ -1,27 +1,13 @@
 {
     "Shirt" : {
-        "short_sleeved" : {
-            "T_shirt" : 100,
-            "Y_shirt" : 100,
-            "denim_shirt" : 100
-        },
-        "long_sleeved" : {
-            "T_shirt" : 100,
-            "Y_shirt" : 100,
-            "denim_shirt" : 100
-        }
+        "T_shirt" : 100,
+        "Y_shirt" : 100,
+        "denim_shirt" : 100
     },
     "Pants" : {
-        "short" : {
-            "slacks" : 100,
-            "blue_jeans" : 100,
-            "cotton_trousers" : 100
-        },
-        "long" : {
-            "slacks" : 100,
-            "blue_jeans" : 100,
-            "cotton_trousers" : 100
-        }
+        "slacks" : 100,
+        "blue_jeans" : 100,
+        "cotton_trousers" : 100
     },
     "Bag" : {
         "echo" : 100,

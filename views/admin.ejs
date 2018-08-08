@@ -2,10 +2,41 @@
     <head>
         <meta charset="utf-8">
         <title>admin page</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript">
-            function getMiddleCategory(value){
-                let middleElement = document.getElementById("middle");
-                if(value === 'shirt'){ middleElement.style.display = 'block'; }
+            function getlowCategory(value){
+                let lowShirtElement = document.getElementById("lowshirt");
+                let lowPantsElement = document.getElementById("lowpants");
+                let lowBagElment = document.getElementById("lowbag");
+                let lowShoesElement = document.getElementById("lowshoes");
+                if(value === 'shirt'){
+                    lowShirtElement.style.display = 'block';
+                    lowPantsElement.disabled = true;
+                    lowBagElment.disabled = true;
+                    lowShoesElement.disabled = true;
+                }
+                if(value !== 'shirt'){lowShirtElement.style.display = 'none';}
+                if(value === 'pants'){
+                    lowPantsElement.style.display = 'block';
+                    lowShirtElement.disabled = true ;
+                    lowBagElment.disabled = true ;
+                    lowShoesElement.disabled = true ;
+                }
+                if(value !== 'pants'){lowPantsElement.style.display = 'none';}
+                if(value === 'bag'){
+                    lowBagElment.style.display = 'block';
+                    lowShirtElement.disabled = true;
+                    lowPantsElement.disabled = true;
+                    lowShoesElement.disabled = true;
+                }
+                if(value !== 'bag'){lowBagElment.style.display = 'none';}
+                if(value === 'shoes'){
+                    lowShoesElement.style.display = 'block';
+                    lowShirtElement.disabled = true;
+                    lowPantsElement.disabled = true;
+                    lowBagElment.disabled = true;
+                }
+                else{lowShoesElement.style.display = 'none';}
             }
         </script>
     </head>
@@ -41,12 +72,12 @@
                 <input type="submit" value="server">
             </form>
         </fieldset>
-        <fieldset>
+        <fieldset id="productsAdd">
             <legend>상품 추가</legend>
             <form action="/admin/product/add" method="POST">
                 name : <input type="text" name="productName" required><br>
                 price : <input type="text" name="productPrice" required><br>
-                <select name="high-category" id="high" onchange="getMiddleCategory(this.value)" required>
+                <select name="high" id="high" onchange="getlowCategory(this.value)" required>
                     <option value="select" selected>select</option>
                     <option value="shirt">shirt</option>
                     <option value="pants">pants</option>
@@ -54,11 +85,28 @@
                     <option value="shoes">shoes</option>
                 </select>
                 <div>
-                    <select name="middle-category" id="middle" style="display: none">
-                        <option value="long_sleeved">long_sleeved</option>
-                        <option value="short_sleeved">short_sleeved</option>
+                    <select name="low" id="lowshirt" style="display: none" required>
+                        <option value="T-shirt">T-shirt</option>
+                        <option value="Y_shirt">Y_shirt</option>
+                        <option value="denim_shirt">denim_shirt</option>
                     </select>
-                </div>
+                    <select name="low" id="lowpants" style="display: none" required>
+                        <option value="slacks">slacks</option>
+                        <option value="blue_jeans">blue_jeans</option>
+                        <option value="cotton_trousers">cotton_trousers</option>
+                    </select>
+                    <select name="low" id="lowbag" style="display: none" required>
+                        <option value="echo">echo</option>
+                        <option value="school">school</option>
+                        <option value="cross">cross</option>
+                    </select>
+                    <select name="low" id="lowshoes" style="display: none" required>
+                        <option value="sneakers">sneakers</option>
+                        <option value="sandals">sandals</option>
+                        <option value="canvas">canvas</option>
+                    </select>
+                </div><br>
+                <input type="submit" name="submit" value="생성하기">
             </form>
             <form action="/admin/product/delete" method="POST">
                 
@@ -71,7 +119,7 @@
                     <p>productName : <%= products[i].name %></p>
                     <p>productStock : <%= products[i].stock %></p>
                     <p>productPrice : <%= products[i].price %></p>
-                    <p>productCategory : <%= products[i].category.shirt.long_sleeved %></p>
+                    <p>productCategory : <%= products[i].category.highCategory %> > <%= products[i].category.lowCategory %></p>
                     <p>productPurchaseAmout : <%= products[i].purchaseAmount %></p>
                 </fieldset>
             <% } %>
