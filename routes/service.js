@@ -94,18 +94,11 @@ router.post('/payment/inputPaymentInformation', (req, res) => {
     res.send(`<script>alert('결제가 완료되었습니다');location.href='/'</script>`);
 });
 
-router.get('/test', (req, res) => {
-    console.log('test');
-});
-
-router.post('/test', (req, res) => {
-    Products.create({
-        name : req.body.productName,
-        stock : req.body.productStock,
-        price : req.body.productPrice,
-        category : req.body.productCategory,
-        purchaseAmount : req.body.productPurchaseAmount
-    });
+/* 제품 검색 */
+router.post('/search', async(req,res)=> {
+    let findProduct = await Products.findOne({ name : req.body.productName });
+    if(findProduct){ return res.send({result : true, path : `/product-detail?name=${findProduct.name}&price=${findProduct.price}`}); }
+    else { return res.send(`<script>alert('상품을 찾지 못했습니다 :( ');location.href='/product';</script>`) }
 });
 
 /* QuestionAnswer collection의 document개수 구하는 함수 */
