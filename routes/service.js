@@ -77,7 +77,8 @@ router.post('/QA', async(req, res) => {
 
 /* 결제 */
 router.get('/payment', (req, res) => {
-    res.render('payment');
+    if(req.session.is_user_login){ return res.render('payment', {user_id : req.session.user_id}); }
+    else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
 router.post('/payment', (req, res) => {
@@ -85,7 +86,8 @@ router.post('/payment', (req, res) => {
 });
 
 router.get('/payment/inputPaymentInformation', (req, res) => {
-    res.render('inputPaymentInformation');
+    if(req.session.is_user_login){ return res.render('inputPaymentInformation', {user_id : req.session.user_id}); }
+    else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
 router.post('/payment/inputPaymentInformation', (req, res) => {

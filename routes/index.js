@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Informations = require('../database/Informations');
-const ShoppingBasket = require('../database/ShoppingBasket')
+const ShoppingBasket = require('../database/ShoppingBasket');
+const Products = require('../database/Products');
 
 /* 기본 페이지 랜더링 */
 router.get('/', (req, res) => {
@@ -9,14 +10,16 @@ router.get('/', (req, res) => {
     else{ return res.render('index', {user_id : req.session.user_id}); }
 });
 
-router.get('/product', (req, res) => {
+router.get('/product', async(req, res) => {
+    let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('product', {user_id : req.session.user_id}); }
+    else{ return res.render('product', {user_id : req.session.user_id, products : products}); }
 });
 
-router.get('/product-detail', (req, res) => {
+router.get('/product-detail', async(req, res) => {
+    let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('product-detail'); }
+    else{ return res.render('product-detail', { products : products, productName : req.param('name'), productPrice : req.param('price')}); }
 });
 
 router.get('/cart', async(req, res) => {
