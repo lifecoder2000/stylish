@@ -410,13 +410,9 @@
 			</div>
 
 			<div class="w-size14 p-t-30 respon5">
-				<h4 class="product-detail-name m-text16 p-b-13">
-					<%=productName%>
-				</h4>
+				<h4 class="product-detail-name m-text16 p-b-13" id="productName"><%=productName%></h4>
 
-				<span class="m-text17">
-					<%=productPrice%>
-				</span>
+				<span class="m-text17" id="productPrice"><%=productPrice%></span>&nbsp;&nbsp;&nbsp;<span>₩</span>
 
 				<p class="s-text8 p-t-10">
 					Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
@@ -430,7 +426,7 @@
 						</div>
 
 						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-							<select class="selection-2" name="size">
+							<select class="selection-2" name="size" id="size" required>
 								<option>Choose an option</option>
 								<option>Size S</option>
 								<option>Size M</option>
@@ -446,7 +442,7 @@
 						</div>
 
 						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-							<select class="selection-2" name="color">
+							<select class="selection-2" name="color" id="color" required>
 								<option>Choose an option</option>
 								<option>Gray</option>
 								<option>Red</option>
@@ -463,7 +459,7 @@
 									<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 								</button>
 
-								<input class="size8 m-text18 t-center num-product" type="number" name="num-product" value="1">
+								<input class="size8 m-text18 t-center num-product" type="number" name="num-product" id="productCount" value="1">
 
 								<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
 									<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -472,7 +468,7 @@
 
 							<div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
 								<!-- Button -->
-								<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+								<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="addCart">
 									Add to Cart
 								</button>
 							</div>
@@ -749,6 +745,25 @@
 
 <!--===============================================================================================-->
 	<script src="./javascripts/main.js"></script>
-
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js%22%3E"></script>
+	<script>
+		$('#addCart').click(() => {
+            $.ajax({
+                url : '/cart',
+                dataType : 'json',
+                type : 'POST',
+                data : { 
+					'productName': $('#productName').text(),
+					'productPrice' : $('#productPrice').text(),
+					"productSize" : $('#size').val(),
+					'productColor' : $('#color').val(),
+					'productCount' : $('#productCount').val()
+				},
+                success : result => {
+					
+                }
+			});
+        });
+	</script>
 </body>
 </html>

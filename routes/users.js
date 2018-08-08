@@ -32,20 +32,6 @@ router.get('/basket', async(req, res) => {
     return res.redirect('/cart');
 });
 
-router.post('/basket', async(req, res) => {
-    try{
-        await ShoppingBasket.create({
-            userId : req.body.user_id,
-            products : {
-                productName : req.body.productName,
-                productAmount : req.body.productAmount,
-                productPrice : req.body.productPrice
-            }    
-        });
-    }
-    catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
-});
-
 /* 주문내역(주문내역(주문하기, 주문취소), 배송 조회,  교환&반품 신청) */
 router.get('/order', (req, res) => {
     //주문내역, 주문하기, 주문취소

@@ -24,11 +24,11 @@ router.get('/product-detail', async(req, res) => {
 
 router.get('/cart', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
-    for(let i in findUserBasket){
-        console.log(findUserBasket[i]);
-    }
-    if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id, userBasket : findUserBasket}); }
+    let totalPrice = 0;
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    
+    if(require('../config/status').isBlocked){ return res.render('serverChecking'); } //totalPrice 
+    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice}); }
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
@@ -87,6 +87,32 @@ router.post('/login', async(req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy();
     return res.send(`<script>alert('로그아웃 되었습니다.');location.href='/';</script>`);
+});
+
+/* 카트 추가 */
+router.post('/cart', async(req, res) => {
+    /*
+        { 
+        productName: 'stylish long T-shirt',
+        productPrice: '8000',
+        productSize: 'Size S',
+        productColor: 'Black',
+        productCount: '2' 
+        }
+    */
+   try{
+        await ShoppingBasket.create({
+            userId : req.session.user_id,
+            products : {
+                productName : req.body.productName,
+                productPrice : req.body.productPrice,
+                productSize : req.body.productSize,
+                productColor : req.body.productColor,
+                productCount : req.body.productCount
+            }    
+        });
+    }
+    catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
 });
 
 module.exports = router;
