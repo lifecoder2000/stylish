@@ -5,15 +5,35 @@ const ShoppingBasket = require('../database/ShoppingBasket');
 const Products = require('../database/Products');
 
 /* 기본 페이지 랜더링 */
-router.get('/', (req, res) => {
+router.get('/', async(req, res) => {
+    let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('index', {user_id : req.session.user_id}); }
+    else{ return res.render('index', {user_id : req.session.user_id, product: products}); }
 });
 
 router.get('/product', async(req, res) => {
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
     else{ return res.render('product', {user_id : req.session.user_id, products : products}); }
+});
+
+router.post('/product', async(req, res) => {
+    if(req.body.sorting == "DefaultSorting"){
+        let products = await Products.find();
+        return res.render('product', {user_id : req.session.user_id, products : products});
+    }
+    if(req.body.sorting == "Popularity"){
+        let products = await Products.find().sort({purchaseAmount:-1});
+        return res.render('product', {user_id : req.session.user_id, products : products});
+    }
+    if(req.body.sorting == "Price_lowtohigh"){
+        let products = await Products.find().sort({price:1});
+        return res.render('product', {user_id : req.session.user_id, products : products});
+    }
+    if(req.body.sorting == "Price_hightolow"){
+        let products = await Products.find().sort({price:-1});
+        return res.render('product', {user_id : req.session.user_id, products : products});
+    }
 });
 
 router.get('/product-detail', async(req, res) => {
@@ -103,6 +123,7 @@ router.post('/cart', async(req, res) => {
    try{
         await ShoppingBasket.create({
             userId : req.session.user_id,
+            productNamekey : req.body.productName,
             products : {
                 productName : req.body.productName,
                 productPrice : req.body.productPrice,
@@ -113,6 +134,14 @@ router.post('/cart', async(req, res) => {
         });
     }
     catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
+});
+
+router.post('/cart/deleteOne', async(req, res) => {
+    let findShoppingBasket = await ShoppingBasket.findOne({ productNamekey : req.body.productName });
+    if(findShoppingBasket){
+        await ShoppingBasket.deleteOne({ productNamekey : req.body.productName });
+        return res.send(`<script>alert('상품 삭제 완료:)');location.href='/cart';</script>`);
+    }
 });
 
 module.exports = router;

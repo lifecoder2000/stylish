@@ -1,0 +1,30 @@
+구매자 :  
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userName" value="<%= userId %>" disabled>
+                                    </div>
+결제날짜 :
+
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                    </div>
+
+        <% for(let i in ShoppingBasket){ %>
+            <fieldset>
+            상품명 :  
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userId" value="<%= ShoppingBasket[i].products.productName %>" disabled>
+                                    </div>
+            상품갯수 :  
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userPw" value="<%= ShoppingBasket[i].products.productCount %>" disabled>
+                                    </div>
+            옵션 :  
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userPhoneNumber" value="<%= ShoppingBasket[i].products.productSize %>" disabled>
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userPhoneNumber" value="<%= ShoppingBasket[i].products.productColor %>" disabled>
+                                    </div>
+            배송상태 :  
+                                    <div class="bo4 of-hidden size15 m-b-20">
+                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userEmail" value="<%= ShoppingBasket[i].status %>" disabled>
+                                    </div>
+            </fieldset>
+        <% } %>

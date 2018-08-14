@@ -5,6 +5,7 @@ const Informations = require('../database/Informations');
 const QuestionAnswer = require('../database/QuestionAnswer');
 //add
 const Products = require('../database/Products');
+const ShoppingBasket = require('../database/ShoppingBasket');
 
 /* 데모 페이지 */
 router.get('/demo', (req, res) => {
@@ -81,17 +82,22 @@ router.get('/payment', (req, res) => {
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
-router.post('/payment', (req, res) => {
-    console.log(req.body);
-});
-
 router.get('/payment/inputPaymentInformation', (req, res) => {
     if(req.session.is_user_login){ return res.render('inputPaymentInformation', {user_id : req.session.user_id}); }
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
-router.post('/payment/inputPaymentInformation', (req, res) => {
-    res.send(`<script>alert('결제가 완료되었습니다');location.href='/'</script>`);
+/* 결제 시 구매횟수 증가 및 결제 구분 */
+router.post('/payment/inputPaymentInformation', async(req, res) => {
+    let findShoppingBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    for(let i in findShoppingBasket){
+        let findProduct = await Products.findOne({ name : findShoppingBasket[i].products.productName });
+        if(findProduct){
+            await Products.update({ name : findShoppingBasket[i].products.productName },{ purchaseAmount : ++findProduct.purchaseAmount });
+            await ShoppingBasket.updateOne({ payment : false },{$set : { payment : true } });
+            res.send(`<script>alert('결제가 완료되었습니다');location.href='/user/mypage'</script>`);
+        }
+    }
 });
 
 /* 제품 검색 */

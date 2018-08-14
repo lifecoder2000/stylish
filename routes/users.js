@@ -27,14 +27,16 @@ router.post('/informations', async(req, res) => {
 });
 
 /* 장바구니 및 물건추가*/
-router.get('/basket', async(req, res) => {
+router.get('/mypage/basket', async(req, res) => {
     // 결제는 service.js : /payment에서 처리할예정
     return res.redirect('/cart');
 });
 
 /* 주문내역(주문내역(주문하기, 주문취소), 배송 조회,  교환&반품 신청) */
-router.get('/order', (req, res) => {
-    //주문내역, 주문하기, 주문취소
+router.get('/mypage/Ordered', async(req, res) => {
+    let findShoppingBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    for(let i in findShoppingBasket){ if(findShoppingBasket[i].payment == false){return res.send(`<script>alert('결제 정보가 없습니다');location.href='/user/mypage';</script>`);} }
+    if(findShoppingBasket){ res.render('ordered', { ShoppingBasket : findShoppingBasket ,userId : req.session.user_id}); }
 });
 
 router.get('/check', (req, res) => {
