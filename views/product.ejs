@@ -490,20 +490,15 @@
 					<!--  -->
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w">
-							<form action="/product" method="POST">
 								<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-									<select class="selection-2" name="sorting">
+									<select class="selection-2" name="sorting" id="sorting">
+											<option value="Select" selected>Select (filter)</option>
 											<option value="DefaultSorting">Default Sorting</option>
 											<option value="Popularity">Popularity</option>
 											<option value="Price_lowtohigh">Price: low to high</option>
 											<option value="Price_hightolow">Price: high to low</option>
 									</select>
-									
 								</div>
-								<span class="s-text8 p-t-5 p-b-5">
-									<input style=" background-color:pink;" type="submit" name="submit" value="필터하기">
-								</span>
-							</form>
 						</div>
 
 						<span class="s-text8 p-t-5 p-b-5">
@@ -809,7 +804,20 @@
                 }
             });
         });
-    </script>
+	</script>
+	<script>
+		$('#sorting').change(() => {
+            $.ajax({
+                url : '/product',
+                dataType : 'json',
+                type : 'POST',
+                data : {'sortName' : $('#sorting').val()},
+                success : result => {
+					location.href=`${result.path}`;
+                }
+            });
+        });
+	</script>
 
 </body>
 </html>

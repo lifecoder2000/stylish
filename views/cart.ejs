@@ -413,7 +413,7 @@
 							<th class="column-2">Product</th>
 							<th class="column-3">Price</th>
 							<th class="column-4 p-l-70">Quantity</th>
-							<th class="column-5" style="padding-left: 200px">Total</th>
+							<th class="column-5">Total</th>
 						</tr>
 						<% const productsTotalPrice = new Array(); %>
 						<% for(let i in userBasket){ %>
@@ -433,10 +433,10 @@
 											<%= userBasket[i].products.productCount %>
 										</div>
 								</td>
-								<td style="padding-left: 200px">
-									<input type="submit" name="submit" value=" - ">
-								</td>
 								<td class="column-5"><%= userBasket[i].products.productPrice * userBasket[i].products.productCount %>₩</td>
+								<td>
+										<input type="submit" name="submit" value=" Product Remove ">
+								</td>
 							</tr>
 								<% productsTotalPrice.push(userBasket[i].products.productPrice * userBasket[i].products.productCount)  %>
 						</form>
