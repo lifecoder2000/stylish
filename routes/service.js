@@ -6,6 +6,7 @@ const QuestionAnswer = require('../database/QuestionAnswer');
 //add
 const Products = require('../database/Products');
 const ShoppingBasket = require('../database/ShoppingBasket');
+const PaymentBasket = require('../database/PaymentBasket');
 
 /* 데모 페이지 */
 router.get('/demo', (req, res) => {
@@ -94,10 +95,21 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
         let findProduct = await Products.findOne({ name : findShoppingBasket[i].products.productName });
         if(findProduct){
             await Products.update({ name : findShoppingBasket[i].products.productName },{ purchaseAmount : ++findProduct.purchaseAmount });
-            await ShoppingBasket.updateOne({ payment : false },{$set : { payment : true } });
+            // await ShoppingBasket.updateOne({ payment : false },{$set : { payment : true } });
+            await PaymentBasket.create({  // 결제 collection 생성
+                userId : req.session.user_id,
+                products : {
+                    productName : findShoppingBasket[i].products.productName,
+                    productPrice : findShoppingBasket[i].products.productPrice,
+                    productSize : findShoppingBasket[i].products.productSize,
+                    productColor : findShoppingBasket[i].products.productColor,
+                    productCount : findShoppingBasket[i].products.productCount
+                }    
+            });
             res.send(`<script>alert('결제가 완료되었습니다');location.href='/user/mypage'</script>`);
         }
     }
+    res.send(`<script>alert('장바구니에 상품을 담아주세요 !');location.href='/cart'</script>`);
 });
 
 /* 제품 검색 */

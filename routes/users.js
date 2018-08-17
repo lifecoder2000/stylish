@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Informations = require('../database/Informations');
 const ShoppingBasket = require('../database/ShoppingBasket');
+const PaymentBasket = require('../database/PaymentBasket');
 
 /* 마이페이지 */
 router.get('/mypage', async(req, res) => {
@@ -34,9 +35,8 @@ router.get('/mypage/basket', async(req, res) => {
 
 /* 주문내역(주문내역(주문하기, 주문취소), 배송 조회,  교환&반품 신청) */
 router.get('/mypage/Ordered', async(req, res) => {
-    let findShoppingBasket = await ShoppingBasket.find({userId : req.session.user_id});
-    for(let i in findShoppingBasket){ if(findShoppingBasket[i].payment == false){return res.send(`<script>alert('결제 정보가 없습니다');location.href='/user/mypage';</script>`);} }
-    if(findShoppingBasket){ res.render('ordered', { ShoppingBasket : findShoppingBasket ,userId : req.session.user_id}); }
+    let findPaymentBasket = await PaymentBasket.find({userId : req.session.user_id});
+    if(findPaymentBasket){ res.render('ordered', { PaymentBasket : findPaymentBasket, userId : req.session.user_id}); }
 });
 
 router.get('/check', (req, res) => {

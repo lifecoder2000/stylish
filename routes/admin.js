@@ -6,6 +6,7 @@ const ADMIN_ACCOUNT = require('../config/ADMIN_ACCOUNT');
 const Informations = require('../database/Informations');
 const QuestionAnswer = require('../database/QuestionAnswer');
 const Products = require('../database/Products');
+const PaymentBasket = require('../database/PaymentBasket');
 
 /* admin 로그인, 로그아웃 */
 router.get('/', async(req,res) => {
@@ -13,7 +14,8 @@ router.get('/', async(req,res) => {
         let usersInfo = await Informations.find();
         let q_a = await QuestionAnswer.find();
         let products = await Products.find();
-        return res.render('admin', {users_info : usersInfo,  q_a : q_a, products : products});
+        let payment = await PaymentBasket.find();
+        return res.render('admin', {users_info : usersInfo,  q_a : q_a, products : products, PaymentBasket : payment});
     }
     else{ return res.redirect('/admin_auth.html'); }
 });
@@ -64,6 +66,14 @@ router.post('/product/amount/change', async(req, res) => {
     if(findProducts){
         await Products.updateOne({_id : findProducts._id},{stock : req.body.productStock, price : req.body.productPrice});
         return res.send(`<script>alert('수량 및 가격 수정 완료:)');location.href='/admin';</script>`);
+    }
+});
+
+router.post('/paymentStatusChange', async(req,res) => {
+    let findPaymentBasket = await PaymentBasket.findOne({userId : req.body.userId, _id : req.body._id});
+    if(findPaymentBasket){
+        await PaymentBasket.updateOne({userId : req.body.userId, _id : req.body._id},{status : req.body.paymentStatus});
+        return res.send(`<script>alert('배송 상태 업데이트 완료 :)');location.href='/admin';</script>`);
     }
 });
 
