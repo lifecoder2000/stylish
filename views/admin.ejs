@@ -147,11 +147,14 @@
                         배송상태 : 
                             <select name="paymentStatus" id="paymentStatus">
                                 <option value="<%= PaymentBasket[i].status %>" selected disabled>현재 : <%= PaymentBasket[i].status %></option>
-
                                 <option value="입금완료">입금완료</option>
                                 <option value="포장">포장</option>
                                 <option value="배송중">배송중</option>
                                 <option value="배송완료">배송완료</option>
+                                <option value="주문취소">주문취소</option>
+                                <option value="환불">환불</option>
+                                <option value="교환신청">교환신청</option>
+                                <option value="교환완료">교환완료</option>
                             </select>
                         <input type="submit" name="submit" value="업데이트">
                     </fieldset>

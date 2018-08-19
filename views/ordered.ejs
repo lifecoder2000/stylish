@@ -1,32 +1,105 @@
-    
-                                    <div class="bo4 of-hidden size15 m-b-20">
-                                            구매자 :  
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userName" value="<%= userId %>" disabled>
-                                    </div><br>
-    <% for(let i in PaymentBasket){ %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>  
+        <div class="bo4 of-hidden size15 m-b-20">
+                구매자 :  
+            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userName" value="<%= userId %>" disabled>
+        </div><br>
+        
+        <% for(let i in PaymentBasket){ %>
             <fieldset>
+                <form name="orderUpdate" action="/user/mypage/Ordered/cancelOrder" method="POST">
+                            <div class="bo4 of-hidden size15 m-b-20">
+                                    결제날짜 :
+                                    <%=PaymentBasket[i].date.getFullYear()%>-<%=PaymentBasket[i].date.getMonth()+1%>-<%=PaymentBasket[i].date.getDate()%>
+                            </div>
+                    상품명 :  
+                            <div class="bo4 of-hidden size15 m-b-20">
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productName" value="<%= PaymentBasket[i].products.productName %>" disabled>
+                            </div>
+                    상품갯수 :  
+                            <div class="bo4 of-hidden size15 m-b-20">
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productCount" value="<%= PaymentBasket[i].products.productCount %>" disabled>
+                            </div>
+                    옵션 :  
+                            <div class="bo4 of-hidden size15 m-b-20">
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productSize" value="<%= PaymentBasket[i].products.productSize %>" disabled>
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productColor" value="<%= PaymentBasket[i].products.productColor %>" disabled>
+                            </div>
+                    배송상태 :  
+                            <div class="bo4 of-hidden size15 m-b-20">
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" disabled>
+                            </div><br>
 
-                                    <div class="bo4 of-hidden size15 m-b-20">
-                                            결제날짜 :
-                                            <%=PaymentBasket[i].date.getFullYear()%>-<%=PaymentBasket[i].date.getMonth()+1%>-<%=PaymentBasket[i].date.getDate()%>
-                                    </div>
-            상품명 :  
-                                    <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userId" value="<%= PaymentBasket[i].products.productName %>" disabled>
-                                    </div>
-            상품갯수 :  
-                                    <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userPw" value="<%= PaymentBasket[i].products.productCount %>" disabled>
-                                    </div>
-            옵션 :  
-                                    <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userPhoneNumber" value="<%= PaymentBasket[i].products.productSize %>" disabled>
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userPhoneNumber" value="<%= PaymentBasket[i].products.productColor %>" disabled>
-                                    </div>
-            배송상태 :  
-                                    <div class="bo4 of-hidden size15 m-b-20">
-                                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userEmail" value="<%= PaymentBasket[i].status %>" disabled>
-                                    </div>
+                    <!--고유번호 :-->       <div class="bo4 of-hidden size15 m-b-20">
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+                        </div>
+
+                        <!-- <button class="cancelOrder" id="cancelOrder" value="주문취소">
+                        주문취소
+                        </button> -->
+
+                        <% if(PaymentBasket[i].status === "주문취소"){ %>
+                        <% }else{ %>
+                            <input type="submit" value="주문취소" name="cancelOrder" onclick='choice(1)'/>
+                        <% } %>
+                        
+
+                        <!-- <button id="takeBack" value="반품신청(환불,교환)">
+                            반품신청(환불,교환)
+                        </button> -->
+
+                </form><br>
+                <form action="/user/mypage/Ordered/takeBack" method="POST">
+                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" readonly hidden>
+                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+                    <% if(PaymentBasket[i].status === "교환신청"){ %>
+                        <input type="submit" value="반품신청(환불)" name="takeBack" onclick='choice(2)'/>
+                    <% }else if(PaymentBasket[i].status === "환불"){ %>
+                        
+                    <% }else{ %>
+                        <input type="submit" value="반품신청(환불,교환)" name="takeBack" onclick='choice(2)'/>
+                    <% } %>
+                </form>
             </fieldset>
             <br>
-    <% } %>
+        
+        <% } %>
+       
+        <!-- <script>
+            $('#takeBack').click(() => {
+                 $.ajax({
+                    url : '/user/mypage/Ordered/takeBack',
+                    dataType : 'json',
+                    type : 'POST',
+                    data : {'takeBack' : $('#takeBack').val()},
+                    success : result => {
+                        location.href=`${result.path}`;
+                    }
+                });
+            });
+        </script> -->
+        <!-- <script>
+                function choice(choice){
+                    if(choice == 1){
+                        let a = document.forms['orderUpdate'];
+                        a.action = "/user/mypage/Ordered/cancelOrder";
+                        a.method = "post";
+                        a.submit();
+                    }
+                    if(choice == 2){
+                        let a = document.forms['orderUpdate'];
+                        a.action = "/user/mypage/Ordered/takeBack";
+                        a.method = "post";
+                        a.submit();
+                    }
+                }
+        </script> -->
+</body>
+</html>
