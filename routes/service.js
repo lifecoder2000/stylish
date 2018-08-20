@@ -91,6 +91,7 @@ router.get('/payment/inputPaymentInformation', (req, res) => {
 /* 결제 시 구매횟수 증가 및 결제 구분 */
 router.post('/payment/inputPaymentInformation', async(req, res) => {
     let findShoppingBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    let count = 0;
     for(let i in findShoppingBasket){
         let findProduct = await Products.findOne({ name : findShoppingBasket[i].products.productName });
         if(findProduct){
@@ -106,10 +107,13 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
                     productCount : findShoppingBasket[i].products.productCount
                 }    
             });
-            res.send(`<script>alert('결제가 완료되었습니다');location.href='/user/mypage'</script>`);
-        }
+        }count++;
     }
-    res.send(`<script>alert('장바구니에 상품을 담아주세요 !');location.href='/cart'</script>`);
+    if(count>0){ 
+        for(let i in findShoppingBasket){ await ShoppingBasket.deleteOne({userId : req.session.user_id}); }
+        return res.send(`<script>alert('결제가 완료되었습니다');location.href='/user/mypage'</script>`); 
+    }
+    else{ return res.send(`<script>alert('장바구니에 상품을 담아주세요 !');location.href='/cart'</script>`); }
 });
 
 /* 제품 검색 */

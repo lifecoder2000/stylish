@@ -121,25 +121,25 @@
 
 				<ul>
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
-							Shirts
-						</a>
+							<a href="/product?clothes=shirt" class="s-text7">
+								Shirts
+							</a>
 					</li>
-
+		
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=pants" class="s-text7">
 							Pants
 						</a>
 					</li>
-
+		
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=bag" class="s-text7">
 							Bags
 						</a>
 					</li>
-
+		
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=shoes" class="s-text7">
 							Shoes
 						</a>
 					</li>
@@ -153,7 +153,7 @@
 
 				<ul>
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="#" class="s-text7" id="search_2">
 							Search
 						</a>
 					</li>
@@ -205,16 +205,12 @@
                 </h4>
 
                 <form>
-                        <span class="s-text7 bg6 w-full p-b-5"> Present: 51,635,256</span>
-
-                    <div class="w-size2 p-t-20">
-                        <!-- Button -->
-                        <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" onclick="alert('Thank you for your like :)')">
-                            Like
-                        </button>
-                    </div>
-
-                </form>
+					Present: <input class="s-text7 bg6  p-b-5" type="text" id="likeCountText" value="0">
+					<div class="w-size2 p-t-20">
+						<!-- Button -->
+						<input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" type="button" id="likeCount" value="Like">
+					</div>
+				</form>
             </div>
 		</div>
 
@@ -285,4 +281,29 @@
 	<script src="./javascripts/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="./javascripts/main.js"></script>
+	<script>
+			$('#search_2').click(() => {
+				let data = prompt("검색할 제품을 입력해주세요");
+				if(data){
+					$.ajax({
+						url : '/service/search',
+						dataType : 'json',
+						type : 'POST',
+						data : {'productName' : data},
+						success : result => {
+							location.href=`${result.path}`;
+						}
+					});
+				}else{
+					alert("제대로 입력해주세요");
+				}
+			});
+	</script>
+	<script>
+			$('#likeCount').click(() => {
+				var n = $('#likeCount').index(this);
+				var num = $("#likeCountText:eq("+n+")").val();
+				num = $("#likeCountText:eq("+n+")").val(num*1+1); 
+			});
+	</script>
 </html>

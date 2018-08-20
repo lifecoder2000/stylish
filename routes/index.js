@@ -6,54 +6,117 @@ const Products = require('../database/Products');
 
 /* 기본 페이지 랜더링 */
 router.get('/', async(req, res) => {
+    let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    let totalPrice = 0;
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('index', {user_id : req.session.user_id, product: products}); }
+    else{ return res.render('index', {user_id : req.session.user_id, product: products, userBasket : findUserBasket, totalPrice : totalPrice}); }
 });
 
 router.get('/product', async(req, res) => {
+    let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    let totalPrice = 0;
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+
+    if(req.param('clothes') == "shirt"){
+        let findProducts = await Products.find({highCategoryFilter : "shirt"});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shirt", userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    if(req.param('clothes') == "pants"){
+        let findProducts = await Products.find({highCategoryFilter : "pants"});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "pants", userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    if(req.param('clothes') == "bag"){
+        let findProducts = await Products.find({highCategoryFilter : "bag"});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "bag", userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    if(req.param('clothes') == "shoes"){
+        let findProducts = await Products.find({highCategoryFilter : "shoes"});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shoes", userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+
+    /* 카테고리에서 4가지 필터 */
+    if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "DefaultSorting"){
+        let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "Popularity"){
+        let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort({purchaseAmount:-1});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "Price_lowtohigh"){
+        let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort({price:1});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "Price_hightolow"){
+        let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort({price:-1});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+    }
+    
+    
     if(req.param('sorting') == "DefaultSorting"){
         let products = await Products.find();
         if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-        else{ return res.render('product', {user_id : req.session.user_id, products : products}); }
+        else{ return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice}); }
     }
     else if(req.param('sorting') == "Popularity"){
         let products = await Products.find().sort({purchaseAmount:-1});
-        return res.render('product', {user_id : req.session.user_id, products : products});
+        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice});
     }
     else if(req.param('sorting') == "Price_lowtohigh"){
         let products = await Products.find().sort({price:1});
-        return res.render('product', {user_id : req.session.user_id, products : products});
+        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice});
     }
     else if(req.param('sorting') == "Price_hightolow"){
         let products = await Products.find().sort({price:-1});
-        return res.render('product', {user_id : req.session.user_id, products : products});
+        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice});
     }else{
         let products = await Products.find();
         if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-        else{ return res.render('product', {user_id : req.session.user_id, products : products}); }
+        else{ return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice}); }
     }
 });
 
 router.post('/product', async(req, res) => {
     if(req.body.sortName == "DefaultSorting"){
-        return res.send({result : true, path : `/product?sorting=DefaultSorting`});
+        if( (typeof req.body.clothes === 'undefined') ) {
+            return res.send({result : true, path : `/product?sorting=DefaultSorting`})
+        }else{    
+           return res.send({result : true, path : `/product?sorting=DefaultSorting&clothesName=${req.body.clothes}`});
+        }
     }
     if(req.body.sortName == "Popularity"){
-        return res.send({result : true, path : `/product?sorting=Popularity`});
+        if( (typeof req.body.clothes === 'undefined') ){
+            return res.send({result : true, path : `/product?sorting=Popularity`});
+        }else{
+            return res.send({result : true, path : `/product?sorting=Popularity&clothesName=${req.body.clothes}`});
+        }
     }
     if(req.body.sortName == "Price_lowtohigh"){
-        return res.send({result : true, path : `/product?&sorting=Price_lowtohigh`});
+        if( (typeof req.body.clothes === 'undefined') ){
+            return res.send({result : true, path : `/product?&sorting=Price_lowtohigh`});
+        }else{
+            return res.send({result : true, path : `/product?sorting=Price_lowtohigh&clothesName=${req.body.clothes}`});
+        }
     }
     if(req.body.sortName == "Price_hightolow"){
-        return res.send({result : true, path : `/product?&sorting=Price_hightolow`});
+        if( (typeof req.body.clothes === 'undefined') ){
+            return res.send({result : true, path : `/product?&sorting=Price_hightolow`});
+        }else{
+            return res.send({result : true, path : `/product?sorting=Price_hightolow&clothesName=${req.body.clothes}`});
+        }
     }
 });
 
 router.get('/product-detail', async(req, res) => {
+    let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    let totalPrice = 0;
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('product-detail', { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price')}); }
+    else{ return res.render('product-detail', { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price'), userBasket : findUserBasket, totalPrice : totalPrice}); }
 });
 
 router.get('/cart', async(req, res) => {
@@ -66,14 +129,22 @@ router.get('/cart', async(req, res) => {
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
-router.get('/about', (req, res) => {
+router.get('/about', async(req, res) => {
+    let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    let totalPrice = 0;
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('about', {user_id : req.session.user_id}); }
+    else{ return res.render('about', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice}); }
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', async(req, res) => {
+    let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+    let totalPrice = 0;
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('contact', {user_id : req.session.user_id}); }
+    else{ return res.render('contact', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice}); }
 });
 
 router.get('/customerCenter', (req, res) => {

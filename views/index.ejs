@@ -161,79 +161,50 @@
 									</ul>
 							</div>
 						<% }else{ %>
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="./images/item-cart-01.jpg" alt="IMG">
+						<!-- Header cart noti -->	
+								<div class="header-cart header-dropdown">
+								<% for(let i in userBasket){ %>
+									<ul class="header-cart-wrapitem">
+										<li class="header-cart-item">
+											<div class="header-cart-item-img">
+												<img src="./images/item-cart-03.jpg" alt="IMG">
+											</div>
+
+											<div class="header-cart-item-txt">
+												<a href="#" class="header-cart-item-name">
+													<%=userBasket[i].products.productName%>
+												</a>
+
+												<span class="header-cart-item-info">
+													<%=userBasket[i].products.productCount%> x <%=userBasket[i].products.productPrice%> ₩
+												</span>
+											</div>
+										</li>
+									</ul>
+								<% } %>
+									<div class="header-cart-total">
+										Total: <%=totalPrice%>
 									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											White Shirt With Pleat Detail Back
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $19.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="./images/item-cart-02.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="./images/item-cart-03.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="header-cart-item-info">
-											1 x $17.00
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: $75.00
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
 									
-									<!-- Button -->
-									<a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										View Cart
-									</a>
-								</div>
+									<div class="header-cart-buttons">
+										<div class="header-cart-wrapbtn">
+											
+											<!-- Button -->
+											<a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+												View Cart
+											</a>
+										</div>
 
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
-									</a>
+										<div class="header-cart-wrapbtn">
+											<!-- Button -->
+											<a href="/service/payment" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+												Check Out
+											</a>
+										</div>
+									</div>
+									
 								</div>
-							</div>
-						</div>
+							
 						<% } %>
 					</div>
 				</div>
@@ -815,25 +786,25 @@
 
 				<ul>
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=shirt" class="s-text7">
 							Shirts
 						</a>
 					</li>
 
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=pants" class="s-text7">
 							Pants
 						</a>
 					</li>
 
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=bag" class="s-text7">
 							Bags
 						</a>
 					</li>
 
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="/product?clothes=shoes" class="s-text7">
 							Shoes
 						</a>
 					</li>
@@ -847,7 +818,7 @@
 
 				<ul>
 					<li class="p-b-9">
-						<a href="javascript:alert('준비중입니다.');" class="s-text7">
+						<a href="#" class="s-text7" id="search_2">
 							Search
 						</a>
 					</li>
@@ -899,15 +870,11 @@
                 </h4>
 
                 <form>
-                        <span class="s-text7 bg6 w-full p-b-5"> Present: 51,635,256</span>
-
+					Present: <input class="s-text7 bg6  p-b-5" type="text" id="likeCountText" value="0">
                     <div class="w-size2 p-t-20">
                         <!-- Button -->
-                        <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" onclick="alert('Thank you for your like :)')">
-                            Like
-                        </button>
+						<input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" type="button" id="likeCount" value="Like">
                     </div>
-
                 </form>
             </div>
 		</div>
@@ -995,6 +962,30 @@
 
 <!--===============================================================================================-->
 	<script src="./javascripts/main.js"></script>
-
+	<script>
+			$('#search_2').click(() => {
+				let data = prompt("검색할 제품을 입력해주세요");
+				if(data){
+					$.ajax({
+						url : '/service/search',
+						dataType : 'json',
+						type : 'POST',
+						data : {'productName' : data},
+						success : result => {
+							location.href=`${result.path}`;
+						}
+					});
+				}else{
+					alert("제대로 입력해주세요");
+				}
+			});
+	</script>
+	<script>
+			$('#likeCount').click(() => {
+				var n = $('#likeCount').index(this);
+				var num = $("#likeCountText:eq("+n+")").val();
+				num = $("#likeCountText:eq("+n+")").val(num*1+1); 
+			});
+	</script>
 </body>
 </html>

@@ -48,6 +48,8 @@ router.post('/product/add', async(req, res) => {
     await Products.create({
         name : req.body.productName,
         price : req.body.productPrice,
+        highCategoryFilter : req.body.high,
+        lowCategoryFilter : req.body.low,
         category : {
             highCategory : req.body.high,
             lowCategory : req.body.low

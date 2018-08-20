@@ -5,6 +5,8 @@ const Products = new Schema({
     name : {type : String, required : true},
     stock : {type : Number,default : 0},
     price : {type : Number, required : true},
+    highCategoryFilter : {type : String, required : true},
+    lowCategoryFilter : {type : String, required : true},
     category : {type : JSON, required : true},
     purchaseAmount : {type : Number,default : 0}
 }, {timestamps : true});
