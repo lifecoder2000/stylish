@@ -3,10 +3,10 @@ const router = express.Router();
 const crypto = require('crypto');
 const Informations = require('../database/Informations');
 const QuestionAnswer = require('../database/QuestionAnswer');
-//add
 const Products = require('../database/Products');
 const ShoppingBasket = require('../database/ShoppingBasket');
 const PaymentBasket = require('../database/PaymentBasket');
+const stringRandomGenerator = require('../tools/random');
 
 /* 데모 페이지 */
 router.get('/demo', (req, res) => {
@@ -25,9 +25,7 @@ router.get('/token', (req, res) => {
 });
 
 router.post('/token', async(req, res) => {
-    let cipher = crypto.createCipher('aes192', '%&*^&(@UJI#U)*RHY#IPRNIPENPEIKFN:@(UJ(FNPFNLDKJOPNKLF');
-    cipher.update(req.body.userId, 'utf8', 'base64');
-    let cipheredOutput = cipher.final('base64');
+    let cipheredOutput = stringRandomGenerator();
     try{ await Informations.updateOne({id : req.body.userId}, {token : cipheredOutput}); }
     catch(err){ return res.send(`<script>alert('error');location.href='/customerCenter';</script>`); }
     finally{ return res.send(`<script>alert('당신의 토큰은 ${cipheredOutput}');location.href='/customerCenter';</script>`); }

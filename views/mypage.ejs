@@ -76,15 +76,6 @@ a.sizebig:hover {
     <header class="header1">
         <!-- Header desktop -->
         <div class="container-menu-header">
-            <div class="topbar">
-                <div class="topbar-social">
-                    <a href="#" class="topbar-social-item fa fa-facebook"></a>
-                    <a href="#" class="topbar-social-item fa fa-instagram"></a>
-                    <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
-                    <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
-                    <a href="#" class="topbar-social-item fa fa-youtube-play"></a>
-                </div>
-            </div>
 
             <div class="wrap_header">
                 <!-- Logo -->
@@ -130,9 +121,11 @@ a.sizebig:hover {
                 <!-- Header Icon -->
                 <div class="header-icons">
                     <div class="header-icons">
-                        <img src="../images/icons/icon-header-01.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <img src="/images/icons/icon-header-01.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        &nbsp;&nbsp;&nbsp;<%= user_id %>
                         <div class="header-cart header-dropdown">
                             <div class="header-cart-buttons">
+                            <% if(typeof user_id == 'undefined'){ %>
                                 <!-- Sign in & Sign up -->
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
@@ -142,12 +135,26 @@ a.sizebig:hover {
                                 </div>
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
-                                        <a href="/join" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                            Sign up
+                                    <a href="/join" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        Sign up
+                                    </a>
+                                </div>
+                                <% }else{ %>
+                                    <div class="header-cart-wrapbtn">
+                                        <!-- Button -->
+                                        <a href="/logout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Sign out
                                         </a>
                                     </div>
-                                </div>
+                                    <div class="header-cart-wrapbtn">
+                                        <!-- Button -->
+                                        <a href="/user/mypage" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            My page
+                                        </a>
+                                    </div>
+                                <% } %>
                             </div>
+                        </div>
                     </div>
 
                     <span class="linedivide1"></span>
@@ -425,7 +432,7 @@ a.sizebig:hover {
 
                         <ul class="p-b-54">
                             <li class="p-t-4">
-                                <a href="#" class="s-text13 active1 sizebig" style="font-size: 20px">
+                                <a href="/user/mypage" class="s-text13 active1 sizebig" style="font-size: 20px">
                                     Information Modify
                                 </a>
                             </li><br>
@@ -461,7 +468,7 @@ name :
                         </div>
 id :  
                         <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userId" value="<%= userId %>">
+                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userId" value="<%= user_id %>">
                         </div>
 password :  
                         <div class="bo4 of-hidden size15 m-b-20">

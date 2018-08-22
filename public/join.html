@@ -397,7 +397,7 @@
             <div class="row">
 
                 <div class="col-md-6 p-b-30">
-                    <form class="leave-comment"action="/join" method="POST">
+                    <form class="leave-comment" action="/join" method="POST">
                         <h3 class="m-text26 p-b-36 p-t-15">
                             Tell us who you are
                         </h3>
@@ -440,12 +440,10 @@
                             </select>
                         </div>
 
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" id="zipAddr" placeholder="Address" required>
-                        </div>
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="button" onclick="fn_setAddr()" value="주소찾기" style="width:20%; height: 35px">
 
                         <div class="bo4 of-hidden size15 m-b-20">
-                            <input type="button" onclick="fn_setAddr()" value="주소찾기">
+                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" id="zipAddr" placeholder="Address" required>
                         </div>
 
                         <h4 class="m-text26 p-b-36 p-t-15">

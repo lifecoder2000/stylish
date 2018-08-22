@@ -8,7 +8,7 @@ const PaymentBasket = require('../database/PaymentBasket');
 router.get('/mypage', async(req, res) => {
     if(req.session.is_user_login){ 
         let userInformations = await Informations.findOne({id : req.session.user_id});
-        return res.render('mypage', {userName : userInformations.name, userId:req.session.user_id, userPw : userInformations.pw, userPhoneNumber : userInformations.phone_number, userEmail : userInformations.email, userAddress : userInformations.address}); 
+        return res.render('mypage', {userName : userInformations.name, user_id:req.session.user_id, userPw : userInformations.pw, userPhoneNumber : userInformations.phone_number, userEmail : userInformations.email, userAddress : userInformations.address}); 
     }
     else{ return res.send(`<script>alert('로그인 하지 않았습니다.');location.href='/';</script>`); }
 });

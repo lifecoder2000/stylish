@@ -674,7 +674,27 @@ iframe {
   border-bottom: 1px solid transparent;
 }
 
+li.home-noti > a {
+  color: #e65540;
+}
+
+li.shop-noti > a {
+  color: #e65540;
+}
+
 li.sale-noti > a {
+  color: #e65540;
+}
+
+li.features-noti > a {
+  color: #e65540;
+}
+
+li.about-noti > a {
+  color: #e65540;
+}
+
+li.contact-noti > a {
   color: #e65540;
 }
 

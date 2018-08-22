@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Product</title>
+	<title>Shop</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -80,11 +80,11 @@
 								<a href="/">Home</a>
 							</li>
 
-							<li>
+							<li class="sale-noti">
 								<a href="/product">Shop</a>
 							</li>
 
-							<li class="sale-noti">
+							<li>
 								<a href="javascript:alert('준비중입니다:)');">Sale</a>
 							</li>
 
@@ -377,12 +377,12 @@
 	</header>
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(./images/heading-pages-02.jpg);">
+	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-color: silver;">
 		<h2 class="l-text2 t-center">
-			Women
+			Shop
 		</h2>
 		<p class="m-text13 t-center">
-			New Arrivals Women Collection 2018
+			New Arrivals 2018
 		</p>
 	</section>
 
@@ -433,32 +433,8 @@
 
 						<!--  -->
 						<h4 class="m-text14 p-b-32">
-							Filters
+							Search
 						</h4>
-
-						<div class="filter-price p-t-22 p-b-50 bo3">
-							<div class="m-text15 p-b-17">
-								Price
-							</div>
-
-							<div class="wra-filter-bar">
-								<div id="filter-bar"></div>
-							</div>
-
-							<div class="flex-sb-m flex-w p-t-16">
-								<div class="w-size11">
-									<!-- Button -->
-									<button class="flex-c-m size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
-										Filter
-									</button>
-								</div>
-
-								<div class="s-text3 p-t-10 p-b-10">
-									Range: $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
-								</div>
-							</div>
-						</div>
-
 
 						<div class="search-product pos-relative bo4 of-hidden">
 							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" id="search" placeholder="Search Products...">
@@ -489,9 +465,6 @@
 								</div>
 						</div>
 
-						<span class="s-text8 p-t-5 p-b-5">
-							Showing 1–12 of 16 results
-						</span>
 					</div>
 
 					<!-- Product -->
@@ -500,15 +473,12 @@
 							<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 								<!-- Block2 -->
 								<div class="block2">
-									<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+									<div class="block2-img wrap-pic-w of-hidden pos-relative">
 										<img src="./images/item-02.jpg" alt="IMG-PRODUCT">
-	
+										<a href="/product-detail?name=<%=products[i].name%>&price=<%=products[i].price%>" class="block2-name dis-block s-text3 p-b-5">
 										<div class="block2-overlay trans-0-4">
-											<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-												<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-												<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-											</a>
 										</div>
+										</a>
 									</div>
 										<div class="block2-txt p-t-20">
 											<a href="/product-detail?name=<%=products[i].name%>&price=<%=products[i].price%>" class="block2-name dis-block s-text3 p-b-5">
@@ -672,7 +642,7 @@
 			</a>
 
 			<a href="#">
-				<img class="h-size2" src=".images/icons/mastercard.png" alt="IMG-MASTERCARD">
+				<img class="h-size2" src="./images/icons/mastercard.png" alt="IMG-MASTERCARD">
 			</a>
 
 			<a href="#">

@@ -1,105 +1,691 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Ordered</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../../images/icons/favicon.png"/>
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../fonts/themify/themify-icons.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../fonts/elegant-font/html-css/style.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../vendor/animate/animate.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../vendor/slick/slick.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/main.css">
+<!--===============================================================================================-->
+<style type="text/css">
+a.sizebig{
+    display: inline-block;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+}
+
+a.sizebig:hover {
+    -webkit-transform: scale(1.5,1.5);
+    -moz-transform: scale(1.5,1.5);
+    -o-transform: scale(1.5,1.5);
+    -ms-transform: scale(1.5,1.5);
+    transform: scale(1.5,1.5);
+}
+</style>
+
 </head>
-<body>  
-        <div class="bo4 of-hidden size15 m-b-20">
-                구매자 :  
-            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="userName" value="<%= userId %>" disabled>
-        </div><br>
-        
-        <% for(let i in PaymentBasket){ %>
-            <fieldset>
-                <form name="orderUpdate" action="/user/mypage/Ordered/cancelOrder" method="POST">
-                            <div class="bo4 of-hidden size15 m-b-20">
-                                    결제날짜 :
-                                    <%=PaymentBasket[i].date.getFullYear()%>-<%=PaymentBasket[i].date.getMonth()+1%>-<%=PaymentBasket[i].date.getDate()%>
-                            </div>
-                    상품명 :  
-                            <div class="bo4 of-hidden size15 m-b-20">
-                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productName" value="<%= PaymentBasket[i].products.productName %>" disabled>
-                            </div>
-                    상품갯수 :  
-                            <div class="bo4 of-hidden size15 m-b-20">
-                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productCount" value="<%= PaymentBasket[i].products.productCount %>" disabled>
-                            </div>
-                    옵션 :  
-                            <div class="bo4 of-hidden size15 m-b-20">
-                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productSize" value="<%= PaymentBasket[i].products.productSize %>" disabled>
-                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="productColor" value="<%= PaymentBasket[i].products.productColor %>" disabled>
-                            </div>
-                    배송상태 :  
-                            <div class="bo4 of-hidden size15 m-b-20">
-                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" disabled>
-                            </div><br>
 
-                    <!--고유번호 :-->       <div class="bo4 of-hidden size15 m-b-20">
-                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+
+<body class="animsition">
+
+    <!-- Header -->
+    <header class="header1">
+        <!-- Header desktop -->
+        <div class="container-menu-header">
+            <div class="topbar">
+                <div class="topbar-social">
+                    <a href="javascript:alert('facebook');" class="topbar-social-item fa fa-facebook"></a>
+                    <a href="javascript:alert('instagram');" class="topbar-social-item fa fa-instagram"></a>
+                    <a href="javascript:alert('pinterest');" class="topbar-social-item fa fa-pinterest-p"></a>
+                    <a href="javascript:alert('snapchat');" class="topbar-social-item fa fa-snapchat-ghost"></a>
+                    <a href="javascript:alert('youtube');" class="topbar-social-item fa fa-youtube-play"></a>
+                </div>
+
+                <span class="topbar-child1">
+                    Stylish에서 스타일리쉬하게 변하다!
+                </span>
+
+                <div class="topbar-child2">
+                    <span class="topbar-email">
+                        fashe@example.com
+                    </span>
+
+                    <div class="topbar-language rs1-select2">
+                        <select class="selection-1" name="time">
+                            <option>USD</option>
+                            <option>EUR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrap_header">
+                <!-- Logo -->
+                <a href="/" class="logo">
+                    <img src="../../images/icons/logo.png" alt="IMG-LOGO">
+                </a>
+
+                <!-- Menu -->
+                <div class="wrap_menu">
+                    <nav class="menu">
+                        <ul class="main_menu">
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+
+                            <li>
+                                <a href="/product">Shop</a>
+                            </li>
+
+                            <li class="sale-noti">
+                                <a href="javascript:alert('준비중입니다:)');">Sale</a>
+                            </li>
+
+                            <li>
+                                <a href="/cart">Features</a>
+                            </li>
+
+                            <li>
+                                <a href="/about">About</a>
+                            </li>
+
+                            <li>
+                                <a href="/contact">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Header Icon -->
+                <div class="header-icons">
+                    <div class="header-icons">
+                        <img src="../../images/icons/icon-header-01.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        &nbsp;&nbsp;&nbsp;<%= userId %>
+                        <div class="header-cart header-dropdown">
+                            <div class="header-cart-buttons">
+                            <% if(typeof user_id == 'undefined'){ %>
+                                <!-- Sign in & Sign up -->
+                                <div class="header-cart-wrapbtn">
+                                    <!-- Button -->
+                                    <a href="/login" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        Sign in
+                                    </a>
+                                </div>
+                                <div class="header-cart-wrapbtn">
+                                    <!-- Button -->
+                                    <a href="/join" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        Sign up
+                                    </a>
+                                </div>
+                                <% }else{ %>
+                                    <div class="header-cart-wrapbtn">
+                                        <!-- Button -->
+                                        <a href="/logout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Sign out
+                                        </a>
+                                    </div>
+                                    <div class="header-cart-wrapbtn">
+                                        <!-- Button -->
+                                        <a href="/user/mypage" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            My page
+                                        </a>
+                                    </div>
+                                <% } %>
+                            </div>
                         </div>
+                    </div>
 
-                        <!-- <button class="cancelOrder" id="cancelOrder" value="주문취소">
-                        주문취소
-                        </button> -->
+                    <span class="linedivide1"></span>
 
+                    <div class="header-wrapicon2">
+                        <img src="../../images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <span class="header-icons-noti">0</span>
+                        <% if(typeof user_id == 'undefined'){ %>
+                            <div class="header-cart header-dropdown">
+                                    <ul class="header-cart-wrapitem">
+                                            <li class="header-cart-item">
+                                                Login please :)
+                                            </li>
+                                    </ul>
+                            </div>
+                        <% }else{ %>
+                        <!-- Header cart noti -->
+                        <div class="header-cart header-dropdown">
+                            <% for(let i in userBasket){ %>
+                                <ul class="header-cart-wrapitem">
+                                    <li class="header-cart-item">
+                                        <div class="header-cart-item-img">
+                                            <img src="../../images/item-cart-01.jpg" alt="IMG">
+                                        </div>
+
+                                        <div class="header-cart-item-txt">
+                                            <a href="#" class="header-cart-item-name">
+                                                <%=userBasket[i].products.productName%>
+                                            </a>
+
+                                            <span class="header-cart-item-info">
+                                                <%=userBasket[i].products.productCount%> x <%=userBasket[i].products.productPrice%> ₩
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>   
+                            <% } %>
+                            <div class="header-cart-total">
+                                Total: <%=totalPrice%>
+                            </div>
+
+                            <div class="header-cart-buttons">
+                                <div class="header-cart-wrapbtn">
+                                    <!-- Button -->
+                                    <a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        View Cart
+                                    </a>
+                                </div>
+
+                                <div class="header-cart-wrapbtn">
+                                    <!-- Button -->
+                                    <a href="/service/payment" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        Check Out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap_header_mobile">
+            <!-- Logo moblie -->
+            <a href="/" class="logo-mobile">
+                <img src="../../images/icons/logo.png" alt="IMG-LOGO">
+            </a>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu">
+                <!-- Header Icon mobile -->
+                <div class="header-icons-mobile">
+                    <a href="#" class="header-wrapicon1 dis-block">
+                        <img src="../../images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+                    </a>
+
+                    <span class="linedivide2"></span>
+
+                    <div class="header-wrapicon2">
+                        <img src="../../images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <span class="header-icons-noti">0</span>
+
+                        <!-- Header cart noti -->
+                        <div class="header-cart header-dropdown">
+                            <ul class="header-cart-wrapitem">
+                                <li class="header-cart-item">
+                                    <div class="header-cart-item-img">
+                                        <img src="../../images/item-cart-01.jpg" alt="IMG">
+                                    </div>
+
+                                    <div class="header-cart-item-txt">
+                                        <a href="#" class="header-cart-item-name">
+                                            White Shirt With Pleat Detail Back
+                                        </a>
+
+                                        <span class="header-cart-item-info">
+                                            1 x $19.00
+                                        </span>
+                                    </div>
+                                </li>
+
+                                <li class="header-cart-item">
+                                    <div class="header-cart-item-img">
+                                        <img src="../../images/item-cart-02.jpg" alt="IMG">
+                                    </div>
+
+                                    <div class="header-cart-item-txt">
+                                        <a href="#" class="header-cart-item-name">
+                                            Converse All Star Hi Black Canvas
+                                        </a>
+
+                                        <span class="header-cart-item-info">
+                                            1 x $39.00
+                                        </span>
+                                    </div>
+                                </li>
+
+                                <li class="header-cart-item">
+                                    <div class="header-cart-item-img">
+                                        <img src="../../images/item-cart-03.jpg" alt="IMG">
+                                    </div>
+
+                                    <div class="header-cart-item-txt">
+                                        <a href="#" class="header-cart-item-name">
+                                            Nixon Porter Leather Watch In Tan
+                                        </a>
+
+                                        <span class="header-cart-item-info">
+                                            1 x $17.00
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="header-cart-total">
+                                Total: $75.00
+                            </div>
+
+                            <div class="header-cart-buttons">
+                                <div class="header-cart-wrapbtn">
+                                    <!-- Button -->
+                                    <a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        View Cart
+                                    </a>
+                                </div>
+
+                                <div class="header-cart-wrapbtn">
+                                    <!-- Button -->
+                                    <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                        Check Out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="wrap-side-menu" >
+            <nav class="side-menu">
+                <ul class="main-menu">
+                    <li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
+                        <span class="topbar-child1">
+                            Free shipping for standard order over $100
+                        </span>
+                    </li>
+
+                    <li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
+                        <div class="topbar-child2-mobile">
+                            <span class="topbar-email">
+                                fashe@example.com
+                            </span>
+
+                            <div class="topbar-language rs1-select2">
+                                <select class="selection-1" name="time">
+                                    <option>USD</option>
+                                    <option>EUR</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="item-topbar-mobile p-l-10">
+                        <div class="topbar-social-mobile">
+                            <a href="#" class="topbar-social-item fa fa-facebook"></a>
+                            <a href="#" class="topbar-social-item fa fa-instagram"></a>
+                            <a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
+                            <a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
+                            <a href="#" class="topbar-social-item fa fa-youtube-play"></a>
+                        </div>
+                    </li>
+
+                    <li class="item-menu-mobile">
+                        <a href="/">Home</a>
+                        <ul class="sub-menu">
+                            <li><a href="/">Homepage V1</a></li>
+                        </ul>
+                        <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+                    </li>
+
+                    <li class="item-menu-mobile">
+                        <a href="/product">Shop</a>
+                    </li>
+
+                    <li class="item-menu-mobile">
+                        <a href="javascript:alert('준비중입니다:)');">Sale</a>
+                    </li>
+
+                    <li class="item-menu-mobile">
+                        <a href="/cart">Features</a>
+                    </li>
+
+                    <li class="item-menu-mobile">
+                        <a href="/about">About</a>
+                    </li>
+
+                    <li class="item-menu-mobile">
+                        <a href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+
+
+
+    <!-- Title Page -->
+    <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-color: silver;">
+        <h2 class="l-text2 t-center">
+            Ordered
+        </h2>
+    </section>
+
+    <!-- Cart -->
+    <section class="cart bgwhite p-t-70 p-b-100">
+        <div class="container">
+                    <div class="leftbar p-r-20 p-r-0-sm">
+                        <!--  -->
+                        <h4 class="m-text14 p-b-7" style="font-size: 44px">
+                            My Page
+                        </h4> <br><br>
+                    </div>
+
+                    <div style="text-align:center">
+                                <a href="/user/mypage" class="s-text13 sizebig" style="font-size: 20px;">
+                                    Information Modify
+                                </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <a href="/user/mypage/basket" class="s-text13 sizebig" style="font-size: 20px;">
+                                    Shopping Basket
+                                </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                                <a href="/user/mypage/Ordered" class="s-text13 active1 sizebig" style="font-size: 20px;">
+                                    Ordered
+                                </a>
+                     </div>
+<br> <br><br> <br><br> 
+
+            <!-- Cart item -->
+            <div class="container-table-cart pos-relative">
+                <div class="wrap-table-shopping-cart bgwhite">
+                    <table class="table-shopping-cart">
+                        <tr class="table-head">
+                            <th class="column-1">Date</th>
+                            <th class="column-2">Product</th>
+                            <th class="column-3">Quantity</th>
+                            <th class="column-4 p-l-70">Option</th>
+                            <th class="column-4">Status</th>
+                        </tr>
+                        <% for(let i in PaymentBasket){ %>
+                        <form name="orderUpdate" action="/user/mypage/Ordered/cancelOrder" method="POST">
+                            <tr class="table-row">
+                                <td class="column-1">
+                                    <%=PaymentBasket[i].date.getFullYear()%>-<%=PaymentBasket[i].date.getMonth()+1%>-<%=PaymentBasket[i].date.getDate()%>
+                                </td>
+                                <td class="column-2"><%= PaymentBasket[i].products.productName %></td>
+                                <td class="column-3"><%= PaymentBasket[i].products.productCount %></td>
+                                <td class="column-5">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <%= PaymentBasket[i].products.productSize %>, &nbsp;
+                                    <%= PaymentBasket[i].products.productColor %>
+                                </td>
+                                <td class="column-5"><%= PaymentBasket[i].status %> </td>
+
+                                <!--고유번호 :-->    
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+
+                                <!-- <button class="cancelOrder" id="cancelOrder" value="주문취소">
+                                주문취소
+                                </button> -->
+                                <td class="column-5">
                         <% if(PaymentBasket[i].status === "주문취소"){ %>
                         <% }else{ %>
-                            <input type="submit" value="주문취소" name="cancelOrder" onclick='choice(1)'/>
+                        
+                            <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="주문취소" name="cancelOrder" onclick='choice(1)'/>
+                                </td>
                         <% } %>
+
                         
 
                         <!-- <button id="takeBack" value="반품신청(환불,교환)">
                             반품신청(환불,교환)
                         </button> -->
 
-                </form><br>
-                <form action="/user/mypage/Ordered/takeBack" method="POST">
+
+
+                            
+                        </form>
+                    <form action="/user/mypage/Ordered/takeBack" method="POST">
                     <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" readonly hidden>
                     <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+                    <td class="column-5">
                     <% if(PaymentBasket[i].status === "교환신청"){ %>
-                        <input type="submit" value="반품신청(환불)" name="takeBack" onclick='choice(2)'/>
+                    
+                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불)" name="takeBack" onclick='choice(2)'/>
+                    
                     <% }else if(PaymentBasket[i].status === "환불"){ %>
                         
                     <% }else{ %>
-                        <input type="submit" value="반품신청(환불,교환)" name="takeBack" onclick='choice(2)'/>
+                    
+                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불,교환)" name="takeBack" onclick='choice(2)'/>
+                    
                     <% } %>
+                </td>
                 </form>
-            </fieldset>
+                </tr>
+
+
+
             <br>
         
         <% } %>
-       
-        <!-- <script>
-            $('#takeBack').click(() => {
-                 $.ajax({
-                    url : '/user/mypage/Ordered/takeBack',
-                    dataType : 'json',
-                    type : 'POST',
-                    data : {'takeBack' : $('#takeBack').val()},
-                    success : result => {
-                        location.href=`${result.path}`;
-                    }
-                });
+
+
+
+                    </table>
+                    <div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+        <div class="flex-w p-b-90">
+            <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
+                <h4 class="s-text12 p-b-30">
+                    GET IN TOUCH
+                </h4>
+
+                <div>
+                    <p class="s-text7 w-size27">
+                        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+                    </p>
+
+                    <div class="flex-m p-t-30">
+                        <a href="javascript:alert('facebook');" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+                        <a href="javascript:alert('instagram');" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+                        <a href="javascript:alert('pinterest');" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+                        <a href="javascript:alert('snapchat');" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+                        <a href="javascript:alert('youtube');" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                <h4 class="s-text12 p-b-30">
+                    Categories
+                </h4>
+
+                <ul>
+                        <li class="p-b-9">
+                                <a href="/product?clothes=shirt" class="s-text7">
+                                    Shirts
+                                </a>
+                            </li>
+        
+                            <li class="p-b-9">
+                                <a href="/product?clothes=pants" class="s-text7">
+                                    Pants
+                                </a>
+                            </li>
+        
+                            <li class="p-b-9">
+                                <a href="/product?clothes=bag" class="s-text7">
+                                    Bag
+                                </a>
+                            </li>
+        
+                            <li class="p-b-9">
+                                <a href="/product?clothes=shoes" class="s-text7">
+                                    Shoes
+                                </a>
+                            </li>
+                </ul>
+            </div>
+
+            <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                <h4 class="s-text12 p-b-30">
+                    Links
+                </h4>
+
+                <ul>
+                    <li class="p-b-9">
+                        <a href="#" class="s-text7" id="search_2">
+                            Search
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/about" class="s-text7">
+                            About Us
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/contact" class="s-text7">
+                            Contact Us
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                <h4 class="s-text12 p-b-30">
+                    Help
+                </h4>
+
+                <ul>
+                    <li class="p-b-9">
+                        <a href="/customerCenter" class="s-text7">
+                            Customer Center
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/tos.html" class="s-text7">
+                            ToS
+                        </a>
+                    </li>
+
+                    <li class="p-b-9">
+                        <a href="/priv.html" class="s-text7">
+                            Privacy Policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
+                <h4 class="s-text12 p-b-30">
+                    Like us
+                </h4>
+
+                <form>
+                    Present: <input class="s-text7 bg6  p-b-5" type="text" id="likeCountText" value="0">
+                    <div class="w-size2 p-t-20">
+                        <!-- Button -->
+                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" type="button" id="likeCount" value="Like">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="t-center p-l-15 p-r-15">
+            <a href="#">
+                <img class="h-size2" src="../../images/icons/paypal.png" alt="IMG-PAYPAL">
+            </a>
+
+            <a href="#">
+                <img class="h-size2" src="../../images/icons/visa.png" alt="IMG-VISA">
+            </a>
+
+            <a href="#">
+                <img class="h-size2" src="../../images/icons/mastercard.png" alt="IMG-MASTERCARD">
+            </a>
+
+            <a href="#">
+                <img class="h-size2" src="../../images/icons/express.png" alt="IMG-EXPRESS">
+            </a>
+
+            <a href="#">
+                <img class="h-size2" src="../../images/icons/discover.png" alt="IMG-DISCOVER">
+            </a>
+
+            <div class="t-center s-text8 p-t-20">
+                Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+            $('#likeCount').click(() => {
+                var n = $('#likeCount').index(this);
+                var num = $("#likeCountText:eq("+n+")").val();
+                num = $("#likeCountText:eq("+n+")").val(num*1+1); 
             });
-        </script> -->
-        <!-- <script>
-                function choice(choice){
-                    if(choice == 1){
-                        let a = document.forms['orderUpdate'];
-                        a.action = "/user/mypage/Ordered/cancelOrder";
-                        a.method = "post";
-                        a.submit();
-                    }
-                    if(choice == 2){
-                        let a = document.forms['orderUpdate'];
-                        a.action = "/user/mypage/Ordered/takeBack";
-                        a.method = "post";
-                        a.submit();
-                    }
-                }
-        </script> -->
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
