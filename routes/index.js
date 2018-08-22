@@ -8,10 +8,11 @@ const Products = require('../database/Products');
 router.get('/', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('index', {user_id : req.session.user_id, product: products, userBasket : findUserBasket, totalPrice : totalPrice}); }
+    else{ return res.render('index', {user_id : req.session.user_id, product: products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
 });
 
 router.get('/product', async(req, res) => {
@@ -21,60 +22,60 @@ router.get('/product', async(req, res) => {
 
     if(req.param('clothes') == "shirt"){
         let findProducts = await Products.find({highCategoryFilter : "shirt"});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shirt", userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shirt", userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     if(req.param('clothes') == "pants"){
         let findProducts = await Products.find({highCategoryFilter : "pants"});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "pants", userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "pants", userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     if(req.param('clothes') == "bag"){
         let findProducts = await Products.find({highCategoryFilter : "bag"});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "bag", userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "bag", userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     if(req.param('clothes') == "shoes"){
         let findProducts = await Products.find({highCategoryFilter : "shoes"});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shoes", userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shoes", userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
 
     /* 카테고리에서 4가지 필터 */
     if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "DefaultSorting"){
         let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "Popularity"){
         let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort({purchaseAmount:-1});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "Price_lowtohigh"){
         let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort({price:1});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     if((typeof req.param('clothesName')) != 'undefined' && req.param('sorting') == "Price_hightolow"){
         let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort({price:-1});
-        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     
     
     if(req.param('sorting') == "DefaultSorting"){
         let products = await Products.find();
         if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-        else{ return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice}); }
+        else{ return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
     }
     else if(req.param('sorting') == "Popularity"){
         let products = await Products.find().sort({purchaseAmount:-1});
-        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     else if(req.param('sorting') == "Price_lowtohigh"){
         let products = await Products.find().sort({price:1});
-        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }
     else if(req.param('sorting') == "Price_hightolow"){
         let products = await Products.find().sort({price:-1});
-        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice});
+        return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
     }else{
         let products = await Products.find();
         if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-        else{ return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice}); }
+        else{ return res.render('product', {user_id : req.session.user_id, products : products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
     }
 });
 
