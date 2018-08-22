@@ -18,8 +18,8 @@ router.get('/', async(req, res) => {
 router.get('/product', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
-
     if(req.param('clothes') == "shirt"){
         let findProducts = await Products.find({highCategoryFilter : "shirt"});
         return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shirt", userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
@@ -113,39 +113,39 @@ router.post('/product', async(req, res) => {
 router.get('/product-detail', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
-
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('product-detail', { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price'), userBasket : findUserBasket, totalPrice : totalPrice}); }
+    else{ return res.render('product-detail', { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
 });
 
 router.get('/cart', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
-    
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); } //totalPrice 
-    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice}); }
+    else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
 });
 
 router.get('/about', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
-
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('about', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice}); }
+    else{ return res.render('about', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
 });
 
 router.get('/contact', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
-
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('contact', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice}); }
+    else{ return res.render('contact', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
 });
 
 router.get('/customerCenter', (req, res) => {
@@ -216,6 +216,7 @@ router.post('/cart', async(req, res) => {
             });
         }
         catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
+        finally{ return res.send({result : true, path : '/product'}); }
     }
     /*
         { 

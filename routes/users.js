@@ -7,8 +7,12 @@ const PaymentBasket = require('../database/PaymentBasket');
 /* 마이페이지 */
 router.get('/mypage', async(req, res) => {
     if(req.session.is_user_login){ 
+        let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
+        let totalPrice = 0;
+        for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
         let userInformations = await Informations.findOne({id : req.session.user_id});
-        return res.render('mypage', {userName : userInformations.name, user_id:req.session.user_id, userPw : userInformations.pw, userPhoneNumber : userInformations.phone_number, userEmail : userInformations.email, userAddress : userInformations.address}); 
+        let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
+        return res.render('mypage', {userName : userInformations.name, user_id:req.session.user_id, userPw : userInformations.pw, userPhoneNumber : userInformations.phone_number, userEmail : userInformations.email, userAddress : userInformations.address, basketCount : basketCount, userBasket : findUserBasket, totalPrice : totalPrice}); 
     }
     else{ return res.send(`<script>alert('로그인 하지 않았습니다.');location.href='/';</script>`); }
 });
@@ -28,7 +32,7 @@ router.post('/informations', async(req, res) => {
 });
 
 /* 장바구니 및 물건추가*/
-router.get('/mypage/basket', async(req, res) => {
+router.get('/mypage/basket',(req, res) => {
     // 결제는 service.js : /payment에서 처리할예정
     return res.redirect('/cart');
 });
@@ -36,8 +40,9 @@ router.get('/mypage/basket', async(req, res) => {
 /* 주문내역(주문내역(주문하기, 주문취소), 배송 조회,  교환&반품 신청) */
 router.get('/mypage/Ordered', async(req, res) => {
     let findPaymentBasket = await PaymentBasket.find({userId : req.session.user_id});
+    let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
     if(findPaymentBasket){ 
-        res.render('ordered', { PaymentBasket : findPaymentBasket, userId : req.session.user_id});
+        res.render('ordered', { PaymentBasket : findPaymentBasket, userId : req.session.user_id, basketCount : basketCount});
      }
 });
 

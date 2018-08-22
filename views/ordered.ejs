@@ -165,7 +165,7 @@ a.sizebig:hover {
 
                     <div class="header-wrapicon2">
                         <img src="../../images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                        <span class="header-icons-noti">0</span>
+                        <span class="header-icons-noti"><%= basketCount %></span>
                         <% if(typeof user_id == 'undefined'){ %>
                             <div class="header-cart header-dropdown">
                                     <ul class="header-cart-wrapitem">
@@ -185,7 +185,7 @@ a.sizebig:hover {
                                         </div>
 
                                         <div class="header-cart-item-txt">
-                                            <a href="#" class="header-cart-item-name">
+                                            <a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>" class="header-cart-item-name">
                                                 <%=userBasket[i].products.productName%>
                                             </a>
 
@@ -465,54 +465,64 @@ a.sizebig:hover {
                                 <td class="column-5">
                         <% if(PaymentBasket[i].status === "주문취소"){ %>
                         <% }else{ %>
-                        
-                            <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="주문취소" name="cancelOrder" onclick='choice(1)'/>
+                            <% if(PaymentBasket[i].status === "환불"){ %>
+
+                            <% }else{ %>
+                                <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="주문취소" name="cancelOrder" onclick='choice(1)'/>
                                 </td>
-                        <% } %>
-
-                        
-
+                            <% } %>
+   
                         <!-- <button id="takeBack" value="반품신청(환불,교환)">
                             반품신청(환불,교환)
                         </button> -->
 
-
-
-                            
                         </form>
-                    <form action="/user/mypage/Ordered/takeBack" method="POST">
-                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" readonly hidden>
-                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
-                    <td class="column-5">
-                    <% if(PaymentBasket[i].status === "교환신청"){ %>
-                    
-                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불)" name="takeBack" onclick='choice(2)'/>
-                    
-                    <% }else if(PaymentBasket[i].status === "환불"){ %>
                         
-                    <% }else{ %>
-                    
-                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불,교환)" name="takeBack" onclick='choice(2)'/>
-                    
-                    <% } %>
-                </td>
-                </form>
+                            <% if(PaymentBasket[i].status === "교환신청"){ %>
+                                <form action="/user/mypage/Ordered/takeBack" method="POST">
+                                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" readonly hidden>
+                                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+                                    <td class="column-5">
+                                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불)" name="takeBack" onclick='choice(2)'/>
+                                    </td>
+                                </form>
+                            
+                            <% }else if(PaymentBasket[i].status === "환불"){ %>
+                                
+                            <% }else{ %>
+                                <form action="/user/mypage/Ordered/takeBack" method="POST">
+                                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" readonly hidden>
+                                    <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+                                    <td class="column-5">
+                                            <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불,교환)" name="takeBack" onclick='choice(2)'/>
+                                    </td>
+                                </form>
+                            <% } %>
+                        <% } %>
+                        
+                        <!-- <form action="/user/mypage/Ordered/takeBack" method="POST">
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="status" value="<%= PaymentBasket[i].status %>" readonly hidden>
+                                <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="_id" value="<%= PaymentBasket[i]._id %>" readonly hidden>
+                                <td class="column-5">
+                                    <% if(PaymentBasket[i].status === "교환신청"){ %>
+                                    
+                                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불)" name="takeBack" onclick='choice(2)'/>
+                                    
+                                    <% }else if(PaymentBasket[i].status === "환불"){ %>
+                                        
+                                    <% }else{ %>
+                                    
+                                        <input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="padding: 10px;" type="submit" value="반품신청(환불,교환)" name="takeBack" onclick='choice(2)'/>
+                                    
+                                    <% } %>
+                                </td>
+                        </form> -->
                 </tr>
-
-
-
             <br>
-        
         <% } %>
-
-
-
                     </table>
-                    <div>
-                    </div>
                 </div>
             </div>
-            
         </div>
     </section>
 

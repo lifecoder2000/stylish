@@ -162,7 +162,7 @@ h4.sizebig:hover {
 
 					<div class="header-wrapicon2">
 						<img src="./images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
+						<span class="header-icons-noti"><%= basketCount %></span>
 						<% if(typeof user_id == 'undefined'){ %>
 							<div class="header-cart header-dropdown">
 									<ul class="header-cart-wrapitem">
@@ -177,12 +177,14 @@ h4.sizebig:hover {
 								<% for(let i in userBasket){ %>
 									<ul class="header-cart-wrapitem">
 										<li class="header-cart-item">
-											<div class="header-cart-item-img">
-												<img src="./images/item-cart-03.jpg" alt="IMG">
-											</div>
+											<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>">
+												<div class="header-cart-item-img">
+													<img src="./images/item-cart-01.jpg" alt="IMG">
+												</div>
+											</a>
 
 											<div class="header-cart-item-txt">
-												<a href="#" class="header-cart-item-name">
+												<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>" class="header-cart-item-name">
 													<%=userBasket[i].products.productName%>
 												</a>
 
