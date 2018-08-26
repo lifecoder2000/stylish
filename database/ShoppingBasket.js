@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ShoppingBasket = new Schema({
     userId : {type : String, required : true},
-    productNamekey : {type : String, required : true},
+    productNameKey : {type : String, required : true},
     products : {type : JSON, required : true},
     highCategoryFilter : {type : String, required : true},
     lowCategoryFilter : {type : String, required : true},

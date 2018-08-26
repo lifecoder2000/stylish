@@ -140,14 +140,14 @@
 							<% for(let i in userBasket){ %>
 								<ul class="header-cart-wrapitem">
 									<li class="header-cart-item">
-										<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
+										<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
 											<div class="header-cart-item-img">
 												<img src="./images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="IMG">
 											</div>
 										</a>
 
 										<div class="header-cart-item-txt">
-											<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
+											<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
 												<%=userBasket[i].products.productName%>
 											</a>
 
@@ -405,36 +405,43 @@
 							<form action="/cart/deleteOne" method="POST">
 								<tr class="table-row">
 									<td class="column-1">
-										<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
+										<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
 										<div class="cart-img-product b-rad-4 o-f-hidden">
 											<img src="./images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="상품 이미지가 준비중입니다.">
 										</div>
 										</a>
 									</td>
-									<td class="column-2"><a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>"><input type="text" name="productName" value="<%= userBasket[i].products.productName %>" hidden><%= userBasket[i].products.productName %></a></td>
-									<td class="column-3"><%= userBasket[i].products.productPrice %> ₩</td>
+									<td class="column-2"><a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>"><input type="text" name="productNameKey" value="<%= userBasket[i].products.productName %>" hidden><%= userBasket[i].products.productName %></a></td>
+									<td class="column-3"><%= userBasket[i].products.productPrice %> ₩</td><input type="text" name="productPriceKey" value="<%= userBasket[i].products.productPrice %>" hidden>
 									<td class="column-4">
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<%= userBasket[i].productCountKey %>
+												<%= userBasket[i].productCountKey %><input type="text" name="productCountKey" value="<%= userBasket[i].productCountKey %>" hidden>
 									</td>
+									<input type="text" name="highCategoryFilter" value="<%= userBasket[i].highCategoryFilter %>" hidden>
 									<% if(userBasket[i].highCategoryFilter == "shirt" || userBasket[i].highCategoryFilter == "pants"){ %>
 										<td class="column-3">
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<%= userBasket[i].products.productHigh %>, &nbsp;
 												<%= userBasket[i].products.productWeight %>, &nbsp;
 												<%= userBasket[i].products.productColor %>
+												<input type="text" name="productHighKey" value="<%= userBasket[i].products.productHigh %>" hidden>
+												<input type="text" name="productWeightKey" value="<%= userBasket[i].products.productWeight %>" hidden>
+												<input type="text" name="productColorKey" value="<%= userBasket[i].products.productColor %>" hidden>
 										</td>
 									<% }else if(userBasket[i].highCategoryFilter == "shoes"){ %>
 										<td class="column-3">
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<%= userBasket[i].products.productSize %>, &nbsp;
 												<%= userBasket[i].products.productColor %>
+												<input type="text" name="productSizeKey" value="<%= userBasket[i].products.productSize %>" hidden>
+												<input type="text" name="productColorKey" value="<%= userBasket[i].products.productColor %>" hidden>
 										</td>
 									<% }else{ %>
 										<td class="column-3">
 												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<%= userBasket[i].products.productColor %>
+												<input type="text" name="productColorKey" value="<%= userBasket[i].products.productColor %>" hidden>
 										</td>
 									<% } %>
 									<td class="column-5"><%= userBasket[i].products.productPrice * userBasket[i].productCountKey %>₩</td>

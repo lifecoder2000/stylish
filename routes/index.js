@@ -215,98 +215,115 @@ router.get('/logout', (req, res) => {
 
 /* 카트 추가 */
 router.post('/cart', async(req, res) => {
-    let findProduct = await Products.findOne({ name : req.body.productName });
-    if(req.body.productSize == "Choose an option" || req.body.productColor == "Choose an option" || req.body.productWeight == "Choose an option" || req.body.productHigh == "Choose an option"){ // 기본 Choose an option은 옵션으로 선택 불가
-        return res.send(`<script>alert('옵션을 모두 선택해주세요 !');</script>`); // 왜 작동 안돼지?
+    // let findProduct = await Products.findOne({ name : req.body.productName });
+    if(req.body.productSizeKey == "Choose an option" || req.body.productColorKey == "Choose an option" || req.body.productWeightKey == "Choose an option" || req.body.productHighKey == "Choose an option"){ // 기본 Choose an option은 옵션으로 선택 불가
+        return res.send(`<script>alert('옵션을 모두 선택해주세요 !');location.href='/product-detail?name=${req.body.productNameKey}&price=${req.body.productPriceKey}&highCategoryFilter=${req.body.highCategoryFilter}&lowCategoryFilter=${req.body.lowCategoryFilter}&description=${req.body.description}';</script>`);
         // return res.send({ result : true, path : `/product-detail?name=${findProduct.name}&price=${findProduct.price}`});
     }else{
-        try{
-            if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){
+        try{ 
+            if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){ // 셔츠,바지 중복 체크
                 let count = 0;
-                let overlapShoppingBasket = await ShoppingBasket.findOne({ productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productHighKey : req.body.productHigh, productWeightKey : req.body.productWeight, productColorKey : req.body.productColor,
-                     });
+                let overlapShoppingBasket = await ShoppingBasket.findOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productHighKey : req.body.productHighKey, productWeightKey : req.body.productWeightKey, productColorKey : req.body.productColorKey});
                 if(overlapShoppingBasket){
-                    for(let i in overlapShoppingBasket){
-                        count++;
-                    }
-                }
-                if(count > 0){ // json의 color는 업데이트가 안됨.
-                    await ShoppingBasket.updateOne({productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productHighKey : req.body.productHigh, productWeightKey : req.body.productWeight, productColorKey : req.body.productColor,
-                    },{ productCountKey : req.body.productCount});
-                }
-                else{
-                    await ShoppingBasket.create({
-                        userId : req.session.user_id,
-                        productNamekey : req.body.productName,
-                        highCategoryFilter : req.body.highCategoryFilter,
-                        lowCategoryFilter : req.body.lowCategoryFilter,
-                        description : req.body.description,
-
-                        productPriceKey : req.body.productPrice,
-                        productHighKey : req.body.productHigh,
-                        productWeightKey : req.body.productWeight,
-                        productColorKey : req.body.productColor,
-                        productCountKey : req.body.productCount,
-
-                        products : {
-                            productName : req.body.productName,
-                            productPrice : req.body.productPrice,
-                            productHigh : req.body.productHigh,
-                            productWeight : req.body.productWeight,
-                            productColor : req.body.productColor,
-                            productCount : req.body.productCount
-                        }    
-                    });
-                }
-                
-            }else if(req.body.highCategoryFilter == "shoes"){
-                let testcount = 0;
-                let test_overlapShoppingBasket = await ShoppingBasket.findOne({ productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productSize : req.body.productSize, productColorKey : req.body.productColor});
-                for(let i in test_overlapShoppingBasket){
-                    testcount++;
-                }
-                if(testcount > 0){ // json의 color는 업데이트가 안됨.
-                    await ShoppingBasket.updateOne({ productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productSize : req.body.productSize, productColorKey : req.body.productColor },{ productCountKey : req.body.productCount });
+                    let resultCount = Number(req.body.productCountKey) + overlapShoppingBasket.productCountKey;
+                    await ShoppingBasket.updateOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productHighKey : req.body.productHighKey, productWeightKey : req.body.productWeightKey, productColorKey : req.body.productColorKey},{ productCountKey : resultCount});
                 }else{
                     await ShoppingBasket.create({
                         userId : req.session.user_id,
-                        productNamekey : req.body.productName,
+                        productNameKey : req.body.productNameKey,
                         highCategoryFilter : req.body.highCategoryFilter,
                         lowCategoryFilter : req.body.lowCategoryFilter,
                         description : req.body.description,
-
-                        productPriceKey : req.body.productPrice,
-                        productSizeKey : req.body.productSize,
-                        productColorKey : req.body.productColor,
-                        productCountKey : req.body.productCount,
-    
+            
+                        productPriceKey : req.body.productPriceKey,
+                        productHighKey : req.body.productHighKey,
+                        productWeightKey : req.body.productWeightKey,
+                        productColorKey : req.body.productColorKey,
+                        productCountKey : req.body.productCountKey,
+                        productSizeKey : req.body.productSizeKey,
+            
                         products : {
-                            productName : req.body.productName,
-                            productPrice : req.body.productPrice,
-                            productSize : req.body.productSize,
-                            productColor : req.body.productColor,
-                            productCount : req.body.productCount
+                            productName : req.body.productNameKey,
+                            productPrice : req.body.productPriceKey,
+                            productHigh : req.body.productHighKey,
+                            productWeight : req.body.productWeightKey,
+                            productColor : req.body.productColorKey,
+                            productCount : req.body.productCountKey,
+                            productSize : req.body.productSizeKey
                         }    
                     });
                 }
-            }else{
-                await ShoppingBasket.create({
-                    userId : req.session.user_id,
-                    productNamekey : req.body.productName,
-                    highCategoryFilter : req.body.highCategoryFilter,
-                    lowCategoryFilter : req.body.lowCategoryFilter,
-                    description : req.body.description,
-                    products : {
-                        productName : req.body.productName,
-                        productPrice : req.body.productPrice,
-                        productColor : req.body.productColor,
-                        productCount : req.body.productCount
-                    }    
-                });
+            }else if(req.body.highCategoryFilter == "shoes"){ // 신발 중복 체크
+                let count = 0;
+                let overlapShoppingBasket = await ShoppingBasket.findOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productSizeKey : req.body.productSizeKey, productColorKey : req.body.productColorKey});
+                if(overlapShoppingBasket){
+                    let resultCount = Number(req.body.productCountKey) + overlapShoppingBasket.productCountKey;
+                    await ShoppingBasket.updateOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productSizeKey : req.body.productSizeKey, productColorKey : req.body.productColorKey},{ productCountKey : resultCount});
+                }else{
+                    await ShoppingBasket.create({
+                        userId : req.session.user_id,
+                        productNameKey : req.body.productNameKey,
+                        highCategoryFilter : req.body.highCategoryFilter,
+                        lowCategoryFilter : req.body.lowCategoryFilter,
+                        description : req.body.description,
+            
+                        productPriceKey : req.body.productPriceKey,
+                        productHighKey : req.body.productHighKey,
+                        productWeightKey : req.body.productWeightKey,
+                        productColorKey : req.body.productColorKey,
+                        productCountKey : req.body.productCountKey,
+                        productSizeKey : req.body.productSizeKey,
+            
+                        products : {
+                            productName : req.body.productNameKey,
+                            productPrice : req.body.productPriceKey,
+                            productHigh : req.body.productHighKey,
+                            productWeight : req.body.productWeightKey,
+                            productColor : req.body.productColorKey,
+                            productCount : req.body.productCountKey,
+                            productSize : req.body.productSizeKey
+                        }    
+                    });
+                }
+            }else{ // 가방 중복 체크
+                let count = 0;
+                let overlapShoppingBasket = await ShoppingBasket.findOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productColorKey : req.body.productColorKey});
+                if(overlapShoppingBasket){
+                    let resultCount = Number(req.body.productCountKey) + overlapShoppingBasket.productCountKey;
+                    await ShoppingBasket.updateOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productColorKey : req.body.productColorKey},{ productCountKey : resultCount});
+                }else{
+                    await ShoppingBasket.create({
+                        userId : req.session.user_id,
+                        productNameKey : req.body.productNameKey,
+                        highCategoryFilter : req.body.highCategoryFilter,
+                        lowCategoryFilter : req.body.lowCategoryFilter,
+                        description : req.body.description,
+            
+                        productPriceKey : req.body.productPriceKey,
+                        productHighKey : req.body.productHighKey,
+                        productWeightKey : req.body.productWeightKey,
+                        productColorKey : req.body.productColorKey,
+                        productCountKey : req.body.productCountKey,
+                        productSizeKey : req.body.productSizeKey,
+            
+                        products : {
+                            productName : req.body.productNameKey,
+                            productPrice : req.body.productPriceKey,
+                            productHigh : req.body.productHighKey,
+                            productWeight : req.body.productWeightKey,
+                            productColor : req.body.productColorKey,
+                            productCount : req.body.productCountKey,
+                            productSize : req.body.productSizeKey
+                        }    
+                    });
+                }
             }
         }
         catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
-        finally{ return res.send({result : true, path : '/product'}); }
+        finally{ 
+            // return res.send({result : true, path : '/product'}); 
+            return res.redirect('/product');
+        }
     }
     /*
         { 
@@ -321,10 +338,24 @@ router.post('/cart', async(req, res) => {
 });
 
 router.post('/cart/deleteOne', async(req, res) => {
-    let findShoppingBasket = await ShoppingBasket.findOne({ productNamekey : req.body.productName });
-    if(findShoppingBasket){
-        await ShoppingBasket.deleteOne({ productNamekey : req.body.productName });
-        return res.send(`<script>alert('상품 삭제 완료:)');location.href='/cart';</script>`);
+    if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){
+        let findShoppingBasket = await ShoppingBasket.findOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productHighKey : req.body.productHighKey, productWeightKey : req.body.productWeightKey, productColorKey : req.body.productColorKey});
+        if(findShoppingBasket){
+            await ShoppingBasket.deleteOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productHighKey : req.body.productHighKey, productWeightKey : req.body.productWeightKey, productColorKey : req.body.productColorKey});
+            return res.send(`<script>alert('상품 삭제 완료:)');location.href='/cart';</script>`);
+        }
+    }else if(req.body.highCategoryFilter == "shoes"){
+        let findShoppingBasket = await ShoppingBasket.findOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productSizeKey : req.body.productSizeKey, productColorKey : req.body.productColorKey});
+        if(findShoppingBasket){
+            await ShoppingBasket.deleteOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productSizeKey : req.body.productSizeKey, productColorKey : req.body.productColorKey});
+            return res.send(`<script>alert('상품 삭제 완료:)');location.href='/cart';</script>`);
+        }
+    }else{
+        let findShoppingBasket = await ShoppingBasket.findOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productColorKey : req.body.productColorKey});
+        if(findShoppingBasket){
+            await ShoppingBasket.deleteOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productColorKey : req.body.productColorKey});
+            return res.send(`<script>alert('상품 삭제 완료:)');location.href='/cart';</script>`);
+        }
     }
 });
 

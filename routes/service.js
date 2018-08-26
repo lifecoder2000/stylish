@@ -101,11 +101,11 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
                     highCategoryFilter : findShoppingBasket[i].highCategoryFilter,
                     lowCategoryFilter : findShoppingBasket[i].lowCategoryFilter,
                     products : {
-                        productName : findShoppingBasket[i].products.productName,
-                        productPrice : findShoppingBasket[i].products.productPrice,
-                        productHigh : findShoppingBasket[i].products.productHigh,
-                        productWeight : findShoppingBasket[i].products.productWeight,
-                        productColor : findShoppingBasket[i].products.productColor,
+                        productName : findShoppingBasket[i].productNameKey,
+                        productPrice : findShoppingBasket[i].productPriceKey,
+                        productHigh : findShoppingBasket[i].productHighKey,
+                        productWeight : findShoppingBasket[i].productWeightKey,
+                        productColor : findShoppingBasket[i].productColorKey,
                         productCount : findShoppingBasket[i].productCountKey // count만 예외로
                     }    
                 });
@@ -115,11 +115,11 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
                     highCategoryFilter : findShoppingBasket[i].highCategoryFilter,
                     lowCategoryFilter : findShoppingBasket[i].lowCategoryFilter,
                     products : {
-                        productName : findShoppingBasket[i].products.productName,
-                        productPrice : findShoppingBasket[i].products.productPrice,
-                        productSize : findShoppingBasket[i].products.productSize,
-                        productColor : findShoppingBasket[i].products.productColor,
-                        productCount : findShoppingBasket[i].products.productCount
+                        productName : findShoppingBasket[i].productNameKey,
+                        productPrice : findShoppingBasket[i].productPriceKey,
+                        productSize : findShoppingBasket[i].productSizeKey,
+                        productColor : findShoppingBasket[i].productColorKey,
+                        productCount : findShoppingBasket[i].productCountKey
                     }    
                 });
             }else{
@@ -128,10 +128,10 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
                     highCategoryFilter : findShoppingBasket[i].highCategoryFilter,
                     lowCategoryFilter : findShoppingBasket[i].lowCategoryFilter,
                     products : {
-                        productName : findShoppingBasket[i].products.productName,
-                        productPrice : findShoppingBasket[i].products.productPrice,
-                        productColor : findShoppingBasket[i].products.productColor,
-                        productCount : findShoppingBasket[i].products.productCount
+                        productName : findShoppingBasket[i].productNameKey,
+                        productPrice : findShoppingBasket[i].productPriceKey,
+                        productColor : findShoppingBasket[i].productColorKey,
+                        productCount : findShoppingBasket[i].productCountKey
                     }    
                 });
             }
