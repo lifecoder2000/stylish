@@ -5,31 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="../images/icons/favicon.png"/>
+    <link rel="icon" type="image/png" href="/images/icons/favicon.png"/>
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../fonts/themify/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="/fonts/themify/themify-icons.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../fonts/elegant-font/html-css/style.css">
+    <link rel="stylesheet" type="text/css" href="/fonts/elegant-font/html-css/style.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="./vendor/animsition/css/animsition.min.css">  이거 있으면 왜 안되는거임??? -->
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../vendor/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../stylesheets/util.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/slick/slick.css">
 <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/lightbox2/css/lightbox.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/util.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
 
 <style type="text/css">
 a.sizebig{
@@ -76,18 +78,25 @@ a.sizebig:hover {
     <header class="header1">
         <!-- Header desktop -->
         <div class="container-menu-header">
+            <div class="topbar">
+
+                <span class="topbar-child1">
+                    Stylish에서 스타일리쉬하게 변하다!
+                </span>
+
+            </div>
 
             <div class="wrap_header">
                 <!-- Logo -->
                 <a href="/" class="logo">
-                    <img src="../images/icons/logo.png" alt="IMG-LOGO">
+                    <img src="/images/icons/logo.png" alt="IMG-LOGO">
                 </a>
 
                 <!-- Menu -->
                 <div class="wrap_menu">
                     <nav class="menu">
                         <ul class="main_menu">
-                            <li>
+                            <li class="sale-noti">
                                 <a href="/">Home</a>
                             </li>
 
@@ -95,16 +104,12 @@ a.sizebig:hover {
                                 <a href="/product">Shop</a>
                             </li>
 
-                            <li class="sale-noti">
+                            <li>
                                 <a href="javascript:alert('준비중입니다:)');">Sale</a>
                             </li>
 
                             <li>
                                 <a href="/cart">Features</a>
-                            </li>
-
-                            <li>
-                                <a href="/blog">Blog</a>
                             </li>
 
                             <li>
@@ -125,7 +130,7 @@ a.sizebig:hover {
                         &nbsp;&nbsp;&nbsp;<%= user_id %>
                         <div class="header-cart header-dropdown">
                             <div class="header-cart-buttons">
-                            <% if(typeof user_id == 'undefined'){ %>
+                                <% if(typeof user_id == 'undefined'){ %>
                                 <!-- Sign in & Sign up -->
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
@@ -135,75 +140,89 @@ a.sizebig:hover {
                                 </div>
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
-                                    <a href="/join" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        Sign up
-                                    </a>
-                                </div>
-                                <% }else{ %>
-                                    <div class="header-cart-wrapbtn">
-                                        <!-- Button -->
-                                        <a href="/logout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                            Sign out
+                                        <a href="/join" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                            Sign up
                                         </a>
                                     </div>
-                                    <div class="header-cart-wrapbtn">
-                                        <!-- Button -->
-                                        <a href="/user/mypage" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                            My page
-                                        </a>
-                                    </div>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-
-                    <span class="linedivide1"></span>
-
-                    <div class="header-wrapicon2">
-                        <img src="../images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                        <span class="header-icons-noti"><%= basketCount %></span>
-
-                        <!-- Header cart noti -->
-                        <div class="header-cart header-dropdown">
-                            <% for(let i in userBasket){ %>
-                                <ul class="header-cart-wrapitem">
-                                    <li class="header-cart-item">
-                                        <div class="header-cart-item-img">
-                                            <img src="../../images/item-cart-01.jpg" alt="IMG">
+                                    <% }else{ %>
+                                        <div class="header-cart-wrapbtn">
+                                            <!-- Button -->
+                                            <a href="/logout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                                Sign out
+                                            </a>
                                         </div>
-
-                                        <div class="header-cart-item-txt">
-                                            <a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>" class="header-cart-item-name">
-                                                <%=userBasket[i].products.productName%>
+                                        <div class="header-cart-wrapbtn">
+                                            <!-- Button -->
+                                            <a href="/user/mypage" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                                My page
+                                            </a>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                    </div>
+                    
+                    <span class="linedivide1"></span>
+                    
+                    <div class="header-wrapicon2">
+                        <img src="/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <span class="header-icons-noti"><%= basketCount %></span>
+                        <% if(typeof user_id == 'undefined'){ %>
+                            <div class="header-cart header-dropdown">
+                                    <ul class="header-cart-wrapitem">
+                                            <li class="header-cart-item">
+                                                Login please :)
+                                            </li>
+                                    </ul>
+                            </div>
+                        <% }else{ %>
+                        <!-- Header cart noti -->   
+                                <div class="header-cart header-dropdown">
+                                <% for(let i in userBasket){ %>
+                                    <ul class="header-cart-wrapitem">
+                                        <li class="header-cart-item">
+                                            <a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
+                                                <div class="header-cart-item-img">
+                                                    <img src="/images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='/images/ready.jpg'" alt="IMG">
+                                                </div>
                                             </a>
 
-                                            <span class="header-cart-item-info">
-                                                <%=userBasket[i].products.productCount%> x <%=userBasket[i].products.productPrice%> ₩
-                                            </span>
+                                            <div class="header-cart-item-txt">
+                                                <a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
+                                                    <%=userBasket[i].products.productName%>
+                                                </a>
+
+                                                <span class="header-cart-item-info">
+                                                    <%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice%> ₩
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                <% } %>
+                                    <div class="header-cart-total">
+                                        Total: <%=totalPrice%>
+                                    </div>
+                                    
+                                    <div class="header-cart-buttons">
+                                        <div class="header-cart-wrapbtn">
+                                            
+                                            <!-- Button -->
+                                            <a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                                View Cart
+                                            </a>
                                         </div>
-                                    </li>
-                                </ul>   
-                            <% } %>
-                            <div class="header-cart-total">
-                                Total: <%=totalPrice%>
-                            </div>
 
-                            <div class="header-cart-buttons">
-                                <div class="header-cart-wrapbtn">
-                                    <!-- Button -->
-                                    <a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        View Cart
-                                    </a>
+                                        <div class="header-cart-wrapbtn">
+                                            <!-- Button -->
+                                            <a href="/service/payment" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                                Check Out
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
-
-                                <div class="header-cart-wrapbtn">
-                                    <!-- Button -->
-                                    <a href="/service/payment" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        Check Out
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -212,22 +231,23 @@ a.sizebig:hover {
         <!-- Header Mobile -->
         <div class="wrap_header_mobile">
             <!-- Logo moblie -->
-            <a href="index.html" class="logo-mobile">
-                <img src="../images/icons/logo.png" alt="IMG-LOGO">
+            <a href="/" class="logo-mobile">
+                <img src="/images/icons/logo.png" alt="IMG-LOGO">
             </a>
 
             <!-- Button show menu -->
             <div class="btn-show-menu">
                 <!-- Header Icon mobile -->
                 <div class="header-icons-mobile">
-                    <a href="#" class="header-wrapicon1 dis-block">
-                        <img src="../images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+                    
+                    <a href="/login" class="header-wrapicon1 dis-block">
+                        <img src="/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
                     </a>
-
+                        
                     <span class="linedivide2"></span>
 
                     <div class="header-wrapicon2">
-                        <img src="../images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                        <img src="/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
                         <span class="header-icons-noti">0</span>
 
                         <!-- Header cart noti -->
@@ -235,7 +255,7 @@ a.sizebig:hover {
                             <ul class="header-cart-wrapitem">
                                 <li class="header-cart-item">
                                     <div class="header-cart-item-img">
-                                        <img src="../images/item-cart-01.jpg" alt="IMG">
+                                        <img src="/images/item-cart-01.jpg" alt="IMG">
                                     </div>
 
                                     <div class="header-cart-item-txt">
@@ -251,7 +271,7 @@ a.sizebig:hover {
 
                                 <li class="header-cart-item">
                                     <div class="header-cart-item-img">
-                                        <img src="../images/item-cart-02.jpg" alt="IMG">
+                                        <img src="/images/item-cart-02.jpg" alt="IMG">
                                     </div>
 
                                     <div class="header-cart-item-txt">
@@ -267,7 +287,7 @@ a.sizebig:hover {
 
                                 <li class="header-cart-item">
                                     <div class="header-cart-item-img">
-                                        <img src="../images/item-cart-03.jpg" alt="IMG">
+                                        <img src="/images/item-cart-03.jpg" alt="IMG">
                                     </div>
 
                                     <div class="header-cart-item-txt">
@@ -289,7 +309,7 @@ a.sizebig:hover {
                             <div class="header-cart-buttons">
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
-                                    <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                    <a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                         View Cart
                                     </a>
                                 </div>
@@ -366,10 +386,6 @@ a.sizebig:hover {
                     </li>
 
                     <li class="item-menu-mobile">
-                        <a href="/blog">Blog</a>
-                    </li>
-
-                    <li class="item-menu-mobile">
                         <a href="/about">About</a>
                     </li>
 
@@ -392,7 +408,7 @@ a.sizebig:hover {
     <section class="bgwhite p-t-66 p-b-60">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+                <div class="col-sm-6 col-md-4 col-lg-3 p-b-50"f>
                     <div class="leftbar p-r-20 p-r-0-sm">
                         <!--  -->
                         <h4 class="m-text14 p-b-7" style="font-size: 44px">
@@ -602,23 +618,23 @@ address :
 
         <div class="t-center p-l-15 p-r-15">
             <a href="#">
-                <img class="h-size2" src="../images/icons/paypal.png" alt="IMG-PAYPAL">
+                <img class="h-size2" src="/images/icons/paypal.png" alt="IMG-PAYPAL">
             </a>
 
             <a href="#">
-                <img class="h-size2" src="../images/icons/visa.png" alt="IMG-VISA">
+                <img class="h-size2" src="/images/icons/visa.png" alt="IMG-VISA">
             </a>
 
             <a href="#">
-                <img class="h-size2" src="../images/icons/mastercard.png" alt="IMG-MASTERCARD">
+                <img class="h-size2" src="/images/icons/mastercard.png" alt="IMG-MASTERCARD">
             </a>
 
             <a href="#">
-                <img class="h-size2" src="../images/icons/express.png" alt="IMG-EXPRESS">
+                <img class="h-size2" src="/images/icons/express.png" alt="IMG-EXPRESS">
             </a>
 
             <a href="#">
-                <img class="h-size2" src="../images/icons/discover.png" alt="IMG-DISCOVER">
+                <img class="h-size2" src="/images/icons/discover.png" alt="IMG-DISCOVER">
             </a>
 
             <div class="t-center s-text8 p-t-20">
@@ -643,14 +659,14 @@ address :
 
 
 <!--===============================================================================================-->
-    <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-    <script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
+    <script type="text/javascript" src="/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-    <script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
-    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/js/popper.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-    <script type="text/javascript" src="vendor/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/vendor/select2/select2.min.js"></script>
     <script type="text/javascript">
         $(".selection-1").select2({
             minimumResultsForSearch: 20,
@@ -664,7 +680,7 @@ address :
     </script>
 <!--===============================================================================================-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-    <script src="js/map-custom.js"></script>
+    <script src="/js/map-custom.js"></script>
     
 <!--===============================================================================================-->
     <script src="js/main.js"></script>
