@@ -9,7 +9,7 @@ router.get('/', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
     let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
-    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
     else{ return res.render('index', {user_id : req.session.user_id, product: products, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
@@ -19,7 +19,7 @@ router.get('/product', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
     let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
-    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     if(req.param('clothes') == "shirt"){
         let findProducts = await Products.find({highCategoryFilter : "shirt"});
         return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : "shirt", userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
@@ -114,27 +114,45 @@ router.get('/product-detail', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
     let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
-    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     let products = await Products.find();
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-    else{ return res.render('product-detail', { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
+    else{ return res.render('product-detail', { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount, highCategoryFilter : req.param('highCategoryFilter'), lowCategoryFilter : req.param('lowCategoryFilter'), description : req.param('description')}); }
 });
 
 router.get('/cart', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
     let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
-    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); } //totalPrice 
     else if(req.session.is_user_login){ return res.render('cart', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
     else {return res.send(`<script>alert('Login please.');location.href='/';</script>`);}
+});
+
+router.post('/view', (req,res) =>{
+    if(req.body.productSize == "Choose an option" || req.body.productColor == "Choose an option" || req.body.productHigh == "Choose an option" || req.body.productWeight == "Choose an option"){
+        res.send(`<script>alert('옵션을 제대로 선택해주세요');</script>`);
+    }else{
+        if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){
+            res.send({ result : true, path : `/view?high=${req.body.productHigh}&weight=${req.body.productWeight}&color=${req.body.productColor}&highCategoryFilter=${req.body.highCategoryFilter}&lowCategoryFilter=${req.body.lowCategoryFilter}`});
+        }else if(req.body.highCategoryFilter == "shoes"){
+            res.send({ result : true, path : `/view?size=${req.body.productSize}&color=${req.body.productColor}&highCategoryFilter=${req.body.highCategoryFilter}&lowCategoryFilter=${req.body.lowCategoryFilter}`});
+        }else{ 
+            res.send({ result : true, path : `/view?color=${req.body.productColor}&highCategoryFilter=${req.body.highCategoryFilter}&lowCategoryFilter=${req.body.lowCategoryFilter}`});
+        }
+    }
+});
+
+router.get('/view', (req,res) => {
+    res.render('viewModel', { highCategoryFilter : req.param('highCategoryFilter'), lowCategoryFilter : req.param('lowCategoryFilter'), high : req.param('high'), weight : req.param('weight'), size : req.param('size'), color : req.param('color') });
 });
 
 router.get('/about', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
     let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
-    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
     else{ return res.render('about', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
 });
@@ -143,7 +161,7 @@ router.get('/contact', async(req, res) => {
     let findUserBasket = await ShoppingBasket.find({userId : req.session.user_id});
     let totalPrice = 0;
     let basketCount =  await ShoppingBasket.find({userId : req.session.user_id}).count();
-    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].products.productCount); }
+    for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
     else{ return res.render('contact', {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }
 });
@@ -198,22 +216,94 @@ router.get('/logout', (req, res) => {
 /* 카트 추가 */
 router.post('/cart', async(req, res) => {
     let findProduct = await Products.findOne({ name : req.body.productName });
-    if(req.body.productSize == "Choose an option" || req.body.productColor == "Choose an option"){ // 기본 Choose an option은 옵션으로 선택 불가
+    if(req.body.productSize == "Choose an option" || req.body.productColor == "Choose an option" || req.body.productWeight == "Choose an option" || req.body.productHigh == "Choose an option"){ // 기본 Choose an option은 옵션으로 선택 불가
         return res.send(`<script>alert('옵션을 모두 선택해주세요 !');</script>`); // 왜 작동 안돼지?
         // return res.send({ result : true, path : `/product-detail?name=${findProduct.name}&price=${findProduct.price}`});
     }else{
         try{
-            await ShoppingBasket.create({
-                userId : req.session.user_id,
-                productNamekey : req.body.productName,
-                products : {
-                    productName : req.body.productName,
-                    productPrice : req.body.productPrice,
-                    productSize : req.body.productSize,
-                    productColor : req.body.productColor,
-                    productCount : req.body.productCount
-                }    
-            });
+            if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){
+                let count = 0;
+                let overlapShoppingBasket = await ShoppingBasket.findOne({ productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productHighKey : req.body.productHigh, productWeightKey : req.body.productWeight, productColorKey : req.body.productColor,
+                     });
+                if(overlapShoppingBasket){
+                    for(let i in overlapShoppingBasket){
+                        count++;
+                    }
+                }
+                if(count > 0){ // json의 color는 업데이트가 안됨.
+                    await ShoppingBasket.updateOne({productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productHighKey : req.body.productHigh, productWeightKey : req.body.productWeight, productColorKey : req.body.productColor,
+                    },{ productCountKey : req.body.productCount});
+                }
+                else{
+                    await ShoppingBasket.create({
+                        userId : req.session.user_id,
+                        productNamekey : req.body.productName,
+                        highCategoryFilter : req.body.highCategoryFilter,
+                        lowCategoryFilter : req.body.lowCategoryFilter,
+                        description : req.body.description,
+
+                        productPriceKey : req.body.productPrice,
+                        productHighKey : req.body.productHigh,
+                        productWeightKey : req.body.productWeight,
+                        productColorKey : req.body.productColor,
+                        productCountKey : req.body.productCount,
+
+                        products : {
+                            productName : req.body.productName,
+                            productPrice : req.body.productPrice,
+                            productHigh : req.body.productHigh,
+                            productWeight : req.body.productWeight,
+                            productColor : req.body.productColor,
+                            productCount : req.body.productCount
+                        }    
+                    });
+                }
+                
+            }else if(req.body.highCategoryFilter == "shoes"){
+                let testcount = 0;
+                let test_overlapShoppingBasket = await ShoppingBasket.findOne({ productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productSize : req.body.productSize, productColorKey : req.body.productColor});
+                for(let i in test_overlapShoppingBasket){
+                    testcount++;
+                }
+                if(testcount > 0){ // json의 color는 업데이트가 안됨.
+                    await ShoppingBasket.updateOne({ productNamekey : req.body.productName, productPriceKey : req.body.productPrice, productSize : req.body.productSize, productColorKey : req.body.productColor },{ productCountKey : req.body.productCount });
+                }else{
+                    await ShoppingBasket.create({
+                        userId : req.session.user_id,
+                        productNamekey : req.body.productName,
+                        highCategoryFilter : req.body.highCategoryFilter,
+                        lowCategoryFilter : req.body.lowCategoryFilter,
+                        description : req.body.description,
+
+                        productPriceKey : req.body.productPrice,
+                        productSizeKey : req.body.productSize,
+                        productColorKey : req.body.productColor,
+                        productCountKey : req.body.productCount,
+    
+                        products : {
+                            productName : req.body.productName,
+                            productPrice : req.body.productPrice,
+                            productSize : req.body.productSize,
+                            productColor : req.body.productColor,
+                            productCount : req.body.productCount
+                        }    
+                    });
+                }
+            }else{
+                await ShoppingBasket.create({
+                    userId : req.session.user_id,
+                    productNamekey : req.body.productName,
+                    highCategoryFilter : req.body.highCategoryFilter,
+                    lowCategoryFilter : req.body.lowCategoryFilter,
+                    description : req.body.description,
+                    products : {
+                        productName : req.body.productName,
+                        productPrice : req.body.productPrice,
+                        productColor : req.body.productColor,
+                        productCount : req.body.productCount
+                    }    
+                });
+            }
         }
         catch(err){ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/product';</script>`); }
         finally{ return res.send({result : true, path : '/product'}); }

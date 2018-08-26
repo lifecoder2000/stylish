@@ -95,16 +95,46 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
         if(findProduct){
             await Products.update({ name : findShoppingBasket[i].products.productName },{ purchaseAmount : ++findProduct.purchaseAmount });
             // await ShoppingBasket.updateOne({ payment : false },{$set : { payment : true } });
-            await PaymentBasket.create({  // 결제 collection 생성
-                userId : req.session.user_id,
-                products : {
-                    productName : findShoppingBasket[i].products.productName,
-                    productPrice : findShoppingBasket[i].products.productPrice,
-                    productSize : findShoppingBasket[i].products.productSize,
-                    productColor : findShoppingBasket[i].products.productColor,
-                    productCount : findShoppingBasket[i].products.productCount
-                }    
-            });
+            if(findShoppingBasket[i].highCategoryFilter == "shirt" || findShoppingBasket[i].highCategoryFilter == "pants"){
+                await PaymentBasket.create({  // 결제 collection 생성
+                    userId : req.session.user_id,
+                    highCategoryFilter : findShoppingBasket[i].highCategoryFilter,
+                    lowCategoryFilter : findShoppingBasket[i].lowCategoryFilter,
+                    products : {
+                        productName : findShoppingBasket[i].products.productName,
+                        productPrice : findShoppingBasket[i].products.productPrice,
+                        productHigh : findShoppingBasket[i].products.productHigh,
+                        productWeight : findShoppingBasket[i].products.productWeight,
+                        productColor : findShoppingBasket[i].products.productColor,
+                        productCount : findShoppingBasket[i].productCountKey // count만 예외로
+                    }    
+                });
+            }else if(findShoppingBasket[i].highCategoryFilter == "shoes"){
+                await PaymentBasket.create({  // 결제 collection 생성
+                    userId : req.session.user_id,
+                    highCategoryFilter : findShoppingBasket[i].highCategoryFilter,
+                    lowCategoryFilter : findShoppingBasket[i].lowCategoryFilter,
+                    products : {
+                        productName : findShoppingBasket[i].products.productName,
+                        productPrice : findShoppingBasket[i].products.productPrice,
+                        productSize : findShoppingBasket[i].products.productSize,
+                        productColor : findShoppingBasket[i].products.productColor,
+                        productCount : findShoppingBasket[i].products.productCount
+                    }    
+                });
+            }else{
+                await PaymentBasket.create({  // 결제 collection 생성
+                    userId : req.session.user_id,
+                    highCategoryFilter : findShoppingBasket[i].highCategoryFilter,
+                    lowCategoryFilter : findShoppingBasket[i].lowCategoryFilter,
+                    products : {
+                        productName : findShoppingBasket[i].products.productName,
+                        productPrice : findShoppingBasket[i].products.productPrice,
+                        productColor : findShoppingBasket[i].products.productColor,
+                        productCount : findShoppingBasket[i].products.productCount
+                    }    
+                });
+            }
         }count++;
     }
     if(count>0){ 
@@ -117,7 +147,7 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
 /* 제품 검색 */
 router.post('/search', async(req,res)=> {
     let findProduct = await Products.findOne({ name : req.body.productName });
-    if(findProduct){ return res.send({result : true, path : `/product-detail?name=${findProduct.name}&price=${findProduct.price}`}); }
+    if(findProduct){ return res.send({result : true, path : `/product-detail?name=${findProduct.name}&price=${findProduct.price}&highCategoryFilter=${findProduct.highCategoryFilter}&lowCategoryFilter=${findProduct.lowCategoryFilter}&description=${findProduct.description}`}); }
     else { return res.send(`<script>alert('상품을 찾지 못했습니다 :( ');location.href='/product';</script>`) }
 });
 

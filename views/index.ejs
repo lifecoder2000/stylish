@@ -37,6 +37,97 @@
 	<script>
 		const ran = Math.floor(Math.random() *product ) + 1;
 	</script>
+	<script type="text/javascript">
+		function getlowCategory(value){
+			let highElement = document.getElementById("high1");
+			let weightElement = document.getElementById("weight");
+			let colorElement = document.getElementById("color");
+			let colorBagElement = document.getElementById("colorBag");
+			let sizeElement = document.getElementById("size");
+			let lowShirtElement = document.getElementById("lowshirt");
+			let lowPantsElement = document.getElementById("lowpants");
+			let lowBagElment = document.getElementById("lowbag");
+			let lowShoesElement = document.getElementById("lowshoes");
+			if(value === 'shirt'){
+				lowShirtElement.style.display = 'block';
+				highElement.style.display = 'block';
+				weightElement.style.display = 'block';
+				colorElement.style.display = 'block';
+
+				lowPantsElement.style.display = 'none';
+				lowBagElment.style.display = 'none';
+				lowShoesElement.style.display = 'none';
+
+				lowPantsElement.disabled = true;
+				lowBagElment.disabled = true;
+				lowShoesElement.disabled = true;
+			}
+			if(value !== 'shirt'){
+				if(value === 'pants'){
+					lowShirtElement.style.display = 'none';
+					lowPantsElement.style.display = 'block';
+					highElement.style.display = 'block';
+					weightElement.style.display = 'block';
+					colorElement.style.display = 'block';
+				}else{
+					highElement.style.display = 'none';
+					weightElement.style.display = 'none';
+					colorElement.style.display = 'none';
+					colorBagElement.style.display = 'none';
+					lowShirtElement.style.display = 'none';
+				}
+				lowPantsElement.disabled = false;
+				lowBagElment.disabled = false;
+				lowShoesElement.disabled = false;
+			}
+			if(value === 'bag'){
+				lowBagElment.style.display = 'block';
+				colorBagElement.style.display = 'block';
+				lowPantsElement.style.display = 'none';
+				lowShirtElement.disabled = true;
+				lowPantsElement.disabled = true;
+				lowShoesElement.disabled = true;
+			}
+			if(value !== 'bag'){
+				lowBagElment.style.display = 'none';
+				colorBagElement.style.display = 'none';
+				lowShirtElement.disabled = false;
+				lowPantsElement.disabled = false;
+				lowShoesElement.disabled = false;
+			}
+			if(value === 'shoes'){
+				lowShoesElement.style.display = 'block';
+				sizeElement.style.display = 'block';
+				colorElement.style.display = 'block';
+				lowPantsElement.style.display = 'none';
+				lowShirtElement.disabled = true;
+				lowPantsElement.disabled = true;
+				lowBagElment.disabled = true;
+			}
+			else if(value === 'select'){
+				lowShoesElement.style.display = 'none';
+				lowPantsElement.style.display = 'none';
+				sizeElement.style.display = 'none';
+				lowShirtElement.disabled = false;
+				lowPantsElement.disabled = false;
+				lowBagElment.disabled = false;
+			}
+		}
+	</script>
+	<style>
+		#demoView {
+			text-align: center;
+			margin: 0 auto;
+		}
+		#demo_mini_view{
+			text-align: center;
+			margin: 0 auto;
+		}
+		select{
+			text-align: center;
+			margin: 0 auto;
+		}
+	</style>
 </head>
 <body class="animsition">
 
@@ -147,19 +238,19 @@
 								<% for(let i in userBasket){ %>
 									<ul class="header-cart-wrapitem">
 										<li class="header-cart-item">
-											<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>">
+											<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
 												<div class="header-cart-item-img">
-													<img src="./images/item-cart-01.jpg" alt="IMG">
+													<img src="./images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="IMG">
 												</div>
 											</a>
 
 											<div class="header-cart-item-txt">
-												<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>" class="header-cart-item-name">
+												<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
 													<%=userBasket[i].products.productName%>
 												</a>
 
 												<span class="header-cart-item-info">
-													<%=userBasket[i].products.productCount%> x <%=userBasket[i].products.productPrice%> ₩
+													<%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice%> ₩
 												</span>
 											</div>
 										</li>
@@ -367,10 +458,10 @@
 	<section class="slide1">
 		<div class="wrap-slick1">
 			<div class="slick1">
-				<div class="item-slick1 item1-slick1" style="background-image: url(./images/master-slide-02.jpg);">
+				<div class="item-slick1 item1-slick1" style="background-image: url(./images/1920570/1920570.jpg);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
-							Women Collection 2018
+							Stylish Collection 2018
 						</span>
 
 						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
@@ -386,10 +477,10 @@
 					</div>
 				</div>
 
-				<div class="item-slick1 item2-slick1" style="background-image: url(./images/master-slide-03.jpg);">
+				<div class="item-slick1 item2-slick1" style="background-image: url(./images/1920570/1920570-2.jpg);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn">
-							Women Collection 2018
+							Stylish Collection 2018
 						</span>
 
 						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="lightSpeedIn">
@@ -405,10 +496,10 @@
 					</div>
 				</div>
 
-				<div class="item-slick1 item3-slick1" style="background-image: url(./images/master-slide-04.jpg);">
+				<div class="item-slick1 item3-slick1" style="background-image: url(./images/1920570/1920570-3.jpg);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rotateInDownLeft">
-							Women Collection 2018
+							Stylish Collection 2018
 						</span>
 
 						<h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="rotateInUpRight">
@@ -449,15 +540,15 @@
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-img wrap-pic-w of-hidden pos-relative">
-								<img src="./images/item-02.jpg" alt="IMG-PRODUCT">
-								<a href="/product-detail?name=<%=product[i].name%>&price=<%=product[i].price%>" class="block2-name dis-block s-text3 p-b-5">
+								<img src="./images/products/<%=product[i].highCategoryFilter%>/<%=product[i].lowCategoryFilter%>/720960/black.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="준비중인 상품입니다 ^^">
+								<a href="/product-detail?name=<%=product[i].name%>&price=<%=product[i].price%>&highCategoryFilter=<%=product[i].highCategoryFilter%>&lowCategoryFilter=<%=product[i].lowCategoryFilter%>&description=<%=product[i].description%>" class="block2-name dis-block s-text3 p-b-5">
 								<div class="block2-overlay trans-0-4">
 								</div>
 								</a>
 							</div>
 
 							<div class="block2-txt p-t-20">
-								<a href="/product-detail?name=<%=product[i].name%>&price=<%=product[i].price%>" class="block2-name dis-block s-text3 p-b-5">
+								<a href="/product-detail?name=<%=product[i].name%>&price=<%=product[i].price%>&highCategoryFilter=<%=product[i].highCategoryFilter%>&lowCategoryFilter=<%=product[i].lowCategoryFilter%>&description=<%=product[i].description%>" class="block2-name dis-block s-text3 p-b-5">
 									<%= product[i].name %> 
 								</a>
 
@@ -477,26 +568,105 @@
 			
 		</div>
 	</section>
-
+	<div class="sec-title p-b-52 p-l-15 p-r-15">
+			<h3 class="m-text5 t-center">
+				Demo Page experience
+			</h3>
+	</div>
 	<!-- Banner2 -->
 	<section class="banner2 bg5 p-t-55 p-b-55">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15" style="border: 1px solid red">
-					<div class="hov-img-zoom pos-relative">
-						<img src="./images/banner-08.jpg" alt="IMG-BANNER">
+				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15" id="demoView" style="border: 1px solid gray">
+					<!-- <div class="hov-img-zoom pos-relative"> -->
+							<!-- <form action="/admin/product/add" method="POST"> -->
+								
+								<select name="high" id="high" onchange="getlowCategory(this.value)" required>
+									<option value="select" selected>select</option>
+									<option value="shirt">shirt</option>
+									<option value="pants">pants</option>
+									<option value="bag">bag</option>
+									<option value="shoes">shoes</option>
+								</select>
+								<!-- <div id="demo_mini_view"> -->
+									<select name="low" id="lowshirt" style="display: none" required>
+										<option value="t-shirt">T-shirt</option>
+										<option value="y_shirt">Y_shirt</option>
+										<option value="denim_shirt">denim_shirt</option>
+									</select>
+									<select name="low" id="lowpants" style="display: none" required>
+										<option value="slacks">slacks</option>
+										<option value="blue_jeans">blue_jeans</option>
+										<option value="cotton_trousers">cotton_trousers</option>
+									</select>
+									<select name="low" id="lowbag" style="display: none" required>
+										<option value="echo">echo</option>
+										<option value="school">school</option>
+										<option value="cross">cross</option>
+									</select>
+									<select name="low" id="lowshoes" style="display: none" required>
+										<option value="sneakers">sneakers</option>
+										<option value="sandals">sandals</option>
+										<option value="canvas">canvas</option>
+									</select>
 
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							
-						</div>
-					</div>
+									<!-- 여기서부터 상세 옵션 입력 -->
+									
+									<select class="selection-2" name="size" id="size" style="display: none" required>
+										<option value="size" disabled selected>size</option>
+										<option value="250">250</option>
+										<option value="260">260</option>
+										<option value="270">270</option>
+										<option value="280">280</option>
+										<option value="290">290</option>
+										<option value="300">300</option>
+									</select>
+									
+									<select class="selection-2" name="high1" id="high1" style="display: none" required>
+										<option value="high" disabled selected>high</option>
+										<option>150-160</option>
+										<option>160-170</option>
+										<option>170-180</option>
+										<option>180-190</option>
+									</select>
+									
+									<select class="selection-2" name="weight" id="weight" style="display: none" required>
+										<option value="weight" disabled selected>weight</option>
+										<option>50-70</option>
+										<option>70-90</option>
+										<option>90-110</option>
+										<option>110-120</option>
+									</select>
+									
+									<select class="selection-2" name="color" id="color" style="display: none" required>
+										<option value="color" disabled selected>color</option>
+										<option>gray</option>
+										<option>black</option>
+										<option>white</option>
+									</select>
+
+									<select class="selection-2" name="color" id="colorBag" style="display: none" required>
+										<option value="color" disabled selected>color</option>
+										<option>black</option>
+										<option>blue</option>
+										<option>white</option>
+									</select>
+
+
+								<!-- </div>--><br>
+								<!-- <input type="submit" name="submit" value="생성하기"> -->
+								<div class="size9 trans-0-4 m-t-10 m-b-10" style="margin: 0 auto;">
+									<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="createView">
+										확인
+									</button>
+								</div>
 				</div>
 
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15" style="border: 1px solid red">
+				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15" style="border: 1px solid gray">
 					<div class="bgwhite hov-img-zoom pos-relative p-b-20per-ssm" >
-						<img src="./images/shop-item-09.jpg" alt="IMG-BANNER">
+						<img id="demoImage" src="./images/item-02.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="IMG-BANNER">
 
-						<div class="ab-t-l sizefull flex-col-c-b p-l-15 p-r-15 p-b-20">
+						<!-- <div class="ab-t-l sizefull flex-col-c-b p-l-15 p-r-15 p-b-20">
 							<div class="t-center">
 								
 							</div>
@@ -504,7 +674,7 @@
 							<div class="flex-c-m p-t-44 p-t-30-xl">
 								
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -846,11 +1016,108 @@
 			});
 	</script>
 	<script>
-			$('#likeCount').click(() => {
-				var n = $('#likeCount').index(this);
-				var num = $("#likeCountText:eq("+n+")").val();
-				num = $("#likeCountText:eq("+n+")").val(num*1+1); 
-			});
+		$('#likeCount').click(() => {
+			var n = $('#likeCount').index(this);
+			var num = $("#likeCountText:eq("+n+")").val();
+			num = $("#likeCountText:eq("+n+")").val(num*1+1); 
+		});
+	</script>
+	<script>
+		$('#createView').click(() =>{
+			let getHighCategory = document.getElementById("high");
+			
+			let highElement = document.getElementById("high1");
+			let weightElement = document.getElementById("weight");
+			let colorElement = document.getElementById("color");
+			let sizeElement = document.getElementById("size");
+			let lowShirtElement = document.getElementById("lowshirt");
+			let lowPantsElement = document.getElementById("lowpants");
+			let lowBagElment = document.getElementById("lowbag");
+			let lowShoesElement = document.getElementById("lowshoes");
+
+			if($('#high').val() === "shirt"){
+				if($('#lowshirt').val() === "t-shirt"){
+					if($('#high1').val() == "150-160" && $('#weight').val() == "50-70" && $('#color').val() == "black"){
+						$('#demoImage').attr('src','./images/models/simple/shirt/t-shirt/high=150-160&weight=50-70&color=black.jpg');
+					}
+					else if($('#high1').val() == "150-160" && $('#weight').val() == "50-70" && $('#color').val() == "gray"){
+						$('#demoImage').attr('src','./images/models/simple/shirt/t-shirt/high=150-160&weight=50-70&color=gray.jpg');
+					}
+					else if($('#high1').val() == "150-160" && $('#weight').val() == "50-70" && $('#color').val() == "white"){
+						$('#demoImage').attr('src','./images/models/simple/shirt/t-shirt/high=150-160&weight=50-70&color=white.jpg');
+					}
+					else{
+						$('#demoImage').attr('src','./images/ready.jpg');
+					}
+				}else{
+					$('#demoImage').attr('src','./images/ready.jpg');
+				}
+			}else if($('#high').val() === "pants"){
+				if($('#lowpants').val() === "slacks"){
+					if($('#high1').val() == "150-160" && $('#weight').val() == "50-70" && $('#color').val() == "black"){
+						$('#demoImage').attr('src','./images/models/simple/pants/slacks/high=150-160&weight=50-70&color=black.jpg');
+					}else if($('#high1').val() == "150-160" && $('#weight').val() == "50-70" && $('#color').val() == "gray"){
+						$('#demoImage').attr('src','./images/models/simple/pants/slacks/high=150-160&weight=50-70&color=gray.jpg');
+					}
+					else if($('#high1').val() == "150-160" && $('#weight').val() == "50-70" && $('#color').val() == "white"){
+						$('#demoImage').attr('src','./images/models/simple/pants/slacks/high=150-160&weight=50-70&color=white.jpg');
+					}else{
+						$('#demoImage').attr('src','./images/ready.jpg');
+					}
+				}else{
+					$('#demoImage').attr('src','./images/ready.jpg');
+				}
+			}else if($('#high').val() === "shoes"){
+				if($('#lowshoes').val() === "sneakers"){
+					if($('#color').val() == "black"){
+						$('#demoImage').attr('src','./images/products/shoes/sneakers/720960/black.jpg');
+					}else if($('#color').val() == "gray"){
+						$('#demoImage').attr('src','./images/products/shoes/sneakers/720960/gray.jpg');
+					}else if($('#color').val() == "white"){
+						$('#demoImage').attr('src','./images/products/shoes/sneakers/720960/white.jpg');
+					}else{
+						$('#demoImage').attr('src','./images/ready.jpg');
+					}	
+				}else{
+					$('#demoImage').attr('src','./images/ready.jpg');
+				}
+			}else{
+				if($('#lowbag').val() === "echo"){
+					if($('#colorBag').val() == "black"){
+						$('#demoImage').attr('src','./images/products/bag/echo/720960/black.jpg');
+					}else if($('#colorBag').val() == "blue"){
+						$('#demoImage').attr('src','./images/products/bag/echo/720960/blue.jpg');
+					}else if($('#colorBag').val() == "white"){
+						$('#demoImage').attr('src','./images/products/bag/echo/720960/white.jpg');
+					}else{
+						$('#demoImage').attr('src','./images/ready.jpg');
+					}	
+				}else if($('#lowbag').val() === "school"){
+					if($('#colorBag').val() == "black"){
+						$('#demoImage').attr('src','./images/products/bag/school/720960/black.jpg');
+					}else if($('#colorBag').val() == "blue"){
+						$('#demoImage').attr('src','./images/products/bag/school/720960/blue.jpg');
+					}else if($('#colorBag').val() == "white"){
+						$('#demoImage').attr('src','./images/products/bag/school/720960/white.jpg');
+					}else{
+						$('#demoImage').attr('src','./images/ready.jpg');
+					}	
+				}else if($('#lowbag').val() === "cross"){
+					if($('#colorBag').val() == "black"){
+						$('#demoImage').attr('src','./images/products/bag/cross/720960/black.jpg');
+					}else if($('#colorBag').val() == "blue"){
+						$('#demoImage').attr('src','./images/products/bag/cross/720960/blue.jpg');
+					}else if($('#colorBag').val() == "white"){
+						$('#demoImage').attr('src','./images/products/bag/cross/720960/white.jpg');
+					}
+					else{
+						$('#demoImage').attr('src','./images/ready.jpg');
+					}	
+				}else{
+					$('#demoImage').attr('src','./images/ready.jpg');
+				}
+			}
+		});
 	</script>
 </body>
 </html>

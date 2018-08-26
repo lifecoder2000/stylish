@@ -8,7 +8,7 @@ const Products = new Schema({
     highCategoryFilter : {type : String, required : true},
     lowCategoryFilter : {type : String, required : true},
     category : {type : JSON, required : true},
-    description : {type : String, required : true},
+    description : {type : String},
     purchaseAmount : {type : Number,default : 0}
 }, {timestamps : true});
 

@@ -45,16 +45,152 @@ router.post('/answer', async(req, res) => {
 
 /* 상품 추가, 상품 삭제, 상품 재고 및 가격 수정   */
 router.post('/product/add', async(req, res) => {
-    await Products.create({
-        name : req.body.productName,
-        price : req.body.productPrice,
-        highCategoryFilter : req.body.high,
-        lowCategoryFilter : req.body.low,
-        category : {
-            highCategory : req.body.high,
-            lowCategory : req.body.low
-        }
-    });
+    if(req.body.low == "T-shirt"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "T-shirt for everyone, you will too.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "Y_shirt"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "y-shirt, the moment you wear this shirt, you will shine.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "denim_shirt"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "Wearing in hot weather, you can be the main character, Denim-shirt, as cool as the waves on the sea.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "slacks"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "Slacks catches everyone's eyes.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "blue_jeans"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "You can be Poseidon, too.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "cotton_trousers"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "Did you realize the aesthetic of sophistication?",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "echo"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "Echoback, it's a bag, but it's also a fashion.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "school"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "This bag is a reliable friend who will help you get to school.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "cross"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "It's no use having a lot of content.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "sneakers"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "The sneakers are very nice.",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "sandals"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "modern sandals that are effective for ventilation",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }else if(req.body.low == "canvas"){
+        await Products.create({
+            name : req.body.productName,
+            price : req.body.productPrice,
+            highCategoryFilter : req.body.high,
+            lowCategoryFilter : req.body.low,
+            description : "You can be as young as the students!",
+            category : {
+                highCategory : req.body.high,
+                lowCategory : req.body.low
+            }
+        });
+    }
+    
     return res.send(`<script>alert('상품 생성 완료:)');location.href='/admin';</script>`);
 });
 

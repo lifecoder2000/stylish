@@ -162,19 +162,19 @@
 								<% for(let i in userBasket){ %>
 									<ul class="header-cart-wrapitem">
 										<li class="header-cart-item">
-											<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>">
+											<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
 												<div class="header-cart-item-img">
-													<img src="./images/item-cart-01.jpg" alt="IMG">
+													<img src="./images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="IMG">
 												</div>
 											</a>
 	
 											<div class="header-cart-item-txt">
-												<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>" class="header-cart-item-name">
+												<a href="/product-detail?name=<%=userBasket[i].productNamekey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
 													<%=userBasket[i].products.productName%>
 												</a>
 	
 												<span class="header-cart-item-info">
-													<%=userBasket[i].products.productCount%> x <%=userBasket[i].products.productPrice%> ₩
+														<%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice%> ₩
 												</span>
 											</div>
 										</li>
@@ -476,14 +476,14 @@
 								<!-- Block2 -->
 								<div class="block2">
 									<div class="block2-img wrap-pic-w of-hidden pos-relative">
-										<img src="./images/item-02.jpg" alt="IMG-PRODUCT">
-										<a href="/product-detail?name=<%=products[i].name%>&price=<%=products[i].price%>" class="block2-name dis-block s-text3 p-b-5">
+										<img src="./images/products/<%=products[i].highCategoryFilter%>/<%=products[i].lowCategoryFilter%>/720960/black.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="준비중인 상품입니다 ^^">
+										<a href="/product-detail?name=<%=products[i].name%>&price=<%=products[i].price%>&highCategoryFilter=<%=products[i].highCategoryFilter%>&lowCategoryFilter=<%=products[i].lowCategoryFilter%>&description=<%=products[i].description%>" class="block2-name dis-block s-text3 p-b-5">
 										<div class="block2-overlay trans-0-4">
 										</div>
 										</a>
 									</div>
 										<div class="block2-txt p-t-20">
-											<a href="/product-detail?name=<%=products[i].name%>&price=<%=products[i].price%>" class="block2-name dis-block s-text3 p-b-5">
+											<a href="/product-detail?name=<%=products[i].name%>&price=<%=products[i].price%>&highCategoryFilter=<%=products[i].highCategoryFilter%>&lowCategoryFilter=<%=products[i].lowCategoryFilter%>&description=<%=products[i].description%>" class="block2-name dis-block s-text3 p-b-5">
 												<%=products[i].name%>
 											</a>
 											<span class="block2-price m-text6 p-r-5">
