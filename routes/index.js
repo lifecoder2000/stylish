@@ -215,6 +215,10 @@ router.get('/logout', (req, res) => {
 
 /* 카트 추가 */
 router.post('/cart', async(req, res) => {
+    console.log(req.body.user_id);
+    if(req.body.user_id === ''){
+        return res.send(`<script>alert('로그인 해주세요!');location.href='/';</script>`);
+    }
     // let findProduct = await Products.findOne({ name : req.body.productName });
     if(req.body.productSizeKey == "Choose an option" || req.body.productColorKey == "Choose an option" || req.body.productWeightKey == "Choose an option" || req.body.productHighKey == "Choose an option"){ // 기본 Choose an option은 옵션으로 선택 불가
         return res.send(`<script>alert('옵션을 모두 선택해주세요 !');location.href='/product-detail?name=${req.body.productNameKey}&price=${req.body.productPriceKey}&highCategoryFilter=${req.body.highCategoryFilter}&lowCategoryFilter=${req.body.lowCategoryFilter}&description=${req.body.description}';</script>`);

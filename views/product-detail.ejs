@@ -412,6 +412,7 @@
 					<input type="text" id="productName" name="productNameKey" value="<%=productName%>" hidden>
 					<input type="text" id="productName" name="productPriceKey" value="<%=productPrice%>" hidden>
 					<input type="text" id="description" name="description" value="<%=description%>" hidden>
+					<input type="text" id="user_id" name="user_id" value="<%=user_id%>" hidden>
 					<!-- <input type="text" id="productCount" name="productCountKey" value="<%=description%>" hidden> -->
 					<div class="p-t-33 p-b-60">
 						<% if(highCategoryFilter == "shoes"){ %>
@@ -560,15 +561,15 @@
 
 				<div>
 					<p class="s-text7 w-size27">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+						Any questions? Let us know in store at 2nd floor, 304-dong Hyundai @, Seoul, Republic of Korea or contact us on admin@example.com
 					</p>
 
 					<div class="flex-m p-t-30">
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+						<a href="javascript:alert('facebook');" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+						<a href="javascript:alert('instagram');" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+						<a href="javascript:alert('pinterest');" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+						<a href="javascript:alert('snapchat');" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+						<a href="javascript:alert('youtube');" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
 					</div>
 				</div>
 			</div>
@@ -579,29 +580,29 @@
 				</h4>
 
 				<ul>
-						<li class="p-b-9">
-								<a href="/product?clothes=shirt" class="s-text7">
-									Shirts
-								</a>
-							</li>
-		
-							<li class="p-b-9">
-								<a href="/product?clothes=pants" class="s-text7">
-									Pants
-								</a>
-							</li>
-		
-							<li class="p-b-9">
-								<a href="/product?clothes=bag" class="s-text7">
-									Bag
-								</a>
-							</li>
-		
-							<li class="p-b-9">
-								<a href="/product?clothes=shoes" class="s-text7">
-									Shoes
-								</a>
-							</li>
+					<li class="p-b-9">
+						<a href="/product?clothes=shirt" class="s-text7">
+							Shirts
+						</a>
+					</li>
+
+					<li class="p-b-9">
+						<a href="/product?clothes=pants" class="s-text7">
+							Pants
+						</a>
+					</li>
+
+					<li class="p-b-9">
+						<a href="/product?clothes=bag" class="s-text7">
+							Bags
+						</a>
+					</li>
+
+					<li class="p-b-9">
+						<a href="/product?clothes=shoes" class="s-text7">
+							Shoes
+						</a>
+					</li>
 				</ul>
 			</div>
 
@@ -652,10 +653,9 @@
 
 					<li class="p-b-9">
 						<a href="/priv.html" class="s-text7">
-							Privacy Policy
+							Privacy policy
 						</a>
 					</li>
-
 				</ul>
 			</div>
 
@@ -666,11 +666,11 @@
 
                 <form>
 					Present: <input class="s-text7 bg6  p-b-5" type="text" id="likeCountText" value="0">
-					<div class="w-size2 p-t-20">
-						<!-- Button -->
+                    <div class="w-size2 p-t-20">
+                        <!-- Button -->
 						<input class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" type="button" id="likeCount" value="Like">
-					</div>
-				</form>
+                    </div>
+                </form>
             </div>
 		</div>
 

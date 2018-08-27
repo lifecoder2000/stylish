@@ -42,6 +42,8 @@ io.sockets.on('connection', function(socket){
     let findToken = await require('../database/Informations').findOne({token : inputToken});
     let manager = await require('../database/Informations').findOne({id : inputToken});
 
+    if(inputToken === ''){ io.sockets.emit('error', 'token value empty:)'); }
+
     if(findToken || manager){
       if(findToken){ userName = findToken.id; }
       if(manager){ userName = manager.id; }

@@ -41,7 +41,7 @@
                     if(data.userName === 'manager'){ $('<p id="messageBox2">'+ data.data + '</p>').appendTo('#content'); } 
                     else{ $('<p id="messageBox">'+ data.data + '</p>').appendTo('#content'); }
                 });
-                socket.on('error', data => { alert('error'); location.href='/customerCenter'; });
+                socket.on('error', data => { alert(data); location.href='/customerCenter'; });
                 socket.on('disconnect', () => { alert('상담이 종료되었습니다.'); location.href='/customerCenter' });                
 
 
