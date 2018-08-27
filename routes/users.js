@@ -32,10 +32,7 @@ router.post('/informations', async(req, res) => {
 });
 
 /* 장바구니 및 물건추가*/
-router.get('/mypage/basket',(req, res) => {
-    // 결제는 service.js : /payment에서 처리할예정
-    return res.redirect('/cart');
-});
+router.get('/mypage/basket',(req, res) => { return res.redirect('/cart'); });
 
 /* 주문내역(주문내역(주문하기, 주문취소), 배송 조회,  교환&반품 신청) */
 router.get('/mypage/Ordered', async(req, res) => {
@@ -53,7 +50,6 @@ router.post('/mypage/Ordered/cancelOrder',async(req,res) => {
         return res.send(`<script>alert('주문 취소가 되었습니다 :)');location.href='/user/mypage/Ordered';</script>`);
     }
 });
-
 
 router.get('/mypage/Ordered/takeBack', async(req,res) => {
     let findPaymentBasket = await PaymentBasket.findOne({_id : req.param('_id')});
@@ -82,18 +78,6 @@ router.post('/mypage/Ordered/takeBack', async(req,res) => {
                 else{ alert("제대로 입력해주세요");location.href='/user/mypage/Ordered'; };</script>`);
         }
     }
-});
-
-router.get('/check', (req, res) => {
-    // 배송 조회
-});
-
-router.get('/application', (req, res) => {
-    //교환&반품 신청
-});
-
-router.post('/appication', (req, res) => {
-    //교환&반품 신청
 });
 
 module.exports = router;
