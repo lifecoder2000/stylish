@@ -55,6 +55,11 @@ router.get('/view', (req, res) => {
     }
 });
 
+/* Q & A 작성s */
+router.get('/QA/write', (req, res) => {
+    res.render('write', {userId : req.session.user_id});
+});
+
 /* Q & A */
 router.get('/QA', async(req, res) => {
     if(require('../config/status').isBlocked){ res.render('serverChecking'); }
