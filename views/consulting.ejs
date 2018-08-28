@@ -44,8 +44,6 @@
                 socket.on('error', data => { alert(data); location.href='/customerCenter'; });
                 socket.on('disconnect', () => { alert('상담이 종료되었습니다.'); location.href='/customerCenter' });                
 
-
-
                 function messageAppend(){
                     if(document.getElementById('message').value === 'disconnect'){ document.getElementById('disconnect-button').innerHTML = '<input type="button" value="상담 종료" onclick="disconnect()" ></input>'}
                     else{
@@ -56,7 +54,6 @@
                 }
 
                 document.getElementById('button').onclick = () => { messageAppend();  };
-                
                 $('#message').keyup(e => { if(e.keyCode === 13){ messageAppend(); } });
             };
 

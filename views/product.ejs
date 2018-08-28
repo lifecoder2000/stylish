@@ -162,14 +162,14 @@
 												</a>
 	
 												<span class="header-cart-item-info">
-														<%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice%> ₩
+														<%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice.toLocaleString()%> ₩
 												</span>
 											</div>
 										</li>
 									</ul>	
 								<% } %>
 								<div class="header-cart-total">
-									Total: <%=totalPrice%>
+									Total: <%=totalPrice.toLocaleString()%>
 								</div>
 	
 								<div class="header-cart-buttons">
@@ -475,7 +475,7 @@
 												<%=products[i].name%>
 											</a>
 											<span class="block2-price m-text6 p-r-5">
-												<%=products[i].price%> ₩
+												<%=products[i].price.toLocaleString()%> ₩
 											</span>
 										</div>
 								</div>

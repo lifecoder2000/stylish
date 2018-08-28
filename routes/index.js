@@ -195,7 +195,7 @@ async function cartAdd(req, findObject){
             productSizeKey : req.body.productSizeKey,
             products : {
                 productName : req.body.productNameKey,
-                productPrice : req.body.productPriceKey,
+                productPrice : Number(req.body.productPriceKey),
                 productHigh : req.body.productHighKey,
                 productWeight : req.body.productWeightKey,
                 productColor : req.body.productColorKey,
