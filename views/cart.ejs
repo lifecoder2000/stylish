@@ -30,6 +30,17 @@
 	<link rel="stylesheet" type="text/css" href="./stylesheets/util.css">
 	<link rel="stylesheet" type="text/css" href="./stylesheets/main.css">
 <!--===============================================================================================-->
+<style>
+	.scroll{
+			width: 339px;
+			height: 520px;
+			overflow: scroll;
+	}
+	.scroll2{
+		height: 820px;
+		overflow: scroll;
+	}
+</style>
 </head>
 <body class="animsition">
 
@@ -136,7 +147,7 @@
 							</div>
 						<% }else{ %>
 						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
+						<div class="header-cart header-dropdown scroll">
 							<% for(let i in userBasket){ %>
 								<ul class="header-cart-wrapitem">
 									<li class="header-cart-item">
@@ -389,7 +400,7 @@
 
 
                 <!-- Cart item -->
-			<div class="container-table-cart pos-relative">
+			<div class="container-table-cart pos-relative scroll2">
 				<div class="wrap-table-shopping-cart bgwhite">
 					<table class="table-shopping-cart">
 						<tr class="table-head">

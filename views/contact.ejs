@@ -48,6 +48,13 @@ h4.sizebig:hover {
     transform: scale(1.5,1.5);
 }
 </style>
+<style>
+	.scroll{
+			width: 339px;
+			height: 520px;
+			overflow: scroll;
+	}
+</style>
 </head>
 <body class="animsition">
 
@@ -154,7 +161,7 @@ h4.sizebig:hover {
 							</div>
 						<% }else{ %>
 						<!-- Header cart noti -->	
-						<div class="header-cart header-dropdown">
+						<div class="header-cart header-dropdown scroll">
 								<% for(let i in userBasket){ %>
 									<ul class="header-cart-wrapitem">
 										<li class="header-cart-item">

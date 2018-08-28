@@ -134,6 +134,11 @@
 			text-align: center;
 			margin: 0 auto;
 		}
+		.scroll{
+			width: 339px;
+			height: 520px;
+			overflow: scroll;
+		}
 	</style>
 </head>
 <body class="animsition">
@@ -232,7 +237,7 @@
 						<img src="./images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
 						<span class="header-icons-noti"><%= basketCount %></span>
 						<% if(typeof user_id == 'undefined'){ %>
-							<div class="header-cart header-dropdown">
+							<div class="header-cart header-dropdown scroll">
 									<ul class="header-cart-wrapitem">
 											<li class="header-cart-item">
 												Login please :)
@@ -240,52 +245,52 @@
 									</ul>
 							</div>
 						<% }else{ %>
-						<!-- Header cart noti -->	
-								<div class="header-cart header-dropdown">
-								<% for(let i in userBasket){ %>
-									<ul class="header-cart-wrapitem">
-										<li class="header-cart-item">
-											<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
-												<div class="header-cart-item-img">
-													<img src="./images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="IMG">
-												</div>
-											</a>
-
-											<div class="header-cart-item-txt">
-												<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
-													<%=userBasket[i].products.productName%>
+						<!-- Header cart noti -->
+									<div class="header-cart header-dropdown scroll">
+									<% for(let i in userBasket){ %>
+										<ul class="header-cart-wrapitem">
+											<li class="header-cart-item">
+												<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>">
+													<div class="header-cart-item-img">
+														<img src="./images/products/<%=userBasket[i].highCategoryFilter%>/<%=userBasket[i].lowCategoryFilter%>/720960/<%=userBasket[i].products.productColor%>.jpg" onerror="this.onerror=null;this.src='./images/ready.jpg'" alt="IMG">
+													</div>
 												</a>
 
-												<span class="header-cart-item-info">
-													<%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice%> ₩
-												</span>
-											</div>
-										</li>
-									</ul>
-								<% } %>
-									<div class="header-cart-total">
-										Total: <%=totalPrice%>
-									</div>
-									
-									<div class="header-cart-buttons">
-										<div class="header-cart-wrapbtn">
-											
-											<!-- Button -->
-											<a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-												View Cart
-											</a>
-										</div>
+												<div class="header-cart-item-txt">
+													<a href="/product-detail?name=<%=userBasket[i].productNameKey%>&price=<%=userBasket[i].products.productPrice%>&highCategoryFilter=<%=userBasket[i].highCategoryFilter%>&lowCategoryFilter=<%=userBasket[i].lowCategoryFilter%>&description=<%=userBasket[i].description%>" class="header-cart-item-name">
+														<%=userBasket[i].products.productName%>
+													</a>
 
-										<div class="header-cart-wrapbtn">
-											<!-- Button -->
-											<a href="/service/payment" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-												Check Out
-											</a>
+													<span class="header-cart-item-info">
+														<%=userBasket[i].productCountKey%> x <%=userBasket[i].products.productPrice%> ₩
+													</span>
+												</div>
+											</li>
+										</ul>
+									<% } %>
+										<div class="header-cart-total">
+											Total: <%=totalPrice%>
 										</div>
+										
+										<div class="header-cart-buttons">
+											<div class="header-cart-wrapbtn">
+												
+												<!-- Button -->
+												<a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+													View Cart
+												</a>
+											</div>
+
+											<div class="header-cart-wrapbtn">
+												<!-- Button -->
+												<a href="/service/payment" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+													Check Out
+												</a>
+											</div>
+										</div>
+										
 									</div>
-									
-								</div>
-							
+								
 						<% } %>
 					</div>
 				</div>
