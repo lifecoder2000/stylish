@@ -153,7 +153,7 @@ router.post('/payment/inputPaymentInformation', async(req, res) => {
 router.post('/search', async(req,res)=> {
     let findProduct = await Products.findOne({ name : req.body.productName });
     if(findProduct){ return res.send({result : true, path : `/product-detail?name=${findProduct.name}&price=${findProduct.price}&highCategoryFilter=${findProduct.highCategoryFilter}&lowCategoryFilter=${findProduct.lowCategoryFilter}&description=${findProduct.description}`}); }
-    else { return res.send(`<script>alert('상품을 찾지 못했습니다 :( ');location.href='/product';</script>`) }
+    else { return res.send({result : true, path : '/product'}); }
 });
 
 /* QuestionAnswer collection의 document개수 구하는 함수 */

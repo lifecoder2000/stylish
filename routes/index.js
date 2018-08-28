@@ -119,9 +119,9 @@ router.post('/cart', async(req, res) => {
 
 /* 카트 삭제 */
 router.post('/cart/deleteOne', async(req, res) => {
-    if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){ cartDeleteOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productHighKey : req.body.productHighKey, productWeightKey : req.body.productWeightKey, productColorKey : req.body.productColorKey}); }
-    else if(req.body.highCategoryFilter == "shoes"){ cartDeleteOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productSizeKey : req.body.productSizeKey, productColorKey : req.body.productColorKey}); }
-    else{ cartDeleteOne({productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productColorKey : req.body.productColorKey}); }
+    if(req.body.highCategoryFilter == "shirt" || req.body.highCategoryFilter == "pants"){ cartDeleteOne(res, {productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productHighKey : req.body.productHighKey, productWeightKey : req.body.productWeightKey, productColorKey : req.body.productColorKey}); }
+    else if(req.body.highCategoryFilter == "shoes"){ cartDeleteOne(res, {productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productSizeKey : req.body.productSizeKey, productColorKey : req.body.productColorKey}); }
+    else{ cartDeleteOne(res, {productNameKey : req.body.productNameKey, productPriceKey : req.body.productPriceKey, productColorKey : req.body.productColorKey}); }
 });
 
 /* default rendering function */
@@ -207,7 +207,7 @@ async function cartAdd(req, findObject){
 }
 
 /* cartDeleteOne function */
-async function cartDeleteOne(findObject){
+async function cartDeleteOne(res, findObject){
     let findShoppingBasket = await ShoppingBasket.findOne(findObject);
     if(findShoppingBasket){
         await ShoppingBasket.deleteOne(findObject);

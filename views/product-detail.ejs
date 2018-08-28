@@ -767,55 +767,8 @@
 <!--===============================================================================================-->
 	<script src="./javascripts/main.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js%22%3E"></script>
-	<script>
-		// $('#addCart').click(() => {
-        //     $.ajax({
-        //         url : '/cart',
-        //         dataType : 'json',
-        //         type : 'POST',
-        //         data : { 
-		// 			'productName': $('#productName').text(),     // 필수
-		// 			'productPrice' : $('#productPrice').text(),  // 필수
-		// 			"productSize" : $('#size').val(),
-		// 			'productColor' : $('#color').val(),			 // 공통
-		// 			'productHigh' : $('#high').val(),
-		// 			'productWeight' : $('#weight').val(),
-		// 			'productCount' : $('#productCount').val(),   // 필수
-		// 			'highCategoryFilter' : $('#highCategoryFilter').val(),  // 필수
-		// 			'lowCategoryFilter' : $('#lowCategoryFilter').val(),    // 필수
-		// 			'description' : $('#description').val()
-		// 		},
-        //         success : result => {
-		// 			location.href=`${result.path}`;
-        //         }
-		// 	});
-        // });
-	</script>
-	<script>
-		$('#search_2').click(() => {
-			let data = prompt("검색할 제품을 입력해주세요");
-			if(data){
-				$.ajax({
-					url : '/service/search',
-					dataType : 'json',
-					type : 'POST',
-					data : {'productName' : data},
-					success : result => {
-						location.href=`${result.path}`;
-					}
-				});
-			}else{
-				alert("제대로 입력해주세요");
-			}
-		});
-	</script>
-	<script>
-		$('#likeCount').click(() => {
-			var n = $('#likeCount').index(this);
-			var num = $("#likeCountText:eq("+n+")").val();
-			num = $("#likeCountText:eq("+n+")").val(num*1+1); 
-		});
-	</script>
+	<script src="/javascripts/search-2.js"></script>
+	<script src="/javascripts/like-count.js"></script>
 	<script>
 		$('#detail').click(() => {
 			alert("준비중입니다.");
