@@ -61,7 +61,7 @@ router.post('/product/add', async(req, res) => {
 });
 
 router.post('/product/delete', async(req, res) => {
-    await Products.deleteOne({name : req.body.productName});
+    await Products.deleteOne({_id : req.body._id});
     return res.send(`<script>alert('상품 삭제 완료:)');location.href='/admin';</script>`);
 });
 
