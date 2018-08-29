@@ -402,7 +402,7 @@
 			<div class="w-size14 p-t-30 respon5">
 				<h2 class="product-detail-name" id="productName" name="productName"><%=productName%></h4>
 <br><br>
-				<span class="m-text17" id="productPrice" name="productPrice"><%=productPrice%></span>&nbsp;&nbsp;&nbsp;<span>₩</span>
+				<span class="m-text17" id="productPrice" name="productPrice"><%=productPrice.toLocaleString()%></span>&nbsp;&nbsp;&nbsp;<span>₩</span>
 <br><br>
 				<!-- <input type="text" id="highCategoryFilter" name="highCategoryFilter" value="<%=highCategoryFilter%>" hidden>
 				<input type="text" id="lowCategoryFilter" name="lowCategoryFilter" value="<%=lowCategoryFilter%>" hidden> -->
@@ -522,7 +522,7 @@
 								<!-- <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="addCart">
 									Add to Cart
 								</button> -->
-								<input type="submit" value="Add to Cart"  class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+								<input type="submit" value="Add to Cart" id="addCart" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 							</div>
 							<input type="text" id="description" name="description" value="<%=description%>" hidden>
 						</form>

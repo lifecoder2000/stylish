@@ -102,7 +102,7 @@ router.get('/logout', (req, res) => {
 
 /* 카트 추가 */
 router.post('/cart', async(req, res) => {
-    if(req.body.productSizeKey == "Choose an option" || req.body.productColorKey == "Choose an option" || req.body.productWeightKey == "Choose an option" || req.body.productHighKey == "Choose an option"){ return res.send(`<script>alert('옵션을 모두 선택해주세요 !');location.href='/product-detail?name=${req.body.productNameKey}&price=${req.body.productPriceKey}&highCategoryFilter=${req.body.highCategoryFilter}&lowCategoryFilter=${req.body.lowCategoryFilter}&description=${req.body.description}';</script>`); }
+    if(req.body.productSizeKey == "Choose an option" || req.body.productColorKey == "Choose an option" || req.body.productWeightKey == "Choose an option" || req.body.productHighKey == "Choose an option"){ console.log('hello');  return res.send(`<script>alert('옵션을 모두 선택해주세요 !');location.href='/product';</script>`); }
     else{
         try{ 
             // 셔츠,바지 중복 체크
@@ -137,7 +137,7 @@ async function defaultRendering(req, res, route, renderFileName){
     }else if(route === '/product-detail'){
         let products = await Products.find();
         if(require('../config/status').isBlocked){ return res.render('serverChecking'); }
-        else{ return res.render(`${renderFileName}`, { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : req.param('price'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount, highCategoryFilter : req.param('highCategoryFilter'), lowCategoryFilter : req.param('lowCategoryFilter'), description : req.param('description')}); }
+        else{ return res.render(`${renderFileName}`, { user_id : req.session.user_id, products : products, productName : req.param('name'), productPrice : Number(req.param('price')), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount, highCategoryFilter : req.param('highCategoryFilter'), lowCategoryFilter : req.param('lowCategoryFilter'), description : req.param('description')}); }
     }else if(route === '/cart'){
         if(require('../config/status').isBlocked){ return res.render('serverChecking'); } //totalPrice 
         else if(req.session.is_user_login){ return res.render(`${renderFileName}`, {user_id : req.session.user_id, userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount}); }

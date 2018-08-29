@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const crypto = require('crypto');
 const Informations = require('../database/Informations');
 const QuestionAnswer = require('../database/QuestionAnswer');
 const Products = require('../database/Products');
