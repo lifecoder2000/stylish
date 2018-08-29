@@ -122,7 +122,7 @@
             <fieldset>
                 <form action="/admin/product/amount/change" method="POST">
                     <p>productName : <input type="text" name="productName" readonly value="<%= products[i].name %>"></p>
-                    <p>productStock : <input type="text" style="width: 50px;" name="productStock" value="<%= products[i].stock %>"></p>
+		    <input type="text" style="width: 50px;" name="productStock" value="<%= products[i].stock %>" hidden>
                     <p>productPrice : <input type="text" style="width: 80px;" name="productPrice" value="<%= products[i].price %>"> (won)</p>
                     <p>productCategory : <input type="text" style="width: 50px;" name="productCategory"readonly value="<%= products[i].category.highCategory %>"> > <%= products[i].category.lowCategory %></p>
                     <p>productPurchaseAmout : <input type="text" name="productPurchaseAmout" readonly value="<%= products[i].purchaseAmount %>"></p>

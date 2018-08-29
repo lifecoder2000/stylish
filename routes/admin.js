@@ -40,7 +40,7 @@ router.post('/answer', async(req, res) => {
         await QuestionAnswer.updateOne({_id : findQuestion._id}, {answer : req.body.answer, status : true});
         return res.send(`<script>alert('답변 완료하였습니다.');location.href='/admin';</script>`);
     }
-    else{ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/';</script>`); }
+    else{ return res.send(`<script>alert('오류가 발생했습니다.');location.href='/admin';</script>`); }
 });
 
 /* 상품 추가, 상품 삭제, 상품 재고 및 가격 수정   */

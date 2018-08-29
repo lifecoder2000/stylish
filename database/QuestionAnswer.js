@@ -6,6 +6,7 @@ let questionAnswer = new Schema({
     title : {type : String, required : true},
     text : {type : String, required : true},
     count : {type : Number, required : true, default : 0},
+    answer : {type : String, required : true},
     status : {type : Boolean, required : true},
     date: {type: Date, default: Date.now},
     answer : {type : String}
