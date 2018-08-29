@@ -732,8 +732,8 @@
 	<script src="./javascripts/main.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js%22%3E"></script>
     <script>
-        $('#searchButton').click(() => {
-            $.ajax({
+		function search(){
+			$.ajax({
                 url : '/service/search',
                 dataType : 'json',
                 type : 'POST',
@@ -743,7 +743,9 @@
 					else{ location.href=`${result.path}`; } 
                 }
             });
-        });
+		}
+        $('#searchButton').click(() => { search(); });
+		$('#search').keyup(e => { if(e.keyCode === 13){ search(); } });
 	</script>
 	<script>
 		$('#sorting').change(() => {

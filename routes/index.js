@@ -14,7 +14,7 @@ router.get('/product', async(req, res) => {
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     
     /* 카테고리 4가지 */
-    if(req.param('clothes') === 'shirt' || req.param('clothes') === 'pants' || req.param('clothes') === 'bag' || req.param('clothes') === 'shoes'){ getProductCategory(req, res, findUserBasket, totalPrice, basketCount); }
+    if(req.param('clothes') === 'shirt' || req.param('clothes') === 'pants' || req.param('clothes') === 'bag' || req.param('clothes') === 'shoes'){  getProductCategory(req, res, findUserBasket, totalPrice, basketCount); }
     
     /* 카테고리에서 4가지 필터 */
     if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'DefaultSorting'){ getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
