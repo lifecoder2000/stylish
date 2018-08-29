@@ -14,20 +14,20 @@ router.get('/product', async(req, res) => {
     for(let i in findUserBasket){ totalPrice += (findUserBasket[i].products.productPrice * findUserBasket[i].productCountKey); }
     
     /* 카테고리 4가지 */
-    if(req.param('clothes') === 'shirt' || req.param('clothes') === 'pants' || req.param('clothes') === 'bag' || req.param('clothes') === 'shoes'){  getProductCategory(req, res, findUserBasket, totalPrice, basketCount); }
+    if(req.param('clothes') === 'shirt' || req.param('clothes') === 'pants' || req.param('clothes') === 'bag' || req.param('clothes') === 'shoes'){ await getProductCategory(req, res, findUserBasket, totalPrice, basketCount); }
     
     /* 카테고리에서 4가지 필터 */
-    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'DefaultSorting'){ getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
-    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'Popularity'){ getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {purchaseAmount:-1}); }
-    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'Price_lowtohigh'){ getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:1}); }
-    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'Price_hightolow'){ getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:-1}); }
+    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'DefaultSorting'){ await getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
+    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'Popularity'){ await getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {purchaseAmount:-1}); }
+    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'Price_lowtohigh'){ await getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:1}); }
+    if((typeof req.param('clothesName')) !== 'undefined' && req.param('sorting') === 'Price_hightolow'){ await getSelectedProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:-1}); }
     
     /* 전체 필터 */
-    if(req.param('sorting') === "DefaultSorting"){ getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
-    else if(req.param('sorting') === "Popularity"){ getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {purchaseAmount:-1}); }
-    else if(req.param('sorting') === "Price_lowtohigh"){ getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:1}); }
-    else if(req.param('sorting') === "Price_hightolow"){ getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:-1}); }
-    else{ getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
+    if(req.param('sorting') === "DefaultSorting"){ await getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
+    else if(req.param('sorting') === "Popularity"){ await getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {purchaseAmount:-1}); }
+    else if(req.param('sorting') === "Price_lowtohigh"){ await getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:1}); }
+    else if(req.param('sorting') === "Price_hightolow"){ await getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {price:-1}); }
+    else{ await getAllProductFiltering(req, res, findUserBasket, totalPrice, basketCount, {}); }
 });
 
 router.post('/product', async(req, res) => { productFilter(req, res, req.body.sortName); });
@@ -152,11 +152,12 @@ async function defaultRendering(req, res, route, renderFileName){
 /* product category filter function */
 async function getProductCategory(req, res, findUserBasket, totalPrice, basketCount){
     let findProducts = await Products.find({highCategoryFilter : req.param('clothes')});
-    return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothes'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
+    res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothes'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
 }
 
 /* 카테고리 선택한 상태에서 필터링 */
 async function getSelectedProductFiltering(req,res, findUserBasket, totalPrice, basketCount, sortOption){
+    console.log('====================getSelectedProductFiltering function====================');
     let findProducts = await Products.find({highCategoryFilter : req.param('clothesName')}).sort(sortOption);
     return res.render('product', {user_id : req.session.user_id, products : findProducts, clothes : req.param('clothesName'), userBasket : findUserBasket, totalPrice : totalPrice, basketCount : basketCount});
 }
