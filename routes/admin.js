@@ -45,7 +45,7 @@ router.post('/answer', async(req, res) => {
 
 /* 상품 추가, 상품 삭제, 상품 재고 및 가격 수정   */
 router.post('/product/add', async(req, res) => {
-    if(req.body.low == "T-shirt"){ productCreate(req, 'T-shirt for everyone, you will too.'); }
+    if(req.body.low == "t-shirt"){ productCreate(req, 'T-shirt for everyone, you will too.'); }
     else if(req.body.low == "Y_shirt"){ productCreate(req, 'y-shirt, the moment you wear this shirt, you will shine.'); }
     else if(req.body.low == "denim_shirt"){ productCreate(req, 'Wearing in hot weather, you can be the main character, Denim-shirt, as cool as the waves on the sea.'); }
     else if(req.body.low == "slacks"){ productCreate(req, `Slacks catches everyone's eyes.`); }
